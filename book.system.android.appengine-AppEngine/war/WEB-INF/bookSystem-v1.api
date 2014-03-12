@@ -1,0 +1,76 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://mac-books.appspot.com/_ah/api",
+  "name" : "bookSystem",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://mac-books.appspot.com/_ah/spi",
+    "deadline" : 10.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "methods" : {
+    "bookSystem.bookforsale.list" : {
+      "path" : "list",
+      "httpMethod" : "GET",
+      "authLevel" : "OPTIONAL",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ "615375088497-00o9ieitss4ikt6tgdaj6bki35e433iq.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-00o9ieitss4ikt6tgdaj6bki35e433iq.apps.googleusercontent.com", "615375088497-gi48ssb8p00rgv5t3vim1uel531a1370.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.book.system.spi.BookForSaleV1.list",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "SaleShelf" : {
+        "id" : "SaleShelf",
+        "type" : "object",
+        "properties" : {
+          "isbnToList" : {
+            "$ref" : "JsonMap"
+          },
+          "sellerIdToList" : {
+            "$ref" : "JsonMap"
+          },
+          "isbnToMap" : {
+            "$ref" : "JsonMap"
+          },
+          "sellerIdToMap" : {
+            "$ref" : "JsonMap"
+          }
+        }
+      },
+      "JsonMap" : {
+        "id" : "JsonMap",
+        "type" : "object"
+      }
+    },
+    "methods" : {
+      "com.book.system.spi.BookForSaleV1.list" : {
+        "response" : {
+          "$ref" : "SaleShelf"
+        }
+      }
+    }
+  }
+}
