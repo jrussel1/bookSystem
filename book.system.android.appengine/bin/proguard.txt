@@ -1,5 +1,14 @@
-# view AndroidManifest.xml #generated:21
+# view AndroidManifest.xml #generated:42
+-keep class com.book.system.android.appengine.BookDetailActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:38
+-keep class com.book.system.android.appengine.BookListActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:20
 -keep class com.book.system.android.appengine.MainActivity { <init>(...); }
+
+# view AndroidManifest.xml #generated:34
+-keep class com.book.system.android.appengine.SignInActivity { <init>(...); }
 
 # onClick res/layout/main.xml #generated:24
 -keepclassmembers class * { *** onClickSignIn(...); }

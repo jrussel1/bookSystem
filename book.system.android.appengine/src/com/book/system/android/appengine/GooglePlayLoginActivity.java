@@ -36,7 +36,7 @@ import com.google.api.client.repackaged.com.google.common.base.Strings;
  * Main activity for the application, it handles the game UI and auth and spawns
  * tasks to Endpoints.
  */
-public class LoginActivity extends Activity {
+public class GooglePlayLoginActivity extends Activity {
 	private static final String LOG_TAG = "LoginActivity";
 	String accountName;
     private AuthorizationCheckTask mAuthTask;
@@ -136,7 +136,7 @@ public class LoginActivity extends Activity {
 	    @Override
 	    protected Boolean doInBackground(String... emailAccounts) {
 
-	      if (!AppConstants.checkGooglePlayServicesAvailable(LoginActivity.this)) {
+	      if (!AppConstants.checkGooglePlayServicesAvailable(GooglePlayLoginActivity.this)) {
 	        return false;
 	      }
 
@@ -157,7 +157,7 @@ public class LoginActivity extends Activity {
 	        // If the application has the appropriate access then a token will be retrieved, otherwise
 	        // an error will be thrown.
 	        GoogleAccountCredential credential = GoogleAccountCredential.usingAudience(
-	        		LoginActivity.this, AppConstants.AUDIENCE);
+	        		GooglePlayLoginActivity.this, AppConstants.AUDIENCE);
 	        credential.setSelectedAccountName(emailAccount);
 
 	        String accessToken = credential.getToken();
@@ -183,7 +183,7 @@ public class LoginActivity extends Activity {
 	  protected void onProgressUpdate(Integer... stringIds) {
 	    // Toast only the most recent.
 	    Integer stringId = stringIds[0];
-	    Toast.makeText(LoginActivity.this, stringId, Toast.LENGTH_SHORT).show();
+	    Toast.makeText(GooglePlayLoginActivity.this, stringId, Toast.LENGTH_SHORT).show();
 	  }
 
 	  @Override
@@ -193,7 +193,7 @@ public class LoginActivity extends Activity {
 
 	  @Override
 	  protected void onPostExecute(Boolean success) {
-	    TextView emailAddressTV = (TextView) LoginActivity.this.findViewById(R.id.email_address_tv);
+	    TextView emailAddressTV = (TextView) GooglePlayLoginActivity.this.findViewById(R.id.email_address_tv);
 	    if (success) {
 	      // Authorization check successful, set internal variable.
 	      mEmailAccount = emailAddressTV.getText().toString();
@@ -248,7 +248,7 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		AppConstants.checkGooglePlayServicesAvailable(LoginActivity.this);
+		AppConstants.checkGooglePlayServicesAvailable(GooglePlayLoginActivity.this);
 	}
 	@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -281,13 +281,13 @@ public class LoginActivity extends Activity {
 		             return null;
 		           };
 
-		           if (!AppConstants.checkGooglePlayServicesAvailable(LoginActivity.this)) {
+		           if (!AppConstants.checkGooglePlayServicesAvailable(GooglePlayLoginActivity.this)) {
 		             return null;
 		           }
 
 		           // Create a Google credential since this is an authenticated request to the API.
 		           GoogleAccountCredential credential = GoogleAccountCredential.usingAudience(
-		        		   LoginActivity.this, AppConstants.AUDIENCE);
+		        		   GooglePlayLoginActivity.this, AppConstants.AUDIENCE);
 		           credential.setSelectedAccountName(mEmailAccount);
 
 		           // Retrieve service handle using credential since this is an authenticated call.
