@@ -1,5 +1,5 @@
 # view AndroidManifest.xml #generated:21
--keep class com.book.system.android.appengine.TictactoeActivity { <init>(...); }
+-keep class com.book.system.android.appengine.MainActivity { <init>(...); }
 
 # onClick res/layout/main.xml #generated:24
 -keepclassmembers class * { *** onClickSignIn(...); }
