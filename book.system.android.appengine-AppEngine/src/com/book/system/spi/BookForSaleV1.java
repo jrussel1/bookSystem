@@ -21,6 +21,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -42,7 +43,7 @@ import com.google.appengine.api.utils.SystemProperty;
 @Api(
 		name = "bookSystem",
 		version = "v1",
-	    scopes = {Ids.EMAIL_SCOPE},
+		scopes = {Ids.EMAIL_SCOPE},
 		clientIds = {Ids.WEB_CLIENT_ID, Ids.ANDROID_CLIENT_ID, Ids.API_EXPLORER_CLIENT_ID},
 		audiences = {Ids.ANDROID_AUDIENCE}
 		)
@@ -54,31 +55,12 @@ public class BookForSaleV1 {
 	public SaleShelf list(User user) throws OAuthRequestException,
 	IOException {
 		SaleShelf booksForSale = new SaleShelf();
-
-		String url = null;
-		try {
-			if (SystemProperty.environment.value() ==
-					SystemProperty.Environment.Value.Production) {
-				// Load the class that provides the new "jdbc:google:mysql://" prefix.
-				Class.forName("com.mysql.jdbc.GoogleDriver");
-				url = "jdbc:google:mysql://mac-books:books/book-system?user=root&password=karma4YOU";
-			} else {
-				// Local MySQL instance to use during development.
-				Class.forName("com.mysql.jdbc.Driver");
-				url = "jdbc:mysql://173.194.81.34:3306/book-system?user=root&password=karma4YOU";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-		try {
-			Connection conn = DriverManager.getConnection(url);
+		try{
+			Connection conn = createConnection();
 			PreparedStatement stmt = null;
 			PreparedStatement getPersonStmt = null;
 			PreparedStatement getBookStmt = null;
 			ResultSet resultSet = null;
-			ResultSet resultSetBook = null;
-			ResultSet resultSetPerson = null;
 			try {
 				String statement = "SELECT * FROM Book_For_Sale";
 				stmt = conn.prepareStatement(statement);
@@ -96,24 +78,11 @@ public class BookForSaleV1 {
 
 				while (resultSet.next()) {
 					String ISBN = resultSet.getString("ISBN");
-					getBookStmt.setString(1, ISBN);
-					resultSetBook = getBookStmt.executeQuery();
-					resultSetBook.next();
+					book = getBookByISBN(getBookStmt,ISBN);
 
 					int personId = resultSet.getInt("Person_ID");
-					getPersonStmt.setInt(1, personId);
-					resultSetPerson = getPersonStmt.executeQuery();
-					resultSetPerson.next();
+					seller = getSellerByID(getPersonStmt,personId);
 
-					String title = resultSetBook.getString("Title");
-					String author = resultSetBook.getString("Author");
-
-					String firstName = resultSetPerson.getString("First_Name");
-					String lastName = resultSetPerson.getString("Last_Name");
-					String email = resultSetPerson.getString("Email");
-
-					book = new Book(ISBN, author, title);
-					seller = new Seller(personId, email, firstName, lastName);
 					bfs = new BookForSale(book,seller);
 					booksForSale.addToShelf(bfs);
 					book = null;
@@ -131,20 +100,177 @@ public class BookForSaleV1 {
 				if(getBookStmt!=null)
 					getBookStmt.close();
 				if(resultSet!=null)
-					resultSet.close();
-				if(resultSetBook!=null)
-					resultSetBook.close();
-				if(resultSetPerson!=null)
-					resultSetPerson.close();
+					resultSet.close();	
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return null;
 		}
-		//for(Entry<Long, List<BookForSale>> b : booksForSale.getSellerIdToList().entrySet()){
-		//		System.out.println(b);
-		//}
 
 		return booksForSale;
 	}
 
+	private Connection createConnection(){
+		String url = null;
+		try {
+			if (SystemProperty.environment.value() ==
+					SystemProperty.Environment.Value.Production) {
+				//				// Load the class that provides the new "jdbc:google:mysql://" prefix.
+				Class.forName("com.mysql.jdbc.GoogleDriver");
+				url = "jdbc:google:mysql://mac-books:books/book-system?user=root&password=karma4YOU";
+			} else {
+				// Local MySQL instance to use during development.
+				Class.forName("com.mysql.jdbc.Driver");
+				url = "jdbc:mysql://173.194.81.34:3306/book-system?user=root&password=karma4YOU";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		try {
+			Connection conn = DriverManager.getConnection(url);
+			return conn;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@ApiMethod(name = "bookforsale.getBookByISBN", authLevel=AuthLevel.OPTIONAL)
+	public Book getBookByISBN(PreparedStatement getBookStmt,String ISBN){
+		ResultSet resultSetBook = null;
+		Book book = null;
+		try{
+			getBookStmt.setString(1, ISBN);
+			resultSetBook = getBookStmt.executeQuery();
+			resultSetBook.next();
+			book = new Book(ISBN, resultSetBook.getString("Author"), resultSetBook.getString("Title"));
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally{
+			if(resultSetBook!=null)
+				try {
+					resultSetBook.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+
+		return book;
+	}
+
+	@ApiMethod(name = "bookforsale.getSellerByID", authLevel=AuthLevel.OPTIONAL)
+	public Seller getSellerByID(PreparedStatement getPersonStmt, int personId){
+		ResultSet resultSetPerson = null;
+		Seller seller = null;
+		try{
+			getPersonStmt.setInt(1, personId);
+			resultSetPerson = getPersonStmt.executeQuery();
+			resultSetPerson.next();
+
+			String firstName = resultSetPerson.getString("First_Name");
+			String lastName = resultSetPerson.getString("Last_Name");
+			String email = resultSetPerson.getString("Email");
+
+			seller = new Seller(personId, email, firstName, lastName);
+		}catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}finally{
+			if(resultSetPerson!=null)
+				try {
+					resultSetPerson.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		return seller;
+	}
+	//TODO: Combine the middle portions of the next two methods
+	@ApiMethod(name = "bookforsale.getAllBooksBySeller", authLevel=AuthLevel.OPTIONAL)
+	public List<Book> getAllBooksBySeller(int personId){
+		Connection conn = createConnection();
+		String getBooksQry ="SELECT Book.* "
+				+ "FROM `book-system`.Book_For_Sale JOIN `book-system`.Book "
+				+ "WHERE Book_For_Sale.ISBN = Book.ISBN AND Book_For_Sale.Person_ID=?";
+		PreparedStatement stmt = null;
+		ResultSet resultSetBooks = null;
+		Book book = null;
+		List<Book> bookList = new ArrayList<Book>();
+		try{
+			stmt = conn.prepareStatement(getBooksQry);
+			stmt.setLong(1, personId);
+			resultSetBooks = stmt.executeQuery();
+			while(resultSetBooks.next()){
+				book = new Book(resultSetBooks.getString("ISBN"), resultSetBooks.getString("Author"), resultSetBooks.getString("Title"));
+				bookList.add(book);
+				book=null;
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally{
+			try {
+				if(conn!=null)
+					conn.close();
+				if(stmt!=null)
+					stmt.close();
+				if(resultSetBooks!=null)
+					resultSetBooks.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return bookList;
+	}
+	@ApiMethod(name = "bookforsale.getAllSellersOfBook", authLevel=AuthLevel.OPTIONAL)
+	public List<Seller> getAllSellersOfBook(String ISBN){
+		Connection conn = createConnection();
+		String getBooksQry ="SELECT Person.* "
+				+ "FROM `book-system`.Book_For_Sale JOIN `book-system`.Person "
+				+ "WHERE Book_For_Sale.Person_ID = Person.Person_ID AND Book_For_Sale.ISBN=?";
+		PreparedStatement stmt = null;
+		ResultSet resultSetPerson = null;
+		Seller seller = null;
+		List<Seller> sellerList = new ArrayList<Seller>();
+		try{
+			stmt = conn.prepareStatement(getBooksQry);
+			stmt.setString(1, ISBN);
+			resultSetPerson = stmt.executeQuery();
+			while(resultSetPerson.next()){
+				seller = new Seller(
+						resultSetPerson.getInt("Person_ID"), 
+						resultSetPerson.getString("Email"), 
+						resultSetPerson.getString("First_Name"),
+						resultSetPerson.getString("Last_Name")
+						);
+				sellerList.add(seller);
+				seller=null;
+			}
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally{
+			try {
+				if(conn!=null)
+					conn.close();
+				if(stmt!=null)
+					stmt.close();
+				if(resultSetPerson!=null)
+					resultSetPerson.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return sellerList;
+	}
 }

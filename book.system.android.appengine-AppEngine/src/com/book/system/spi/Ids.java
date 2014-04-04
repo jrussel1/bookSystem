@@ -16,7 +16,7 @@
 package com.book.system.spi;
 
 /**
- * Contains the client IDs for allowed clients consuming the tictactoe API.
+ * Contains the client IDs for allowed clients consuming the bookSystem API.
  */
 public class Ids {
   public static final String WEB_CLIENT_ID = "615375088497-00o9ieitss4ikt6tgdaj6bki35e433iq.apps.googleusercontent.com";

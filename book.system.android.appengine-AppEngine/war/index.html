@@ -64,139 +64,27 @@ if (window.location.hostname == 'localhost'
     API_URL = 'http://' + window.location.host + '/_ah/api';
 }
 
-  function showSuccess() { 
-    $("#alertArea").hide();
-    $("#successArea").show();
-    $("#successArea").fadeOut(1000);
-  }
-  
-  function showError(errorHtml) {
-    $("#alertArea").removeClass('alert-error alert-info alert-success').addClass('alert-error');
-    $("#alertContentArea").html(errorHtml);
-    $("#alertArea").show();
-  }
-    
-  function showInfo(infoHtml) {
-    $("#alertArea").removeClass('alert-error alert-info alert-success').addClass('alert-info');
-    $("#alertContentArea").html(infoHtml);
-    $("#alertArea").show();
-  }
   
   // This method loads the deviceinfoendpoint and messageEndpoint libraries
   function loadGapi() {
-    gapi.client.load('deviceinfoendpoint', 'v1', function() {
-      updateRegisteredDeviceTable();
+    
+    gapi.client.load('bookSystem', 'v1', function() {
+    	testList();
     });
-    
-    gapi.client.load('messageEndpoint', 'v1', function() {});
   }
 
-  // Function for checking error responses; it correctly sanitizes error messages
-  // so that they are safe to display in the UI
-  function checkErrorResponse(result) {      
-    if (result && result.error) {
-      var safeErrorHtml = $('<div/>').text(result.error.message).html();
-      return {isError: true, errorMessage: safeErrorHtml};
-    }
-    
-    return {isError: false};
-  }
-  
-  function generateRegDeviceTable(deviceInfoItems) {
-    items = deviceInfoItems.items;
-  
-    if (!items || items.length == 0) {
-      var htmlString = "<thead>"
-          + "<tr>"
-          + "<th>There are no registered devices</th>"
-          + "</tr>" + "</thead>"
-          + "<tbody></tbody>";
-      $("#regDevicesTable").html(htmlString);
-    } else {
-      var htmlString = "<thead>" + "<tr>"
-          + "<th style='min-width:150px'>Device Name</th>"
-          + "<th>Registration Id</th>"
-          + "<th>Timestamp</th>" 
-          + "</tr>" + "</thead>"          
-          + "<tbody>";
-          
-      for (var i = 0; i < items.length; i++) {
-        item = items[i];
-        htmlString += "<tr>";
-        if (item.deviceInformation) {
-          htmlString += "<td class='devicenameCol'>" + item.deviceInformation
-              + "</td>";
-        } else {
-          htmlString += "<td class='devicenameCol'>" + "(unknown)"
-              + "</td>";
-        }
-
-        if (item.deviceRegistrationID) {
-          htmlString += "<td class='deviceIdCol'>" + item.deviceRegistrationID + "</td>";
-        } else {
-          htmlString += "<td class='deviceIdCol'>" + "(unknown)"
-          + "</td>";        
-        }
-        
-        
-        if (item.timestamp) {
-          var timestampNumberic = new Number(item.timestamp);
-          var date = new Date(timestampNumberic);
-
-          
-            htmlString += "<td>" + date.toString() + "</td>";
-          } else {
-            htmlString += "<td>" + "(unknown)"
-            + "</td>";        
-          }
-        
-        htmlString += "</tr>";
-      }
-
-      htmlString += "</tbody>";
-      $("#regDevicesTable").html(htmlString);
-    }
-  }
-  
-  function updateRegisteredDeviceTable() {
-    gapi.client.deviceinfoendpoint
-        .listDeviceInfo()
+ 
+  function testList() {
+    gapi.client.bookSystem.bookforsale
+        .list()
         .execute(
-            function(deviceInfoItems, deviceInfoItemsRaw) {
-              errorResult = checkErrorResponse(deviceInfoItems, deviceInfoItemsRaw);
-              if (errorResult.isError) {
-                showError("There was a problem contacting the server when attempting to list the registered devices. " 
-                    + "Please refresh the page and try again in a short while. Here's the error information:<br/> "
-                    + errorResult.errorMessage);
-              } else {
-                generateRegDeviceTable(deviceInfoItems);              
-              }
+            function(resp) {
+              console.log(resp);
+              console.log(gapi.client.bookSystem.bookforsale.list());
             });
   }
   
-  function handleMessageResponse(data, dataRaw) {
-    errorResult = checkErrorResponse(data, dataRaw);    
-    if (!errorResult.isError) { 
-        showSuccess();        
-    } else {
-    showError("There was a problem when attempting to send the message using the server at " 
-        + API_URL + ". " + " Is your API Key in MessageEndpoint.java "  
-        + "(in your App Engine project) set correctly? Here's the error information:<br/>"
-            + errorResult.errorMessage);
-    }
-  }
   
-  function sendMessage() {
-    var message = $("#inputMessage").val();
-
-    if (message == "") {
-      showInfo("Message must not be empty!");
-      } else {
-        gapi.client.messageEndpoint
-        .sendMessage({"message": message})
-        .execute(handleMessageResponse);
-      }
-  }
 </script>
 </head>
 
@@ -263,13 +151,6 @@ if (window.location.hostname == 'localhost'
  <script src="js/jquery-1.9.0.min.js"></script>
  <script src="js/bootstrap.min.js"></script>
 
- <script type="text/javascript">
-    $("#sendButton").click(sendMessage);
-    $("#alertArea").hide();
-    $("#successArea").hide();
-    $('.alert .close').on('click', function() {
-      $(this).parent().hide();
-    })
-  </script>
+ 
 </body>
 </html>
