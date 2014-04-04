@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"FWXGb4Q2eZqWRcG8B2Ixrr-vrqQ/nvIDOQYzqXpxLA72sTM6NFWaFMM\"",
+ "etag": "\"gWnWV7fYC80JM0beuSxOtzgfiS0/CtG0_PY2Y4AlejiV7GS1H-Fbr5w\"",
  "discoveryVersion": "v1",
  "id": "bookSystem:v1",
  "name": "bookSystem",
@@ -71,9 +71,537 @@
   }
  },
  "schemas": {
+  "Book": {
+   "id": "Book",
+   "type": "object",
+   "properties": {
+    "author": {
+     "type": "string"
+    },
+    "isbn": {
+     "type": "string"
+    },
+    "title": {
+     "type": "string"
+    }
+   }
+  },
+  "BookCollection": {
+   "id": "BookCollection",
+   "type": "object",
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "$ref": "Book"
+     }
+    }
+   }
+  },
+  "Connection": {
+   "id": "Connection",
+   "type": "object",
+   "properties": {
+    "autoCommit": {
+     "type": "boolean"
+    },
+    "catalog": {
+     "type": "string"
+    },
+    "clientInfo": {
+     "$ref": "JsonMap"
+    },
+    "closed": {
+     "type": "boolean"
+    },
+    "holdability": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "metaData": {
+     "$ref": "DatabaseMetaData"
+    },
+    "networkTimeout": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "readOnly": {
+     "type": "boolean"
+    },
+    "savepoint": {
+     "type": "string"
+    },
+    "schema": {
+     "type": "string"
+    },
+    "transactionIsolation": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "typeMap": {
+     "$ref": "JsonMap"
+    },
+    "warnings": {
+     "$ref": "SQLWarning"
+    }
+   }
+  },
+  "DatabaseMetaData": {
+   "id": "DatabaseMetaData",
+   "type": "object",
+   "properties": {
+    "catalogAtStart": {
+     "type": "boolean"
+    },
+    "catalogSeparator": {
+     "type": "string"
+    },
+    "catalogTerm": {
+     "type": "string"
+    },
+    "catalogs": {
+     "$ref": "ResultSet"
+    },
+    "clientInfoProperties": {
+     "$ref": "ResultSet"
+    },
+    "connection": {
+     "$ref": "Connection"
+    },
+    "databaseMajorVersion": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "databaseMinorVersion": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "databaseProductName": {
+     "type": "string"
+    },
+    "databaseProductVersion": {
+     "type": "string"
+    },
+    "defaultTransactionIsolation": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "driverMajorVersion": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "driverMinorVersion": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "driverName": {
+     "type": "string"
+    },
+    "driverVersion": {
+     "type": "string"
+    },
+    "extraNameCharacters": {
+     "type": "string"
+    },
+    "identifierQuoteString": {
+     "type": "string"
+    },
+    "jdbcmajorVersion": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "jdbcminorVersion": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxBinaryLiteralLength": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxCatalogNameLength": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxCharLiteralLength": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxColumnNameLength": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxColumnsInGroupBy": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxColumnsInIndex": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxColumnsInOrderBy": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxColumnsInSelect": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxColumnsInTable": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxConnections": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxCursorNameLength": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxIndexLength": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxProcedureNameLength": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxRowSize": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxSchemaNameLength": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxStatementLength": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxStatements": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxTableNameLength": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxTablesInSelect": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxUserNameLength": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "numericFunctions": {
+     "type": "string"
+    },
+    "procedureTerm": {
+     "type": "string"
+    },
+    "readOnly": {
+     "type": "boolean"
+    },
+    "resultSetHoldability": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "rowIdLifetime": {
+     "$ref": "RowIdLifetime"
+    },
+    "schemaTerm": {
+     "type": "string"
+    },
+    "schemas": {
+     "$ref": "ResultSet"
+    },
+    "searchStringEscape": {
+     "type": "string"
+    },
+    "sqlkeywords": {
+     "type": "string"
+    },
+    "sqlstateType": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "stringFunctions": {
+     "type": "string"
+    },
+    "systemFunctions": {
+     "type": "string"
+    },
+    "tableTypes": {
+     "$ref": "ResultSet"
+    },
+    "timeDateFunctions": {
+     "type": "string"
+    },
+    "typeInfo": {
+     "$ref": "ResultSet"
+    },
+    "url": {
+     "type": "string"
+    },
+    "userName": {
+     "type": "string"
+    }
+   }
+  },
   "JsonMap": {
    "id": "JsonMap",
    "type": "object"
+  },
+  "ParameterMetaData": {
+   "id": "ParameterMetaData",
+   "type": "object",
+   "properties": {
+    "parameterCount": {
+     "type": "integer",
+     "format": "int32"
+    }
+   }
+  },
+  "PreparedStatement": {
+   "id": "PreparedStatement",
+   "type": "object",
+   "properties": {
+    "closeOnCompletion": {
+     "type": "boolean"
+    },
+    "closed": {
+     "type": "boolean"
+    },
+    "connection": {
+     "$ref": "Connection"
+    },
+    "cursorName": {
+     "type": "string"
+    },
+    "escapeProcessing": {
+     "type": "boolean"
+    },
+    "fetchDirection": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "fetchSize": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "generatedKeys": {
+     "$ref": "ResultSet"
+    },
+    "maxFieldSize": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxRows": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "metaData": {
+     "$ref": "ResultSetMetaData"
+    },
+    "moreResults": {
+     "type": "boolean"
+    },
+    "parameterMetaData": {
+     "$ref": "ParameterMetaData"
+    },
+    "poolable": {
+     "type": "boolean"
+    },
+    "queryTimeout": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "resultSet": {
+     "$ref": "ResultSet"
+    },
+    "resultSetConcurrency": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "resultSetHoldability": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "resultSetType": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "updateCount": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "warnings": {
+     "$ref": "SQLWarning"
+    }
+   }
+  },
+  "ResultSet": {
+   "id": "ResultSet",
+   "type": "object",
+   "properties": {
+    "afterLast": {
+     "type": "boolean"
+    },
+    "beforeFirst": {
+     "type": "boolean"
+    },
+    "closed": {
+     "type": "boolean"
+    },
+    "concurrency": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "cursorName": {
+     "type": "string"
+    },
+    "fetchDirection": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "fetchSize": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "first": {
+     "type": "boolean"
+    },
+    "holdability": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "last": {
+     "type": "boolean"
+    },
+    "metaData": {
+     "$ref": "ResultSetMetaData"
+    },
+    "row": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "statement": {
+     "$ref": "Statement"
+    },
+    "type": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "warnings": {
+     "$ref": "SQLWarning"
+    }
+   }
+  },
+  "ResultSetMetaData": {
+   "id": "ResultSetMetaData",
+   "type": "object",
+   "properties": {
+    "columnCount": {
+     "type": "integer",
+     "format": "int32"
+    }
+   }
+  },
+  "RowIdLifetime": {
+   "id": "RowIdLifetime",
+   "type": "string",
+   "enum": [
+    "ROWID_UNSUPPORTED",
+    "ROWID_VALID_FOREVER",
+    "ROWID_VALID_OTHER",
+    "ROWID_VALID_SESSION",
+    "ROWID_VALID_TRANSACTION"
+   ],
+   "enumDescriptions": [
+    "",
+    "",
+    "",
+    "",
+    ""
+   ]
+  },
+  "SQLException": {
+   "id": "SQLException",
+   "type": "object",
+   "properties": {
+    "cause": {
+     "$ref": "Throwable"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "localizedMessage": {
+     "type": "string"
+    },
+    "message": {
+     "type": "string"
+    },
+    "nextException": {
+     "$ref": "SQLException"
+    },
+    "sqlstate": {
+     "type": "string"
+    },
+    "stackTrace": {
+     "type": "array",
+     "items": {
+      "$ref": "StackTraceElement"
+     }
+    },
+    "suppressed": {
+     "type": "array",
+     "items": {
+      "$ref": "Throwable"
+     }
+    }
+   }
+  },
+  "SQLWarning": {
+   "id": "SQLWarning",
+   "type": "object",
+   "properties": {
+    "cause": {
+     "$ref": "Throwable"
+    },
+    "errorCode": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "localizedMessage": {
+     "type": "string"
+    },
+    "message": {
+     "type": "string"
+    },
+    "nextException": {
+     "$ref": "SQLException"
+    },
+    "nextWarning": {
+     "$ref": "SQLWarning"
+    },
+    "sqlstate": {
+     "type": "string"
+    },
+    "stackTrace": {
+     "type": "array",
+     "items": {
+      "$ref": "StackTraceElement"
+     }
+    },
+    "suppressed": {
+     "type": "array",
+     "items": {
+      "$ref": "Throwable"
+     }
+    }
+   }
   },
   "SaleShelf": {
    "id": "SaleShelf",
@@ -92,11 +620,267 @@
      "$ref": "JsonMap"
     }
    }
+  },
+  "Seller": {
+   "id": "Seller",
+   "type": "object",
+   "properties": {
+    "email": {
+     "type": "string"
+    },
+    "fFirstName": {
+     "type": "string"
+    },
+    "fLastName": {
+     "type": "string"
+    },
+    "firstName": {
+     "type": "string"
+    },
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "isbn": {
+     "type": "string",
+     "format": "int64"
+    },
+    "lastName": {
+     "type": "string"
+    }
+   }
+  },
+  "SellerCollection": {
+   "id": "SellerCollection",
+   "type": "object",
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "$ref": "Seller"
+     }
+    }
+   }
+  },
+  "StackTraceElement": {
+   "id": "StackTraceElement",
+   "type": "object",
+   "properties": {
+    "className": {
+     "type": "string"
+    },
+    "fileName": {
+     "type": "string"
+    },
+    "lineNumber": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "methodName": {
+     "type": "string"
+    },
+    "nativeMethod": {
+     "type": "boolean"
+    }
+   }
+  },
+  "Statement": {
+   "id": "Statement",
+   "type": "object",
+   "properties": {
+    "closeOnCompletion": {
+     "type": "boolean"
+    },
+    "closed": {
+     "type": "boolean"
+    },
+    "connection": {
+     "$ref": "Connection"
+    },
+    "cursorName": {
+     "type": "string"
+    },
+    "escapeProcessing": {
+     "type": "boolean"
+    },
+    "fetchDirection": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "fetchSize": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "generatedKeys": {
+     "$ref": "ResultSet"
+    },
+    "maxFieldSize": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "maxRows": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "moreResults": {
+     "type": "boolean"
+    },
+    "poolable": {
+     "type": "boolean"
+    },
+    "queryTimeout": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "resultSet": {
+     "$ref": "ResultSet"
+    },
+    "resultSetConcurrency": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "resultSetHoldability": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "resultSetType": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "updateCount": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "warnings": {
+     "$ref": "SQLWarning"
+    }
+   }
+  },
+  "Throwable": {
+   "id": "Throwable",
+   "type": "object",
+   "properties": {
+    "cause": {
+     "$ref": "Throwable"
+    },
+    "localizedMessage": {
+     "type": "string"
+    },
+    "message": {
+     "type": "string"
+    },
+    "stackTrace": {
+     "type": "array",
+     "items": {
+      "$ref": "StackTraceElement"
+     }
+    },
+    "suppressed": {
+     "type": "array",
+     "items": {
+      "$ref": "Throwable"
+     }
+    }
+   }
   }
  },
  "resources": {
   "bookforsale": {
    "methods": {
+    "getAllBooksBySeller": {
+     "id": "bookSystem.bookforsale.getAllBooksBySeller",
+     "path": "bookcollection/{personId}",
+     "httpMethod": "GET",
+     "parameters": {
+      "personId": {
+       "type": "string",
+       "required": true,
+       "format": "int64",
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "personId"
+     ],
+     "response": {
+      "$ref": "BookCollection"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
+    "getAllSellersOfBook": {
+     "id": "bookSystem.bookforsale.getAllSellersOfBook",
+     "path": "sellercollection/{ISBN}",
+     "httpMethod": "GET",
+     "parameters": {
+      "ISBN": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "ISBN"
+     ],
+     "response": {
+      "$ref": "SellerCollection"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
+    "getBookByISBN": {
+     "id": "bookSystem.bookforsale.getBookByISBN",
+     "path": "book/{ISBN}",
+     "httpMethod": "GET",
+     "parameters": {
+      "ISBN": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "ISBN"
+     ],
+     "request": {
+      "$ref": "PreparedStatement",
+      "parameterName": "resource"
+     },
+     "response": {
+      "$ref": "Book"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
+    "getSellerByID": {
+     "id": "bookSystem.bookforsale.getSellerByID",
+     "path": "seller/{personId}",
+     "httpMethod": "GET",
+     "parameters": {
+      "personId": {
+       "type": "string",
+       "required": true,
+       "format": "int64",
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "personId"
+     ],
+     "request": {
+      "$ref": "PreparedStatement",
+      "parameterName": "resource"
+     },
+     "response": {
+      "$ref": "Seller"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
     "list": {
      "id": "bookSystem.bookforsale.list",
      "path": "list",

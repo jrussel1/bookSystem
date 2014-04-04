@@ -19,7 +19,7 @@
 package com.appspot.mac_books.bookSystem.model;
 
 /**
- * Model definition for SaleShelf.
+ * Model definition for Book.
  *
  * <p> This is the Java data model class that specifies how to parse/serialize into the JSON that is
  * transmitted over HTTP when working with the bookSystem. For a detailed explanation see:
@@ -29,100 +29,79 @@ package com.appspot.mac_books.bookSystem.model;
  * @author Google, Inc.
  */
 @SuppressWarnings("javadoc")
-public final class SaleShelf extends com.google.api.client.json.GenericJson {
+public final class Book extends com.google.api.client.json.GenericJson {
 
   /**
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private JsonMap isbnToList;
+  private java.lang.String author;
 
   /**
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private JsonMap isbnToMap;
+  private java.lang.String isbn;
 
   /**
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private JsonMap sellerIdToList;
-
-  /**
-   * The value may be {@code null}.
-   */
-  @com.google.api.client.util.Key
-  private JsonMap sellerIdToMap;
+  private java.lang.String title;
 
   /**
    * @return value or {@code null} for none
    */
-  public JsonMap getIsbnToList() {
-    return isbnToList;
+  public java.lang.String getAuthor() {
+    return author;
   }
 
   /**
-   * @param isbnToList isbnToList or {@code null} for none
+   * @param author author or {@code null} for none
    */
-  public SaleShelf setIsbnToList(JsonMap isbnToList) {
-    this.isbnToList = isbnToList;
+  public Book setAuthor(java.lang.String author) {
+    this.author = author;
     return this;
   }
 
   /**
    * @return value or {@code null} for none
    */
-  public JsonMap getIsbnToMap() {
-    return isbnToMap;
+  public java.lang.String getIsbn() {
+    return isbn;
   }
 
   /**
-   * @param isbnToMap isbnToMap or {@code null} for none
+   * @param isbn isbn or {@code null} for none
    */
-  public SaleShelf setIsbnToMap(JsonMap isbnToMap) {
-    this.isbnToMap = isbnToMap;
+  public Book setIsbn(java.lang.String isbn) {
+    this.isbn = isbn;
     return this;
   }
 
   /**
    * @return value or {@code null} for none
    */
-  public JsonMap getSellerIdToList() {
-    return sellerIdToList;
+  public java.lang.String getTitle() {
+    return title;
   }
 
   /**
-   * @param sellerIdToList sellerIdToList or {@code null} for none
+   * @param title title or {@code null} for none
    */
-  public SaleShelf setSellerIdToList(JsonMap sellerIdToList) {
-    this.sellerIdToList = sellerIdToList;
-    return this;
-  }
-
-  /**
-   * @return value or {@code null} for none
-   */
-  public JsonMap getSellerIdToMap() {
-    return sellerIdToMap;
-  }
-
-  /**
-   * @param sellerIdToMap sellerIdToMap or {@code null} for none
-   */
-  public SaleShelf setSellerIdToMap(JsonMap sellerIdToMap) {
-    this.sellerIdToMap = sellerIdToMap;
+  public Book setTitle(java.lang.String title) {
+    this.title = title;
     return this;
   }
 
   @Override
-  public SaleShelf set(String fieldName, Object value) {
-    return (SaleShelf) super.set(fieldName, value);
+  public Book set(String fieldName, Object value) {
+    return (Book) super.set(fieldName, value);
   }
 
   @Override
-  public SaleShelf clone() {
-    return (SaleShelf) super.clone();
+  public Book clone() {
+    return (Book) super.clone();
   }
 
 }

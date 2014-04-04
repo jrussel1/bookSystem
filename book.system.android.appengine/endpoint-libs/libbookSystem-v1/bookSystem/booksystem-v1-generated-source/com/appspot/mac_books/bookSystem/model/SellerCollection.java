@@ -19,7 +19,7 @@
 package com.appspot.mac_books.bookSystem.model;
 
 /**
- * Model definition for JsonMap.
+ * Model definition for SellerCollection.
  *
  * <p> This is the Java data model class that specifies how to parse/serialize into the JSON that is
  * transmitted over HTTP when working with the bookSystem. For a detailed explanation see:
@@ -29,16 +29,43 @@ package com.appspot.mac_books.bookSystem.model;
  * @author Google, Inc.
  */
 @SuppressWarnings("javadoc")
-public final class JsonMap extends com.google.api.client.json.GenericJson {
+public final class SellerCollection extends com.google.api.client.json.GenericJson {
 
-  @Override
-  public JsonMap set(String fieldName, Object value) {
-    return (JsonMap) super.set(fieldName, value);
+  /**
+   * The value may be {@code null}.
+   */
+  @com.google.api.client.util.Key
+  private java.util.List<Seller> items;
+
+  static {
+    // hack to force ProGuard to consider Seller used, since otherwise it would be stripped out
+    // see http://code.google.com/p/google-api-java-client/issues/detail?id=528
+    com.google.api.client.util.Data.nullOf(Seller.class);
+  }
+
+  /**
+   * @return value or {@code null} for none
+   */
+  public java.util.List<Seller> getItems() {
+    return items;
+  }
+
+  /**
+   * @param items items or {@code null} for none
+   */
+  public SellerCollection setItems(java.util.List<Seller> items) {
+    this.items = items;
+    return this;
   }
 
   @Override
-  public JsonMap clone() {
-    return (JsonMap) super.clone();
+  public SellerCollection set(String fieldName, Object value) {
+    return (SellerCollection) super.set(fieldName, value);
+  }
+
+  @Override
+  public SellerCollection clone() {
+    return (SellerCollection) super.clone();
   }
 
 }

@@ -19,7 +19,7 @@
 package com.appspot.mac_books.bookSystem.model;
 
 /**
- * Model definition for SaleShelf.
+ * Model definition for StackTraceElement.
  *
  * <p> This is the Java data model class that specifies how to parse/serialize into the JSON that is
  * transmitted over HTTP when working with the bookSystem. For a detailed explanation see:
@@ -29,100 +29,121 @@ package com.appspot.mac_books.bookSystem.model;
  * @author Google, Inc.
  */
 @SuppressWarnings("javadoc")
-public final class SaleShelf extends com.google.api.client.json.GenericJson {
+public final class StackTraceElement extends com.google.api.client.json.GenericJson {
 
   /**
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private JsonMap isbnToList;
+  private java.lang.String className;
 
   /**
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private JsonMap isbnToMap;
+  private java.lang.String fileName;
 
   /**
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private JsonMap sellerIdToList;
+  private java.lang.Integer lineNumber;
 
   /**
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private JsonMap sellerIdToMap;
+  private java.lang.String methodName;
+
+  /**
+   * The value may be {@code null}.
+   */
+  @com.google.api.client.util.Key
+  private java.lang.Boolean nativeMethod;
 
   /**
    * @return value or {@code null} for none
    */
-  public JsonMap getIsbnToList() {
-    return isbnToList;
+  public java.lang.String getClassName() {
+    return className;
   }
 
   /**
-   * @param isbnToList isbnToList or {@code null} for none
+   * @param className className or {@code null} for none
    */
-  public SaleShelf setIsbnToList(JsonMap isbnToList) {
-    this.isbnToList = isbnToList;
+  public StackTraceElement setClassName(java.lang.String className) {
+    this.className = className;
     return this;
   }
 
   /**
    * @return value or {@code null} for none
    */
-  public JsonMap getIsbnToMap() {
-    return isbnToMap;
+  public java.lang.String getFileName() {
+    return fileName;
   }
 
   /**
-   * @param isbnToMap isbnToMap or {@code null} for none
+   * @param fileName fileName or {@code null} for none
    */
-  public SaleShelf setIsbnToMap(JsonMap isbnToMap) {
-    this.isbnToMap = isbnToMap;
+  public StackTraceElement setFileName(java.lang.String fileName) {
+    this.fileName = fileName;
     return this;
   }
 
   /**
    * @return value or {@code null} for none
    */
-  public JsonMap getSellerIdToList() {
-    return sellerIdToList;
+  public java.lang.Integer getLineNumber() {
+    return lineNumber;
   }
 
   /**
-   * @param sellerIdToList sellerIdToList or {@code null} for none
+   * @param lineNumber lineNumber or {@code null} for none
    */
-  public SaleShelf setSellerIdToList(JsonMap sellerIdToList) {
-    this.sellerIdToList = sellerIdToList;
+  public StackTraceElement setLineNumber(java.lang.Integer lineNumber) {
+    this.lineNumber = lineNumber;
     return this;
   }
 
   /**
    * @return value or {@code null} for none
    */
-  public JsonMap getSellerIdToMap() {
-    return sellerIdToMap;
+  public java.lang.String getMethodName() {
+    return methodName;
   }
 
   /**
-   * @param sellerIdToMap sellerIdToMap or {@code null} for none
+   * @param methodName methodName or {@code null} for none
    */
-  public SaleShelf setSellerIdToMap(JsonMap sellerIdToMap) {
-    this.sellerIdToMap = sellerIdToMap;
+  public StackTraceElement setMethodName(java.lang.String methodName) {
+    this.methodName = methodName;
+    return this;
+  }
+
+  /**
+   * @return value or {@code null} for none
+   */
+  public java.lang.Boolean getNativeMethod() {
+    return nativeMethod;
+  }
+
+  /**
+   * @param nativeMethod nativeMethod or {@code null} for none
+   */
+  public StackTraceElement setNativeMethod(java.lang.Boolean nativeMethod) {
+    this.nativeMethod = nativeMethod;
     return this;
   }
 
   @Override
-  public SaleShelf set(String fieldName, Object value) {
-    return (SaleShelf) super.set(fieldName, value);
+  public StackTraceElement set(String fieldName, Object value) {
+    return (StackTraceElement) super.set(fieldName, value);
   }
 
   @Override
-  public SaleShelf clone() {
-    return (SaleShelf) super.clone();
+  public StackTraceElement clone() {
+    return (StackTraceElement) super.clone();
   }
 
 }

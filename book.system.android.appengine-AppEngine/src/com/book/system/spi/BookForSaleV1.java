@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 
+import javax.inject.Named;
+
 import com.book.system.model.Book;
 import com.book.system.model.BookForSale;
 import com.book.system.model.SaleShelf;
@@ -80,7 +82,7 @@ public class BookForSaleV1 {
 					String ISBN = resultSet.getString("ISBN");
 					book = getBookByISBN(getBookStmt,ISBN);
 
-					int personId = resultSet.getInt("Person_ID");
+					Long personId = resultSet.getLong("Person_ID");
 					seller = getSellerByID(getPersonStmt,personId);
 
 					bfs = new BookForSale(book,seller);
@@ -137,7 +139,7 @@ public class BookForSaleV1 {
 	}
 
 	@ApiMethod(name = "bookforsale.getBookByISBN", authLevel=AuthLevel.OPTIONAL)
-	public Book getBookByISBN(PreparedStatement getBookStmt,String ISBN){
+	public Book getBookByISBN(PreparedStatement getBookStmt,@Named("ISBN") String ISBN){
 		ResultSet resultSetBook = null;
 		Book book = null;
 		try{
@@ -163,11 +165,11 @@ public class BookForSaleV1 {
 	}
 
 	@ApiMethod(name = "bookforsale.getSellerByID", authLevel=AuthLevel.OPTIONAL)
-	public Seller getSellerByID(PreparedStatement getPersonStmt, int personId){
+	public Seller getSellerByID(PreparedStatement getPersonStmt, @Named("personId") Long personId){
 		ResultSet resultSetPerson = null;
 		Seller seller = null;
 		try{
-			getPersonStmt.setInt(1, personId);
+			getPersonStmt.setLong(1, personId);
 			resultSetPerson = getPersonStmt.executeQuery();
 			resultSetPerson.next();
 
@@ -175,7 +177,7 @@ public class BookForSaleV1 {
 			String lastName = resultSetPerson.getString("Last_Name");
 			String email = resultSetPerson.getString("Email");
 
-			seller = new Seller(personId, email, firstName, lastName);
+			seller = new Seller( personId.intValue(), email, firstName, lastName);
 		}catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -191,7 +193,7 @@ public class BookForSaleV1 {
 	}
 	//TODO: Combine the middle portions of the next two methods
 	@ApiMethod(name = "bookforsale.getAllBooksBySeller", authLevel=AuthLevel.OPTIONAL)
-	public List<Book> getAllBooksBySeller(int personId){
+	public List<Book> getAllBooksBySeller(@Named("personId") Long personId){
 		Connection conn = createConnection();
 		String getBooksQry ="SELECT Book.* "
 				+ "FROM `book-system`.Book_For_Sale JOIN `book-system`.Book "
@@ -230,7 +232,7 @@ public class BookForSaleV1 {
 		return bookList;
 	}
 	@ApiMethod(name = "bookforsale.getAllSellersOfBook", authLevel=AuthLevel.OPTIONAL)
-	public List<Seller> getAllSellersOfBook(String ISBN){
+	public List<Seller> getAllSellersOfBook(@Named("ISBN") String ISBN){
 		Connection conn = createConnection();
 		String getBooksQry ="SELECT Person.* "
 				+ "FROM `book-system`.Book_For_Sale JOIN `book-system`.Person "

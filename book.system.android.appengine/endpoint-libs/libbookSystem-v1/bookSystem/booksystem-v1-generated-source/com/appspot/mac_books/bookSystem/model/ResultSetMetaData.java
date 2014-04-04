@@ -19,7 +19,7 @@
 package com.appspot.mac_books.bookSystem.model;
 
 /**
- * Model definition for JsonMap.
+ * Model definition for ResultSetMetaData.
  *
  * <p> This is the Java data model class that specifies how to parse/serialize into the JSON that is
  * transmitted over HTTP when working with the bookSystem. For a detailed explanation see:
@@ -29,16 +29,37 @@ package com.appspot.mac_books.bookSystem.model;
  * @author Google, Inc.
  */
 @SuppressWarnings("javadoc")
-public final class JsonMap extends com.google.api.client.json.GenericJson {
+public final class ResultSetMetaData extends com.google.api.client.json.GenericJson {
 
-  @Override
-  public JsonMap set(String fieldName, Object value) {
-    return (JsonMap) super.set(fieldName, value);
+  /**
+   * The value may be {@code null}.
+   */
+  @com.google.api.client.util.Key
+  private java.lang.Integer columnCount;
+
+  /**
+   * @return value or {@code null} for none
+   */
+  public java.lang.Integer getColumnCount() {
+    return columnCount;
+  }
+
+  /**
+   * @param columnCount columnCount or {@code null} for none
+   */
+  public ResultSetMetaData setColumnCount(java.lang.Integer columnCount) {
+    this.columnCount = columnCount;
+    return this;
   }
 
   @Override
-  public JsonMap clone() {
-    return (JsonMap) super.clone();
+  public ResultSetMetaData set(String fieldName, Object value) {
+    return (ResultSetMetaData) super.set(fieldName, value);
+  }
+
+  @Override
+  public ResultSetMetaData clone() {
+    return (ResultSetMetaData) super.clone();
   }
 
 }
