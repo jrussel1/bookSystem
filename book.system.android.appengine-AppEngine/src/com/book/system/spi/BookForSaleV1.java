@@ -337,7 +337,8 @@ public class BookForSaleV1 {
 			stmt.setString(1, email);
 			stmt.setString(2, first_name);
 			stmt.setString(3, last_name);
-			resultSetSeller = stmt.executeQuery(); //return int of rows affected, but with the insert ignore, there won't be an error if it exists already
+			resultSetSeller = stmt.executeQuery(); 
+			
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
