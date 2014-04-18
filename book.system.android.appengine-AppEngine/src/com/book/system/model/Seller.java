@@ -31,7 +31,7 @@ public class Seller {
 	/**
 	 * @param ID the id to set
 	 */
-	public void setISBN(Long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	/**

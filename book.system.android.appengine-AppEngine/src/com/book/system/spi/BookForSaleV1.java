@@ -331,13 +331,37 @@ public class BookForSaleV1 {
 	  Connection conn = createConnection();
 	  String insertPersonQry ="INSERT IGNORE INTO `book-system`.`Person` (`Email`, `First_Name`, `Last_Name`) VALUES (?,?,?)";
 	  PreparedStatement stmt = null;
-	  ResultSet resultSetSeller = null;
+	  ResultSet resultSetPerson = null;
 	  try{
-			stmt = conn.prepareStatement(insertPersonQry);
+			stmt = conn.prepareStatement(insertPersonQry,PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, email);
 			stmt.setString(2, first_name);
 			stmt.setString(3, last_name);
-			resultSetSeller = stmt.executeQuery(); 
+			stmt.executeUpdate(); 
+			resultSetPerson = stmt.getGeneratedKeys();
+			long person_id = -1L;
+			if (resultSetPerson != null && resultSetPerson.next()) {
+				person_id = resultSetPerson.getLong(1);
+				response.setId(person_id);
+				
+				String insertSellerQry ="INSERT IGNORE INTO `book-system`.`Seller` (`Person_ID`) VALUES (?)";
+				PreparedStatement stmtSeller = null;
+				try{
+					stmtSeller = conn.prepareStatement(insertSellerQry);
+					stmtSeller.setLong(1, person_id);
+					stmtSeller.executeUpdate(); 
+				}catch(SQLException e){
+					e.printStackTrace();
+					return null;
+				}finally{
+					try{
+						if(stmtSeller!=null)
+							stmtSeller.close();
+					}catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
 			
 		}
 		catch (SQLException e) {
@@ -350,8 +374,8 @@ public class BookForSaleV1 {
 					conn.close();
 				if(stmt!=null)
 					stmt.close();
-				if(resultSetSeller!=null)
-					resultSetSeller.close();
+				if(resultSetPerson!=null)
+					resultSetPerson.close();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
