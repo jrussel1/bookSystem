@@ -275,4 +275,87 @@ public class BookForSaleV1 {
 
 		return sellerList;
 	}
+	@ApiMethod(name = "book.insert", httpMethod = "post", authLevel=AuthLevel.OPTIONAL)
+	public Book insertBook(@Named("isbn") String isbn, String title, String author) {
+	  Book response = new Book(isbn);
+	  if(!title.isEmpty()){
+		  response.setTitle(title);
+	  }else {
+		  title="Unknown";
+	  }
+	  if(!author.isEmpty()){
+		  response.setAuthor(author);
+	  }else {
+		  author="Unknown";
+	  }
+	  Connection conn = createConnection();
+	  String insertBookQry ="INSERT IGNORE INTO `book-system`.`Book` (`ISBN`, `Title`, `Author`) VALUES (?,?,?)";
+	  PreparedStatement stmt = null;
+	  try{
+			stmt = conn.prepareStatement(insertBookQry);
+			stmt.setString(1, isbn);
+			stmt.setString(2, title);
+			stmt.setString(3, author);
+			stmt.executeUpdate(); //return int of rows affected, but with the insert ignore, there won't be an error if it exists already
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally{
+			try {
+				if(conn!=null)
+					conn.close();
+				if(stmt!=null)
+					stmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+	  return response;
+	}
+	@ApiMethod(name = "seller.insert", httpMethod = "post", authLevel=AuthLevel.OPTIONAL)
+	public Seller insertSeller(@Named("email") String email, String first_name, String last_name) {
+	  Seller response = new Seller(email);
+	  if(!first_name.isEmpty()){
+		  response.setfFirstName(first_name);
+	  }else {
+		  first_name="Unknown";
+	  }
+	  if(!last_name.isEmpty()){
+		  response.setfLastName(last_name);
+	  }else {
+		  last_name="Unknown";
+	  }
+	  Connection conn = createConnection();
+	  String insertPersonQry ="INSERT IGNORE INTO `book-system`.`Person` (`Email`, `First_Name`, `Last_Name`) VALUES (?,?,?)";
+	  PreparedStatement stmt = null;
+	  ResultSet resultSetSeller = null;
+	  try{
+			stmt = conn.prepareStatement(insertPersonQry);
+			stmt.setString(1, email);
+			stmt.setString(2, first_name);
+			stmt.setString(3, last_name);
+			resultSetSeller = stmt.executeQuery(); //return int of rows affected, but with the insert ignore, there won't be an error if it exists already
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally{
+			try {
+				if(conn!=null)
+					conn.close();
+				if(stmt!=null)
+					stmt.close();
+				if(resultSetSeller!=null)
+					resultSetSeller.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+	  return response;
+	}
 }
