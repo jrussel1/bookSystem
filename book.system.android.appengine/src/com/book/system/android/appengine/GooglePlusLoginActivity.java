@@ -18,7 +18,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.plus.Plus;
-//import com.google.android.gms.plus.PlusShare;
 
 public class GooglePlusLoginActivity extends Activity implements ConnectionCallbacks, OnConnectionFailedListener, OnClickListener {
 	/* Request code used to invoke sign in user interactions. */
