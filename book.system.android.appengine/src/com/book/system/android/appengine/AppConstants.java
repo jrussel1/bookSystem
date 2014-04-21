@@ -66,9 +66,10 @@ public class AppConstants {
 	  BookSystem.Builder bookSystem = new BookSystem.Builder(AppConstants.HTTP_TRANSPORT,
         AppConstants.JSON_FACTORY, credential);
 
-    // If running the Cloud Endpoint API locally then point the API stub there by un-commenting the
-    // next line.
-	  bookSystem.setRootUrl("http://10.0.2.2:8888/_ah/api/");
+	  if (CloudEndpointUtils.LOCAL_ANDROID_RUN) {
+	      bookSystem.setRootUrl(CloudEndpointUtils.LOCAL_APP_ENGINE_SERVER_URL_FOR_ANDROID
+	          + "/_ah/api/");
+	    }
 
     return bookSystem.build();
   }
