@@ -1,4 +1,4 @@
 *.cache
-book.system.android.appengine/gen/com/book/system/android/appengine/BuildConfig.java
-book.system.android.appengine/gen/com/google/android/gms/R.java
-google-play-services_lib/gen/com/google/android/gms/BuildConfig.java
+gen
+bin
+classes
