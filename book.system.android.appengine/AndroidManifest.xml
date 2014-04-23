@@ -47,6 +47,10 @@
             android:name="com.book.system.android.appengine.GooglePlusLoginActivity"
             android:label="@string/title_activity_google_plus_login" >
         </activity>
+        <activity
+            android:name="com.book.system.android.appengine.AddBookActivity"
+            android:label="@string/title_activity_add_book" >
+        </activity>
     </application>
 
 </manifest>

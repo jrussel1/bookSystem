@@ -15,36 +15,61 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class BookListActivity extends ListActivity {
 
 	protected Map<String,BookForSale> bookList = new HashMap<String,BookForSale>();
-
+	protected TextView mAddBookTextView;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
+		
+		
+		mAddBookTextView = (TextView) findViewById(R.id.sellBookButton);
+		mAddBookTextView.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(BookListActivity.this, AddBookActivity.class);
+				startActivity(intent);
+
+			}
+		});
 
 		//add stuff to the bookList 
-		BookForSale a = new BookForSale("Harry Poter","12345","author A","X",30);
-		BookForSale a1 = new BookForSale("The Great Gatsby","1123","author B","The Great Gatsby, seller: Junyi Wang",20);
 
-		bookList.put(a.getSaleId(), a);
-		bookList.put(a1.getSaleId(),a1);
+		Book book1 = new Book("HARRY POTER","A1B2C3D4","JK Rowling");
+		Book book2 = new Book("THE GREAT GATSBY","A2B3C4D5","F.Scott Fitzgerald");
+		Book book3 = new Book("CARNAL CURIOSITY","A2B3C4D5","Stuart Woods");
+		Book book4 = new Book("THE FIXED TRILOGY","A2B3C4D5","Laurelin Paige");
+		Book book5 = new Book("MISSING YOU","A2B3C4D5","Harlan Coben");
+		Book book6 = new Book("NYPD RED 2","A2B3C4D5","James Patterson and Marshall Karp");
+		Book book7 = new Book("I'VE GOT YOU UNDER MY SKIN","A2B3C4D5","Mary Higgins Clark");
+		
+		Seller seller1 = new Seller(12345,"hliu1@macalester.edu","Hongshan","Liu");
+		Seller seller2 = new Seller(23456,"hxu1@macalester.edu","Hanyue","Xu");
+		BookForSale bookForSale1 = new BookForSale(book1,seller1, 10);
+		BookForSale bookForSale2 = new BookForSale(book2,seller2, 18);
+		BookForSale bookForSale3 = new BookForSale(book3,seller1, 25);
+		BookForSale bookForSale4 = new BookForSale(book4,seller2, 15);
+		BookForSale bookForSale5 = new BookForSale(book5,seller1, 35);
+		BookForSale bookForSale6 = new BookForSale(book6,seller2, 13);
+		BookForSale bookForSale7 = new BookForSale(book7,seller1, 12);
+		
 
 
 		ArrayList<BookForSale> bookNames = new ArrayList<BookForSale>();
-
-		for (Map.Entry<String, BookForSale> entry : bookList.entrySet()) {
-		    String key = entry.getKey();
-		    BookForSale value = entry.getValue();
-		    bookNames.add(value);
-
-		}
-		Log.i("fail2","fail2");
-		Log.i(bookNames.get(1).getTitle(),"fail" + bookNames.get(1).getTitle());
-
-
+		bookNames.add(bookForSale1);
+		bookNames.add(bookForSale2);
+		bookNames.add(bookForSale3);
+		bookNames.add(bookForSale4);
+		bookNames.add(bookForSale5);
+		bookNames.add(bookForSale6);
+		bookNames.add(bookForSale7);
 
 
 		BookAdapter adapter = new BookAdapter(this, bookNames);
@@ -64,17 +89,17 @@ public class BookListActivity extends ListActivity {
 		Log.i("alex","alex");
 		Object o =  this.getListAdapter().getItem(position);
 		BookForSale bookObject = (BookForSale) o;
-		String a = bookObject.getTitle();
+		String a = bookObject.getBook().getTitle();
 		Log.i("alex","alex"+a);
 
 
 		Intent intent = new Intent(BookListActivity.this, BookDetailActivity.class);
 //		intent.putExtra("key", book);
 
-		String isbn = bookObject.getISBN();
+		String isbn = bookObject.getBook().getISBN();
 		int price1 = (bookObject.getPrice());
 		String price = Integer.toString(price1);
-		String bookName = bookObject.getTitle();
+		String bookName = bookObject.getBook().getTitle();
 
 		intent.putExtra("ISBNkey", isbn);
 		intent.putExtra("priceKey", price);

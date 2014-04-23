@@ -25,13 +25,17 @@ public class BookAdapter extends ArrayAdapter<BookForSale>{
           convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_book, null);
        }
        // Lookup view for data population
-       TextView bookTitle = (TextView) convertView.findViewById(R.id.tvHome);
-       TextView seller = (TextView) convertView.findViewById(R.id.tvName);
+       TextView bookTitle = (TextView) convertView.findViewById(R.id.tvName);
+       TextView seller = (TextView) convertView.findViewById(R.id.tvHome);
+       TextView price = (TextView) convertView.findViewById(R.id.tvPrice);
        // Populate the data into the template view using the data object
 
        
-       bookTitle.setText(book.getTitle());
-       seller.setText(book.getAuthor());
+       bookTitle.setText(book.getBook().getTitle());
+       seller.setText(book.getSeller().getFirstName());
+       int temp = book.getPrice();
+       String priceString = Integer.toString(temp);
+       price.setText(priceString);
        // Return the completed view to render on screen
        
        return convertView;

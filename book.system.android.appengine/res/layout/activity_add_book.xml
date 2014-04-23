@@ -1,0 +1,76 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.book.system.android.appengine.AddBookActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="66dp"
+        android:text="ISBN"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/EditText_ISBN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/EditText_BookTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/EditText_ISBN"
+        android:layout_below="@+id/TextEdit_BookTitle"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/EditText_Price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TextEdit_Price"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:inputType="number" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/button_AddBook"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/EditText_Price"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp"
+        android:text="Add" />
+
+    <TextView
+        android:id="@+id/TextEdit_BookTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/EditText_ISBN"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="Book Title"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/TextEdit_Price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/EditText_BookTitle"
+        android:layout_marginTop="25dp"
+        android:text="Price"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>

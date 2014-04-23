@@ -20,5 +20,6 @@
     <string name="title_activity_listing_activity">ListingActivity</string>
     <string name="title_activity_list">ListActivity</string>
     <string name="title_activity_google_plus_login">GooglePlusLoginActivity</string>
+    <string name="title_activity_add_book">AddBookActivity</string>
 
 </resources>

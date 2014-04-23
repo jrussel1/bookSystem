@@ -1,40 +1,65 @@
 package com.book.system.android.appengine;
 
-	public class BookForSale extends Book {
+import com.book.system.android.appengine.Book;
+import com.book.system.android.appengine.Seller;
 
-		public String SaleId;
-		public int Price;
-		public String Seller;
+public class BookForSale {
 
-		public BookForSale(String bookname, String isbn, String author, String saleid, int price) {
-			super(bookname, isbn, author);
-			// TODO Auto-generated constructor stub
-			SaleId = saleid;
-			Price = price;
-		}
+	private Book book;
+	private Seller seller;
+	private int price;
 
-		public void setSaleId(String saleid){
-			SaleId = saleid;
-		}
+	public BookForSale(Book book, Seller seller, int price) {
+		this.setBook(book);
+		this.setSeller(seller);
+		this.setPrice(price);
+	}
 
-		public String getSaleId(){
-			return SaleId;
-		}
+	/**
+	 * @return the seller
+	 */
+	public Seller getSeller() {
+		return seller;
+	}
+	/**
+	 * @param seller the seller to set
+	 */
+	public void setSeller(Seller seller) {
+		this.seller = seller;
+	}
 
-		public void setPrice(int price){
-			Price = price;
-		}
+	/**
+	 * @return the book
+	 */
+	public Book getBook() {
+		return book;
+	}
 
-		public int getPrice(){
-			return Price;
-		}
-
-		public void setSeller(String seller){
-			Seller = seller;
-		}
-
-		public String getSeller(){
-			return Seller;
-		}
-
+	/**
+	 * @param book the book to set
+	 */
+	public void setBook(Book book) {
+		this.book = book;
+	}
+	
+	public void setPrice(int price){
+		this.price = price;
+	}
+	
+	public int getPrice(){
+		return price;
+	}
+	public String toString(){
+		StringBuilder s = new StringBuilder();
+		s.append("Book:\n"
+				+ "\tISBN:\t"+book.getISBN()
+				+ "\n\tTitle:\t"+book.getTitle()
+				+ "\n\tAuthor:\t"+book.getAuthor());
+		s.append("\nSeller:\n"
+				+ "\tID:\t"+seller.getId()
+				+ "\n\tEmail:\t"+seller.getEmail()
+				+ "\n\tFirst name:\t"+seller.getFirstName()
+				+ "\n\tLast name:\t"+seller.getLastName());
+		return s.toString();
+	}
 }

@@ -4,23 +4,58 @@
  android:layout_height="match_parent" >
 
    <TextView
-       android:id="@+id/tvName"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignParentLeft="true"
-       android:layout_alignParentTop="true"
-       android:layout_marginLeft="22dp"
-       android:text="Name"
-       android:textSize="18dp" 
-       android:textStyle="bold"/>
-
-   <TextView
        android:id="@+id/tvHome"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_alignLeft="@+id/tvName"
        android:layout_below="@+id/tvName"
-       android:text="HomeTown"
+       android:text="Seller"
        android:textSize="18dp" />
+
+   <TextView
+       android:id="@+id/tvName"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentLeft="true"
+       android:layout_alignParentTop="true"
+       android:layout_marginLeft="48dp"
+       android:text="BookTitle"
+       android:textSize="18dp"
+       android:textStyle="bold" />
+
+   <TextView
+       android:id="@+id/textView1"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_above="@+id/tvHome"
+       android:layout_alignParentLeft="true"
+       android:text="Title" />
+
+   <TextView
+       android:id="@+id/textView2"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignBottom="@+id/tvHome"
+       android:layout_alignParentLeft="true"
+       android:text="Seller" />
+
+   <TextView
+       android:id="@+id/tvPrice"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignParentRight="true"
+       android:layout_below="@+id/tvName"
+       android:layout_marginRight="20dp"
+       android:text="Price"
+       android:textAppearance="?android:attr/textAppearanceMedium" />
+
+   <TextView
+       android:id="@+id/textView3"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_alignBaseline="@+id/tvPrice"
+       android:layout_alignBottom="@+id/tvPrice"
+       android:layout_toLeftOf="@+id/tvPrice"
+       android:text="$" />
 
 </RelativeLayout>
