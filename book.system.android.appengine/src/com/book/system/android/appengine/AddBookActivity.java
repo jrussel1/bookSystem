@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class AddBookActivity extends Activity {
-
+//test Alex
 	protected EditText mISBN;
 	protected EditText mBookTitle;
 	protected EditText mPrice;
