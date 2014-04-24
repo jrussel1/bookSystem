@@ -52,6 +52,7 @@ public class BookListActivity extends ListActivity {
 		
 		Seller seller1 = new Seller(12345,"hliu1@macalester.edu","Hongshan","Liu");
 		Seller seller2 = new Seller(23456,"hxu1@macalester.edu","Hanyue","Xu");
+		
 		BookForSale bookForSale1 = new BookForSale(book1,seller1, 10);
 		BookForSale bookForSale2 = new BookForSale(book2,seller2, 18);
 		BookForSale bookForSale3 = new BookForSale(book3,seller1, 25);
