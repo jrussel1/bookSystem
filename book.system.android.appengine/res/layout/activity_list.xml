@@ -9,8 +9,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:label="Main Menu"
-    tools:context=".BookListActivity" >
-    
+    tools:context=".BookListActivity" 
+    android:background="@drawable/book">
+
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -26,27 +27,56 @@
             android:text="Sell Book"
              />
 
+
         <Button
             android:id="@+id/myProfileButton"
             style="@style/AppBaseTheme"
             android:layout_width="fill_parent"
             android:layout_height="50dp"
+            android:text="@string/my_profile"
+            android:textColor="#0000ff"
             android:layout_weight="1"
-            android:text="My Profile" />
+            android:typeface="serif" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <SearchView
+            android:id="@+id/search_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+        </SearchView>
+
+        <EditText
+            android:id="@+id/txtQuery"
+            android:layout_width="wrap_content"
+            android:layout_height="57dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/hint"/>
+     
 
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent" >
 
         <ListView
             android:id="@android:id/list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/transparent"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="#CCCCCC"
+            android:dividerHeight="1dp"
+            android:paddingLeft="2dp" >
         </ListView>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

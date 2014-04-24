@@ -23,4 +23,17 @@
     <string name="title_activity_add_book">AddBookActivity</string>
     <string name="title_activity_my_profile">MyProfileActivity</string>
 
+	<string name="sell_book">Sell Book</string>
+	<string name="my_profile">My Profile</string>
+	<string name="hint">Search book by ISBN</string>
+	<string name="info1">ISBN</string>
+	<string name="info2">Book Title</string>
+	<string name="info3">Price</string>
+	<string name="addText">Add</string>
+	<string name="display1">Book Title:</string>
+	<string name="display2">ISBN:</string>
+	<string name="display3">Price:</string>
+	<string name="bookISBN">BookISBN</string>
+	<string name="bookPrice">BookPrice</string>
+	<string name="PurchasePrompt">Purchase</string>
 </resources>

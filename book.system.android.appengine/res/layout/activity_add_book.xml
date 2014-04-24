@@ -4,8 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.book.system.android.appengine.AddBookActivity"
-    tools:ignore="MergeRootFrame" >
+    tools:ignore="MergeRootFrame"
+    android:background="@drawable/sell" >
+  
 
+      
+     
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -23,7 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
-        android:ems="10" />
+        android:ems="10" 
+        android:inputType="number"/>
 
     <EditText
         android:id="@+id/EditText_BookTitle"
@@ -31,8 +36,10 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/EditText_ISBN"
         android:layout_below="@+id/TextEdit_BookTitle"
-        android:ems="10" />
+        android:ems="10" 
+        android:inputType="text"/>
 
+	
     <EditText
         android:id="@+id/EditText_Price"
         android:layout_width="wrap_content"
@@ -76,5 +83,32 @@
         android:text="Price"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:fontFamily="sans-serif-light"  />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button_AddBook"
+        android:layout_alignTop="@+id/TextEdit_Price"
+        android:layout_weight="0.5" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4.45" >
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_AddBook"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/EditText_Price"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp"
+        android:text="@string/addText"
+        android:textSize="24sp" 
+        android:typeface="serif"/>
 
 </RelativeLayout>
