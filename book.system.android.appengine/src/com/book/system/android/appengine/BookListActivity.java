@@ -21,6 +21,7 @@ public class BookListActivity extends ListActivity {
 
 	protected Map<String,BookForSale> bookList = new HashMap<String,BookForSale>();
 	protected TextView mAddBookTextView;
+	protected TextView mMyProfileButton;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,16 +40,28 @@ public class BookListActivity extends ListActivity {
 
 			}
 		});
+		
+		
+		mMyProfileButton = (TextView) findViewById(R.id.myProfileButton);
+		mMyProfileButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(BookListActivity.this, MyProfileActivity.class);
+				startActivity(intent);
+				
+			}
+		});
 
 		//add stuff to the bookList 
 
-		Book book1 = new Book("HARRY POTER","A1B2C3D4","JK Rowling");
-		Book book2 = new Book("THE GREAT GATSBY","A2B3C4D5","F.Scott Fitzgerald");
-		Book book3 = new Book("CARNAL CURIOSITY","A2B3C4D5","Stuart Woods");
-		Book book4 = new Book("THE FIXED TRILOGY","A2B3C4D5","Laurelin Paige");
-		Book book5 = new Book("MISSING YOU","A2B3C4D5","Harlan Coben");
-		Book book6 = new Book("NYPD RED 2","A2B3C4D5","James Patterson and Marshall Karp");
-		Book book7 = new Book("I'VE GOT YOU UNDER MY SKIN","A2B3C4D5","Mary Higgins Clark");
+		Book book1 = new Book("Harry Poter","A1B2C3D4","JK Rowling");
+		Book book2 = new Book("The Great Gatsby","A2B3C4D5","F.Scott Fitzgerald");
+		Book book3 = new Book("Carnal Curiosity","A2B3C4D5","Stuart Woods");
+		Book book4 = new Book("The Fixed Triology","A2B3C4D5","Laurelin Paige");
+		Book book5 = new Book("Missing You","A2B3C4D5","Harlan Coben");
+		Book book6 = new Book("NYPD Red 2","A2B3C4D5","James Patterson and Marshall Karp");
+		Book book7 = new Book("I've Got You Under My Skin","A2B3C4D5","Mary Higgins Clark");
 		
 		Seller seller1 = new Seller(12345,"hliu1@macalester.edu","Hongshan","Liu");
 		Seller seller2 = new Seller(23456,"hxu1@macalester.edu","Hanyue","Xu");
@@ -68,6 +81,11 @@ public class BookListActivity extends ListActivity {
 		bookNames.add(bookForSale2);
 		bookNames.add(bookForSale3);
 		bookNames.add(bookForSale4);
+		bookNames.add(bookForSale5);
+		bookNames.add(bookForSale6);
+		bookNames.add(bookForSale7);
+		bookNames.add(bookForSale3);
+		bookNames.add(bookForSale1);
 		bookNames.add(bookForSale5);
 		bookNames.add(bookForSale6);
 		bookNames.add(bookForSale7);
