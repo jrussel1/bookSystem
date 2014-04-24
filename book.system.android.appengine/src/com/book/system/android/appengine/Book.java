@@ -1,6 +1,5 @@
 package com.book.system.android.appengine;
-//i hate books
-//i hate books as well
+//i love books
 public class Book {
 	private String title;
 	private String ISBN;
