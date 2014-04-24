@@ -16,14 +16,14 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/sellBookButton"
             style="@style/AppTheme"
             android:layout_width="148dp"
             android:layout_height="50dp"
             android:text="Sell Book" />
 
         <Button
-            android:id="@+id/sellBookButton"
+            android:id="@+id/myProfileButton"
             style="@style/AppBaseTheme"
             android:layout_width="match_parent"
             android:layout_height="50dp"

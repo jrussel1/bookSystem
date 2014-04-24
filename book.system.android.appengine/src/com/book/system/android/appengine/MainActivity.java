@@ -13,6 +13,7 @@ public class MainActivity extends Activity {
 		
 		Intent intent = new Intent(this, BookListActivity.class);
 //		Intent intent = new Intent(this, GooglePlusLoginActivity.class);
+
 		startActivity(intent);
 	}
 
