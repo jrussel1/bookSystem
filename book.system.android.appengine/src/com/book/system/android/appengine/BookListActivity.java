@@ -28,6 +28,7 @@ public class BookListActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
 		
+		setTitle("Main Menu");
 		
 		mAddBookTextView = (TextView) findViewById(R.id.sellBookButton);
 		mAddBookTextView.setOnClickListener(new View.OnClickListener() {
@@ -61,7 +62,7 @@ public class BookListActivity extends ListActivity {
 		Book book4 = new Book("The Fixed Triology","A2B3C4D5","Laurelin Paige");
 		Book book5 = new Book("Missing You","A2B3C4D5","Harlan Coben");
 		Book book6 = new Book("NYPD Red 2","A2B3C4D5","James Patterson and Marshall Karp");
-		Book book7 = new Book("I've Got You Under My Skin","A2B3C4D5","Mary Higgins Clark");
+		Book book7 = new Book("Got You Under My Skin","A2B3C4D5","Mary Higgins Clark");
 		
 		Seller seller1 = new Seller(12345,"hliu1@macalester.edu","Hongshan","Liu");
 		Seller seller2 = new Seller(23456,"hxu1@macalester.edu","Hanyue","Xu");

@@ -12,13 +12,13 @@
         android:id="@+id/bookTitleTag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/sellerTag"
+        android:layout_below="@+id/bookTitle_Static"
         android:layout_centerHorizontal="true"
         android:text="@string/hello_world"
         android:textSize="32sp" />
 
     <TextView
-        android:id="@+id/priceStatic"
+        android:id="@+id/ISBN_static"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/bookTitleTag"
@@ -31,14 +31,14 @@
         android:id="@+id/isbn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/priceStatic"
+        android:layout_below="@+id/ISBN_static"
         android:layout_centerHorizontal="true"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="32dp" />
 
     <TextView
-        android:id="@+id/TextEdit_Price"
+        android:id="@+id/price_static"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/isbn"
@@ -52,7 +52,7 @@
         android:id="@+id/price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/TextEdit_Price"
+        android:layout_below="@+id/price_static"
         android:layout_centerHorizontal="true"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -61,14 +61,14 @@
     <Button
         android:id="@+id/purchaseButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_below="@+id/price"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
         android:text="Purchase" />
 
     <TextView
-        android:id="@+id/sellerTag"
+        android:id="@+id/bookTitle_Static"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/bookTitleTag"

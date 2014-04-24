@@ -24,6 +24,8 @@ public class AddBookActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_book);
 		
+		setTitle("Sell Book");
+		
 		mISBN = (EditText)findViewById(R.id.EditText_ISBN);
 		mBookTitle = (EditText)findViewById(R.id.EditText_BookTitle);
 		mPrice = (EditText)findViewById(R.id.EditText_Price);

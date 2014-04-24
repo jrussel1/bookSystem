@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
  android:layout_width="match_parent"
- android:layout_height="match_parent" >
+ android:layout_height="match_parent"
+ android:fontFamily="sans-serif-light"  >
 
    <TextView
        android:id="@+id/tvHome"
@@ -10,7 +11,8 @@
        android:layout_alignLeft="@+id/tvName"
        android:layout_below="@+id/tvName"
        android:text="Seller"
-       android:textSize="18dp" />
+       android:textSize="18dp" 
+       android:fontFamily="sans-serif-light" />
 
    <TextView
        android:id="@+id/tvName"
@@ -19,9 +21,9 @@
        android:layout_alignParentLeft="true"
        android:layout_alignParentTop="true"
        android:layout_marginLeft="48dp"
+       android:fontFamily="sans-serif"
        android:text="BookTitle"
-       android:textSize="18dp"
-       android:textStyle="bold" />
+       android:textSize="20dp" />
 
    <TextView
        android:id="@+id/textView1"
@@ -29,7 +31,8 @@
        android:layout_height="wrap_content"
        android:layout_above="@+id/tvHome"
        android:layout_alignParentLeft="true"
-       android:text="Title" />
+       android:text="Title"
+       android:fontFamily="sans-serif-light"  />
 
    <TextView
        android:id="@+id/textView2"
@@ -37,7 +40,8 @@
        android:layout_height="wrap_content"
        android:layout_alignBottom="@+id/tvHome"
        android:layout_alignParentLeft="true"
-       android:text="Seller" />
+       android:text="Seller" 
+       android:fontFamily="sans-serif-light" />
 
    <TextView
        android:id="@+id/tvPrice"
@@ -47,7 +51,8 @@
        android:layout_below="@+id/tvName"
        android:layout_marginRight="20dp"
        android:text="Price"
-       android:textAppearance="?android:attr/textAppearanceMedium" />
+       android:textAppearance="?android:attr/textAppearanceMedium"
+       android:fontFamily="sans-serif-light"  />
 
    <TextView
        android:id="@+id/textView3"
@@ -56,6 +61,7 @@
        android:layout_alignBaseline="@+id/tvPrice"
        android:layout_alignBottom="@+id/tvPrice"
        android:layout_toLeftOf="@+id/tvPrice"
-       android:text="$" />
+       android:text="$"
+       android:fontFamily="sans-serif-light"  />
 
 </RelativeLayout>
