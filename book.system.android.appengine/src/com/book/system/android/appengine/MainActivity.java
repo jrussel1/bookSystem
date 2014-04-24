@@ -12,7 +12,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 //		Intent intent = new Intent(this, BookListActivity.class);
-		Intent intent = new Intent(this, GooglePlusLoginActivity.class);
+		Intent intent = new Intent(this, BookListActivity.class);
 		startActivity(intent);
 	}
 
