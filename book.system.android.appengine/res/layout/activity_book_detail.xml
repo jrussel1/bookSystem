@@ -58,17 +58,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="32dp" />
 
-    <TextView
-        android:id="@+id/sellerTag"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="57dp"
-        android:text="Book Title:"
-        android:textSize="28dp" />
-
     <Button
         android:id="@+id/purchaseButton"
         android:layout_width="match_parent"
@@ -77,5 +66,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
         android:text="Purchase" />
+
+    <TextView
+        android:id="@+id/sellerTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/bookTitleTag"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="37dp"
+        android:text="Book Title:"
+        android:textSize="28dp" />
 
 </RelativeLayout>
