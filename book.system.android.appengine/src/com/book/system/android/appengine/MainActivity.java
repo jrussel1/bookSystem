@@ -11,13 +11,9 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-<<<<<<< HEAD
 		Intent intent = new Intent(this, BookListActivity.class);
 //		Intent intent = new Intent(this, GooglePlusLoginActivity.class);
-=======
-//		Intent intent = new Intent(this, GooglePlusLoginActivity.class);
-		Intent intent = new Intent(this, BookListActivity.class);
->>>>>>> d072249043d4d395e428f160d8fede801a6cc717
+
 		startActivity(intent);
 	}
 
