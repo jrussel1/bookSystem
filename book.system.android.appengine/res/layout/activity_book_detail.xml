@@ -6,7 +6,6 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/winter"
     tools:context=".BookDetail" >
 
     <TextView
@@ -15,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/bookTitle_Static"
         android:layout_centerHorizontal="true"
-        android:text="@string/"
+        android:text="helloWorld"
         android:textSize="32sp" />
 
     <TextView
@@ -25,8 +24,8 @@
         android:layout_below="@+id/bookTitleTag"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
-        android:text="@string/display2"
-        android:textSize="32sp" />
+        android:text="ISBN:"
+        android:textSize="28dp" />
 
     <TextView
         android:id="@+id/isbn"
@@ -34,9 +33,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ISBN_static"
         android:layout_centerHorizontal="true"
-        android:text="@string/bookISBN"
+        android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="32sp" />
+        android:textSize="32dp" />
 
     <TextView
         android:id="@+id/price_static"
@@ -45,9 +44,9 @@
         android:layout_below="@+id/isbn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
-        android:text="@string/display3"
+        android:text="Price:"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="32sp" />
+        android:textSize="28dp" />
 
     <TextView
         android:id="@+id/price"
@@ -55,9 +54,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/price_static"
         android:layout_centerHorizontal="true"
-        android:text="@string/bookPrice"
+        android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="32sp" />
+        android:textSize="32dp" />
 
     <Button
         android:id="@+id/purchaseButton"
@@ -66,9 +65,7 @@
         android:layout_below="@+id/price"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
-        android:text="@string/PurchasePrompt" 
-        android:textSize="26sp" 
-        android:typeface="serif"/>
+        android:text="Purchase" />
 
     <TextView
         android:id="@+id/bookTitle_Static"
@@ -77,8 +74,7 @@
         android:layout_alignLeft="@+id/bookTitleTag"
         android:layout_alignParentTop="true"
         android:layout_marginTop="34dp"
-        android:text="@string/display1"
-        android:textSize="32sp" 
-        android:typeface="serif"/>
+        android:text="Book Title:"
+        android:textSize="28dp" />
 
 </RelativeLayout>

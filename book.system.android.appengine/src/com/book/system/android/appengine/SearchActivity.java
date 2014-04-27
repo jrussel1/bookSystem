@@ -1,14 +1,9 @@
 package com.book.system.android.appengine;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-import android.R.menu;
 import android.app.Fragment;
 import android.app.ListActivity;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,72 +13,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
-public class BookListActivity extends ListActivity {
+public class SearchActivity extends ListActivity {
 
-	protected Map<String,BookForSale> bookList = new HashMap<String,BookForSale>();
-	protected TextView mAddBookTextView;
-	protected TextView mMyProfileButton;
-	protected SearchView mSearchView;
 	
+	protected TextView mQuery;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_list);
+		setContentView(R.layout.activity_search);
 		
-		setTitle("Main Menu");
-		
-		mAddBookTextView = (TextView) findViewById(R.id.sellBookButton);
-		mAddBookTextView.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(BookListActivity.this, AddBookActivity.class);
-				startActivity(intent);
-
-			}
-		});
+		Intent intent = getIntent();
+		String query = intent.getStringExtra("query");
 		
 		
-		mMyProfileButton = (TextView) findViewById(R.id.myProfileButton);
-		mMyProfileButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(BookListActivity.this, MyProfileActivity.class);
-				startActivity(intent);
-				
-			}
-		});
-		
-		mSearchView = (SearchView) findViewById(R.id.search_view);
-		mSearchView.setQueryHint("Search by ISBN");
-		String a = mSearchView.getQuery().toString();
-		SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
-			
-			@Override
-			public boolean onQueryTextSubmit(String query) {
-				// TODO Auto-generated method stub
-				
-				Intent intent = new Intent(BookListActivity.this, SearchActivity.class);
-				intent.putExtra("query", query.toString());
-				startActivity(intent);
-				return false;
-			}
-			
-			@Override
-			public boolean onQueryTextChange(String newText) {
-				// TODO Auto-generated method stub
-				return false;
-			}
-		};
-		mSearchView.setOnQueryTextListener(queryTextListener);
-
-		//add stuff to the bookList 
-
 		Book book1 = new Book("Harry Poter","A1B2C3D4","JK Rowling");
 		Book book2 = new Book("The Great Gatsby","A2B3C4D5","F.Scott Fitzgerald");
 		Book book3 = new Book("Carnal Curiosity","A2B3C4D5","Stuart Woods");
@@ -106,6 +50,8 @@ public class BookListActivity extends ListActivity {
 
 
 		ArrayList<BookForSale> bookNames = new ArrayList<BookForSale>();
+		ArrayList<BookForSale> bookNames2 = new ArrayList<BookForSale>();
+		
 		bookNames.add(bookForSale1);
 		bookNames.add(bookForSale2);
 		bookNames.add(bookForSale3);
@@ -118,20 +64,29 @@ public class BookListActivity extends ListActivity {
 		bookNames.add(bookForSale5);
 		bookNames.add(bookForSale6);
 		bookNames.add(bookForSale7);
-
-
-		BookAdapter adapter = new BookAdapter(this, bookNames);
+		
+		for (BookForSale b: bookNames){
+			if ((b.getBook().getISBN().equals(query))) {
+				bookNames2.add(b);
+			}
+		}
+		
+		BookAdapter adapter = new BookAdapter(this, bookNames2);
 		// Attach the adapter to a ListView
 		ListView list = getListView();
 		ListView listView = (ListView) list;
 		listView.setAdapter(adapter);
 		setListAdapter(adapter);
 
-
-
+		
+		
+		
+		if (savedInstanceState == null) {
+			getFragmentManager().beginTransaction()
+					.add(R.id.container, new PlaceholderFragment()).commit();
+		}
 	}
-
-
+	
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		Log.i("alex","alex");
@@ -141,8 +96,7 @@ public class BookListActivity extends ListActivity {
 		Log.i("alex","alex"+a);
 
 
-		Intent intent = new Intent(BookListActivity.this, BookDetailActivity.class);
-//		intent.putExtra("key", book);
+		Intent intent = new Intent(SearchActivity.this, BookDetailActivity.class);
 
 		String isbn = bookObject.getBook().getISBN();
 		int price1 = (bookObject.getPrice());
@@ -157,12 +111,11 @@ public class BookListActivity extends ListActivity {
 
 	}
 
-
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.list, menu);
+		getMenuInflater().inflate(R.menu.search, menu);
 		return true;
 	}
 
@@ -189,8 +142,8 @@ public class BookListActivity extends ListActivity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_list, container,
-					false);
+			View rootView = inflater.inflate(R.layout.fragment_search,
+					container, false);
 			return rootView;
 		}
 	}

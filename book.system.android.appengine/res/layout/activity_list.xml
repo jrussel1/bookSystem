@@ -9,8 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:label="Main Menu"
-    tools:context=".BookListActivity" 
-    android:background="@drawable/book">
+    tools:context=".BookListActivity" >
 
 
     <LinearLayout
@@ -34,9 +33,7 @@
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:text="@string/my_profile"
-            android:textColor="#0000ff"
-            android:layout_weight="1"
-            android:typeface="serif" />
+            android:layout_weight="1" />
     </LinearLayout>
 
     <LinearLayout
@@ -48,15 +45,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
         </SearchView>
-
-        <EditText
-            android:id="@+id/txtQuery"
-            android:layout_width="wrap_content"
-            android:layout_height="57dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/hint"/>
-     
 
     </LinearLayout>
 

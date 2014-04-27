@@ -4,14 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.book.system.android.appengine.AddBookActivity"
-    tools:ignore="MergeRootFrame"
-    android:background="@drawable/sell" >
+    tools:ignore="MergeRootFrame">
   
 
       
      
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/SearchTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -25,7 +24,7 @@
         android:id="@+id/EditText_ISBN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/SearchTest"
         android:layout_centerHorizontal="true"
         android:ems="10" 
         android:inputType="number"/>
@@ -77,7 +76,7 @@
         android:id="@+id/price_static"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignLeft="@+id/SearchTest"
         android:layout_below="@+id/EditText_BookTitle"
         android:layout_marginTop="25dp"
         android:text="Price"
