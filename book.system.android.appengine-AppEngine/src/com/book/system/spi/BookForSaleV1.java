@@ -52,13 +52,14 @@ import com.google.appengine.api.utils.SystemProperty;
 public class BookForSaleV1 {
 
 	private static final String DEFAULT_LIMIT = "10";
-
+	private static Connection conn;
 	@ApiMethod(name = "bookforsale.list", authLevel=AuthLevel.OPTIONAL)
 	public SaleShelf list(User user) throws OAuthRequestException,
 	IOException {
 		SaleShelf booksForSale = new SaleShelf();
 		try{
-			Connection conn = createConnection();
+			if(conn==null)
+				conn = createConnection();
 			PreparedStatement stmt = null;
 			PreparedStatement getPersonStmt = null;
 			PreparedStatement getBookStmt = null;
@@ -140,6 +141,8 @@ public class BookForSaleV1 {
 
 	@ApiMethod(name = "bookforsale.getBookByISBN", authLevel=AuthLevel.OPTIONAL)
 	public Book getBookByISBN(PreparedStatement getBookStmt,@Named("ISBN") String ISBN){
+		if(conn==null)
+			conn = createConnection();
 		ResultSet resultSetBook = null;
 		Book book = null;
 		try{
@@ -159,6 +162,12 @@ public class BookForSaleV1 {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}
 
 		return book;
@@ -166,6 +175,8 @@ public class BookForSaleV1 {
 
 	@ApiMethod(name = "bookforsale.getSellerByID", authLevel=AuthLevel.OPTIONAL)
 	public Seller getSellerByID(PreparedStatement getPersonStmt, @Named("personId") Long personId){
+		if(conn==null)
+			conn = createConnection();
 		ResultSet resultSetPerson = null;
 		Seller seller = null;
 		try{
@@ -188,13 +199,20 @@ public class BookForSaleV1 {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 		}
 		return seller;
 	}
 	//TODO: Combine the middle portions of the next two methods
 	@ApiMethod(name = "bookforsale.getAllBooksBySeller", authLevel=AuthLevel.OPTIONAL)
 	public List<Book> getAllBooksBySeller(@Named("personId") Long personId){
-		Connection conn = createConnection();
+		if(conn==null)
+			conn = createConnection();
 		String getBooksQry ="SELECT Book.* "
 				+ "FROM `book-system`.Book_For_Sale JOIN `book-system`.Book "
 				+ "WHERE Book_For_Sale.ISBN = Book.ISBN AND Book_For_Sale.Person_ID=?";
@@ -233,7 +251,8 @@ public class BookForSaleV1 {
 	}
 	@ApiMethod(name = "bookforsale.getAllSellersOfBook", authLevel=AuthLevel.OPTIONAL)
 	public List<Seller> getAllSellersOfBook(@Named("ISBN") String ISBN){
-		Connection conn = createConnection();
+		if(conn==null)
+			conn = createConnection();
 		String getBooksQry ="SELECT Person.* "
 				+ "FROM `book-system`.Book_For_Sale JOIN `book-system`.Person "
 				+ "WHERE Book_For_Sale.Person_ID = Person.Person_ID AND Book_For_Sale.ISBN=?";
@@ -276,8 +295,9 @@ public class BookForSaleV1 {
 		return sellerList;
 	}
 	@ApiMethod(name = "book.insert", httpMethod = "post", authLevel=AuthLevel.OPTIONAL)
-	public Book insertBook(@Named("isbn") String isbn, String title, String author) {
-	  Book response = new Book(isbn);
+	public Book insertBook(@Named("isbn") String isbn, @Named("title") String title, @Named("author") String author) {
+		
+		Book response = new Book(isbn);
 	  if(!title.isEmpty()){
 		  response.setTitle(title);
 	  }else {
@@ -288,7 +308,8 @@ public class BookForSaleV1 {
 	  }else {
 		  author="Unknown";
 	  }
-	  Connection conn = createConnection();
+	  if(conn==null)
+			conn = createConnection();
 	  String insertBookQry ="INSERT IGNORE INTO `book-system`.`Book` (`ISBN`, `Title`, `Author`) VALUES (?,?,?)";
 	  PreparedStatement stmt = null;
 	  try{
@@ -316,7 +337,7 @@ public class BookForSaleV1 {
 	  return response;
 	}
 	@ApiMethod(name = "seller.insert", httpMethod = "post", authLevel=AuthLevel.OPTIONAL)
-	public Seller insertSeller(@Named("email") String email, String first_name, String last_name) {
+	public Seller insertSeller(@Named("email") String email, @Named("first_name") String first_name, @Named("last_name") String last_name) {
 	  Seller response = new Seller(email);
 	  if(!first_name.isEmpty()){
 		  response.setfFirstName(first_name);
@@ -328,7 +349,8 @@ public class BookForSaleV1 {
 	  }else {
 		  last_name="Unknown";
 	  }
-	  Connection conn = createConnection();
+	  if(conn==null)
+			conn = createConnection();
 	  String insertPersonQry ="INSERT IGNORE INTO `book-system`.`Person` (`Email`, `First_Name`, `Last_Name`) VALUES (?,?,?)";
 	  PreparedStatement stmt = null;
 	  ResultSet resultSetPerson = null;

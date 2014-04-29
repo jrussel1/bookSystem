@@ -24,13 +24,42 @@
     "maxAge" : 0
   },
   "methods" : {
+    "bookSystem.seller.insert" : {
+      "path" : "seller/{email}/{first_name}/{last_name}",
+      "httpMethod" : "post",
+      "authLevel" : "OPTIONAL",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-k994khg6fncmb15ptakv6peiuj0ap26f.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.book.system.spi.BookForSaleV1.insertSeller",
+      "request" : {
+        "parameters" : {
+          "email" : {
+            "type" : "string",
+            "required" : true
+          },
+          "first_name" : {
+            "type" : "string",
+            "required" : true
+          },
+          "last_name" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "bookSystem.bookforsale.getSellerByID" : {
       "path" : "seller/{personId}",
       "httpMethod" : "GET",
       "authLevel" : "OPTIONAL",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ "615375088497-00o9ieitss4ikt6tgdaj6bki35e433iq.apps.googleusercontent.com" ],
-      "clientIds" : [ "615375088497-00o9ieitss4ikt6tgdaj6bki35e433iq.apps.googleusercontent.com", "615375088497-gi48ssb8p00rgv5t3vim1uel531a1370.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-k994khg6fncmb15ptakv6peiuj0ap26f.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
       "rosyMethod" : "com.book.system.spi.BookForSaleV1.getSellerByID",
       "request" : {
         "parameters" : {
@@ -46,13 +75,42 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "bookSystem.book.insert" : {
+      "path" : "book/{isbn}/{title}/{author}",
+      "httpMethod" : "post",
+      "authLevel" : "OPTIONAL",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-k994khg6fncmb15ptakv6peiuj0ap26f.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.book.system.spi.BookForSaleV1.insertBook",
+      "request" : {
+        "parameters" : {
+          "isbn" : {
+            "type" : "string",
+            "required" : true
+          },
+          "title" : {
+            "type" : "string",
+            "required" : true
+          },
+          "author" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "bookSystem.bookforsale.list" : {
       "path" : "list",
       "httpMethod" : "GET",
       "authLevel" : "OPTIONAL",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ "615375088497-00o9ieitss4ikt6tgdaj6bki35e433iq.apps.googleusercontent.com" ],
-      "clientIds" : [ "615375088497-00o9ieitss4ikt6tgdaj6bki35e433iq.apps.googleusercontent.com", "615375088497-gi48ssb8p00rgv5t3vim1uel531a1370.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-k994khg6fncmb15ptakv6peiuj0ap26f.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
       "rosyMethod" : "com.book.system.spi.BookForSaleV1.list",
       "request" : {
         "body" : "empty"
@@ -66,8 +124,8 @@
       "httpMethod" : "GET",
       "authLevel" : "OPTIONAL",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ "615375088497-00o9ieitss4ikt6tgdaj6bki35e433iq.apps.googleusercontent.com" ],
-      "clientIds" : [ "615375088497-00o9ieitss4ikt6tgdaj6bki35e433iq.apps.googleusercontent.com", "615375088497-gi48ssb8p00rgv5t3vim1uel531a1370.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-k994khg6fncmb15ptakv6peiuj0ap26f.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
       "rosyMethod" : "com.book.system.spi.BookForSaleV1.getAllSellersOfBook",
       "request" : {
         "parameters" : {
@@ -87,8 +145,8 @@
       "httpMethod" : "GET",
       "authLevel" : "OPTIONAL",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ "615375088497-00o9ieitss4ikt6tgdaj6bki35e433iq.apps.googleusercontent.com" ],
-      "clientIds" : [ "615375088497-00o9ieitss4ikt6tgdaj6bki35e433iq.apps.googleusercontent.com", "615375088497-gi48ssb8p00rgv5t3vim1uel531a1370.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-k994khg6fncmb15ptakv6peiuj0ap26f.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
       "rosyMethod" : "com.book.system.spi.BookForSaleV1.getBookByISBN",
       "request" : {
         "parameters" : {
@@ -109,8 +167,8 @@
       "httpMethod" : "GET",
       "authLevel" : "OPTIONAL",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ "615375088497-00o9ieitss4ikt6tgdaj6bki35e433iq.apps.googleusercontent.com" ],
-      "clientIds" : [ "615375088497-00o9ieitss4ikt6tgdaj6bki35e433iq.apps.googleusercontent.com", "615375088497-gi48ssb8p00rgv5t3vim1uel531a1370.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-k994khg6fncmb15ptakv6peiuj0ap26f.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
       "rosyMethod" : "com.book.system.spi.BookForSaleV1.getAllBooksBySeller",
       "request" : {
         "parameters" : {
@@ -128,6 +186,31 @@
   },
   "descriptor" : {
     "schemas" : {
+      "Seller" : {
+        "id" : "Seller",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "email" : {
+            "type" : "string"
+          },
+          "firstName" : {
+            "type" : "string"
+          },
+          "lastName" : {
+            "type" : "string"
+          },
+          "fLastName" : {
+            "type" : "string"
+          },
+          "fFirstName" : {
+            "type" : "string"
+          }
+        }
+      },
       "PreparedStatement" : {
         "id" : "PreparedStatement",
         "type" : "object",
@@ -137,6 +220,9 @@
           },
           "parameterMetaData" : {
             "$ref" : "ParameterMetaData"
+          },
+          "connection" : {
+            "$ref" : "Connection"
           },
           "maxFieldSize" : {
             "type" : "integer"
@@ -174,9 +260,6 @@
           "resultSetType" : {
             "type" : "integer"
           },
-          "generatedKeys" : {
-            "$ref" : "ResultSet"
-          },
           "resultSetHoldability" : {
             "type" : "integer"
           },
@@ -186,14 +269,14 @@
           "closeOnCompletion" : {
             "type" : "boolean"
           },
-          "connection" : {
-            "$ref" : "Connection"
-          },
           "closed" : {
             "type" : "boolean"
           },
           "warnings" : {
             "$ref" : "SQLWarning"
+          },
+          "generatedKeys" : {
+            "$ref" : "ResultSet"
           }
         }
       },
@@ -215,132 +298,21 @@
           }
         }
       },
-      "ResultSet" : {
-        "id" : "ResultSet",
-        "type" : "object",
-        "properties" : {
-          "metaData" : {
-            "$ref" : "ResultSetMetaData"
-          },
-          "holdability" : {
-            "type" : "integer"
-          },
-          "fetchDirection" : {
-            "type" : "integer"
-          },
-          "fetchSize" : {
-            "type" : "integer"
-          },
-          "type" : {
-            "type" : "integer"
-          },
-          "cursorName" : {
-            "type" : "string"
-          },
-          "beforeFirst" : {
-            "type" : "boolean"
-          },
-          "afterLast" : {
-            "type" : "boolean"
-          },
-          "concurrency" : {
-            "type" : "integer"
-          },
-          "statement" : {
-            "$ref" : "Statement"
-          },
-          "closed" : {
-            "type" : "boolean"
-          },
-          "warnings" : {
-            "$ref" : "SQLWarning"
-          },
-          "last" : {
-            "type" : "boolean"
-          },
-          "first" : {
-            "type" : "boolean"
-          },
-          "row" : {
-            "type" : "integer"
-          }
-        }
-      },
-      "Statement" : {
-        "id" : "Statement",
-        "type" : "object",
-        "properties" : {
-          "maxFieldSize" : {
-            "type" : "integer"
-          },
-          "maxRows" : {
-            "type" : "integer"
-          },
-          "escapeProcessing" : {
-            "type" : "boolean"
-          },
-          "queryTimeout" : {
-            "type" : "integer"
-          },
-          "cursorName" : {
-            "type" : "string"
-          },
-          "resultSet" : {
-            "$ref" : "ResultSet"
-          },
-          "updateCount" : {
-            "type" : "integer"
-          },
-          "moreResults" : {
-            "type" : "boolean"
-          },
-          "fetchDirection" : {
-            "type" : "integer"
-          },
-          "fetchSize" : {
-            "type" : "integer"
-          },
-          "resultSetConcurrency" : {
-            "type" : "integer"
-          },
-          "resultSetType" : {
-            "type" : "integer"
-          },
-          "generatedKeys" : {
-            "$ref" : "ResultSet"
-          },
-          "resultSetHoldability" : {
-            "type" : "integer"
-          },
-          "poolable" : {
-            "type" : "boolean"
-          },
-          "closeOnCompletion" : {
-            "type" : "boolean"
-          },
-          "connection" : {
-            "$ref" : "Connection"
-          },
-          "closed" : {
-            "type" : "boolean"
-          },
-          "warnings" : {
-            "$ref" : "SQLWarning"
-          }
-        }
-      },
       "Connection" : {
         "id" : "Connection",
         "type" : "object",
         "properties" : {
-          "autoCommit" : {
+          "schema" : {
+            "type" : "string"
+          },
+          "readOnly" : {
             "type" : "boolean"
           },
           "metaData" : {
             "$ref" : "DatabaseMetaData"
           },
-          "catalog" : {
-            "type" : "string"
+          "autoCommit" : {
+            "type" : "boolean"
           },
           "transactionIsolation" : {
             "type" : "integer"
@@ -360,17 +332,14 @@
           "networkTimeout" : {
             "type" : "integer"
           },
-          "schema" : {
-            "type" : "string"
-          },
-          "readOnly" : {
-            "type" : "boolean"
-          },
           "closed" : {
             "type" : "boolean"
           },
           "warnings" : {
             "$ref" : "SQLWarning"
+          },
+          "catalog" : {
+            "type" : "string"
           }
         }
       },
@@ -378,29 +347,14 @@
         "id" : "DatabaseMetaData",
         "type" : "object",
         "properties" : {
-          "resultSetHoldability" : {
+          "maxConnections" : {
             "type" : "integer"
-          },
-          "typeInfo" : {
-            "$ref" : "ResultSet"
           },
           "userName" : {
             "type" : "string"
           },
           "driverName" : {
             "type" : "string"
-          },
-          "url" : {
-            "type" : "string"
-          },
-          "connection" : {
-            "$ref" : "Connection"
-          },
-          "readOnly" : {
-            "type" : "boolean"
-          },
-          "maxConnections" : {
-            "type" : "integer"
           },
           "databaseProductName" : {
             "type" : "string"
@@ -545,17 +499,137 @@
           },
           "clientInfoProperties" : {
             "$ref" : "ResultSet"
+          },
+          "typeInfo" : {
+            "$ref" : "ResultSet"
+          },
+          "url" : {
+            "type" : "string"
+          },
+          "connection" : {
+            "$ref" : "Connection"
+          },
+          "readOnly" : {
+            "type" : "boolean"
+          },
+          "resultSetHoldability" : {
+            "type" : "integer"
           }
         }
       },
-      "RowIdLifetime" : {
-        "id" : "RowIdLifetime",
-        "type" : "string",
-        "enum" : [ "ROWID_UNSUPPORTED", "ROWID_VALID_OTHER", "ROWID_VALID_SESSION", "ROWID_VALID_TRANSACTION", "ROWID_VALID_FOREVER" ]
+      "ResultSet" : {
+        "id" : "ResultSet",
+        "type" : "object",
+        "properties" : {
+          "statement" : {
+            "$ref" : "Statement"
+          },
+          "type" : {
+            "type" : "integer"
+          },
+          "metaData" : {
+            "$ref" : "ResultSetMetaData"
+          },
+          "fetchDirection" : {
+            "type" : "integer"
+          },
+          "fetchSize" : {
+            "type" : "integer"
+          },
+          "holdability" : {
+            "type" : "integer"
+          },
+          "cursorName" : {
+            "type" : "string"
+          },
+          "beforeFirst" : {
+            "type" : "boolean"
+          },
+          "afterLast" : {
+            "type" : "boolean"
+          },
+          "last" : {
+            "type" : "boolean"
+          },
+          "concurrency" : {
+            "type" : "integer"
+          },
+          "closed" : {
+            "type" : "boolean"
+          },
+          "warnings" : {
+            "$ref" : "SQLWarning"
+          },
+          "first" : {
+            "type" : "boolean"
+          },
+          "row" : {
+            "type" : "integer"
+          }
+        }
       },
-      "JsonMap" : {
-        "id" : "JsonMap",
-        "type" : "object"
+      "Statement" : {
+        "id" : "Statement",
+        "type" : "object",
+        "properties" : {
+          "connection" : {
+            "$ref" : "Connection"
+          },
+          "maxFieldSize" : {
+            "type" : "integer"
+          },
+          "maxRows" : {
+            "type" : "integer"
+          },
+          "escapeProcessing" : {
+            "type" : "boolean"
+          },
+          "queryTimeout" : {
+            "type" : "integer"
+          },
+          "cursorName" : {
+            "type" : "string"
+          },
+          "resultSet" : {
+            "$ref" : "ResultSet"
+          },
+          "updateCount" : {
+            "type" : "integer"
+          },
+          "moreResults" : {
+            "type" : "boolean"
+          },
+          "fetchDirection" : {
+            "type" : "integer"
+          },
+          "fetchSize" : {
+            "type" : "integer"
+          },
+          "resultSetConcurrency" : {
+            "type" : "integer"
+          },
+          "resultSetType" : {
+            "type" : "integer"
+          },
+          "resultSetHoldability" : {
+            "type" : "integer"
+          },
+          "poolable" : {
+            "type" : "boolean"
+          },
+          "closeOnCompletion" : {
+            "type" : "boolean"
+          },
+          "closed" : {
+            "type" : "boolean"
+          },
+          "warnings" : {
+            "$ref" : "SQLWarning"
+          },
+          "generatedKeys" : {
+            "$ref" : "ResultSet"
+          }
+        }
       },
       "SQLWarning" : {
         "id" : "SQLWarning",
@@ -680,31 +754,26 @@
           }
         }
       },
-      "Seller" : {
-        "id" : "Seller",
+      "RowIdLifetime" : {
+        "id" : "RowIdLifetime",
+        "type" : "string",
+        "enum" : [ "ROWID_UNSUPPORTED", "ROWID_VALID_OTHER", "ROWID_VALID_SESSION", "ROWID_VALID_TRANSACTION", "ROWID_VALID_FOREVER" ]
+      },
+      "JsonMap" : {
+        "id" : "JsonMap",
+        "type" : "object"
+      },
+      "Book" : {
+        "id" : "Book",
         "type" : "object",
         "properties" : {
-          "id" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "email" : {
+          "author" : {
             "type" : "string"
           },
-          "firstName" : {
-            "type" : "string"
-          },
-          "lastName" : {
+          "title" : {
             "type" : "string"
           },
           "isbn" : {
-            "type" : "string",
-            "format" : "int64"
-          },
-          "fLastName" : {
-            "type" : "string"
-          },
-          "fFirstName" : {
             "type" : "string"
           }
         }
@@ -739,21 +808,6 @@
           }
         }
       },
-      "Book" : {
-        "id" : "Book",
-        "type" : "object",
-        "properties" : {
-          "author" : {
-            "type" : "string"
-          },
-          "title" : {
-            "type" : "string"
-          },
-          "isbn" : {
-            "type" : "string"
-          }
-        }
-      },
       "BookCollection" : {
         "id" : "BookCollection",
         "type" : "object",
@@ -768,12 +822,22 @@
       }
     },
     "methods" : {
+      "com.book.system.spi.BookForSaleV1.insertSeller" : {
+        "response" : {
+          "$ref" : "Seller"
+        }
+      },
       "com.book.system.spi.BookForSaleV1.getSellerByID" : {
         "request" : {
           "$ref" : "PreparedStatement"
         },
         "response" : {
           "$ref" : "Seller"
+        }
+      },
+      "com.book.system.spi.BookForSaleV1.insertBook" : {
+        "response" : {
+          "$ref" : "Book"
         }
       },
       "com.book.system.spi.BookForSaleV1.list" : {

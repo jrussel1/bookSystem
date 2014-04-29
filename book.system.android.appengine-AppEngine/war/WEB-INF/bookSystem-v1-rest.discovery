@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"gWnWV7fYC80JM0beuSxOtzgfiS0/CtG0_PY2Y4AlejiV7GS1H-Fbr5w\"",
+ "etag": "\"ADiYQGKhdYR9rpbhIFHih-UBYRs/STgLYJP8iZ9mRI1RbZrOIrwl9YE\"",
  "discoveryVersion": "v1",
  "id": "bookSystem:v1",
  "name": "bookSystem",
@@ -641,10 +641,6 @@
      "type": "string",
      "format": "int64"
     },
-    "isbn": {
-     "type": "string",
-     "format": "int64"
-    },
     "lastName": {
      "type": "string"
     }
@@ -785,6 +781,43 @@
   }
  },
  "resources": {
+  "book": {
+   "methods": {
+    "insert": {
+     "id": "bookSystem.book.insert",
+     "path": "book/{isbn}/{title}/{author}",
+     "httpMethod": "POST",
+     "parameters": {
+      "author": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      },
+      "isbn": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      },
+      "title": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "isbn",
+      "title",
+      "author"
+     ],
+     "response": {
+      "$ref": "Book"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    }
+   }
+  },
   "bookforsale": {
    "methods": {
     "getAllBooksBySeller": {
@@ -887,6 +920,43 @@
      "httpMethod": "GET",
      "response": {
       "$ref": "SaleShelf"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    }
+   }
+  },
+  "seller": {
+   "methods": {
+    "insert": {
+     "id": "bookSystem.seller.insert",
+     "path": "seller/{email}/{first_name}/{last_name}",
+     "httpMethod": "POST",
+     "parameters": {
+      "email": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      },
+      "first_name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      },
+      "last_name": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "email",
+      "first_name",
+      "last_name"
+     ],
+     "response": {
+      "$ref": "Seller"
      },
      "scopes": [
       "https://www.googleapis.com/auth/userinfo.email"

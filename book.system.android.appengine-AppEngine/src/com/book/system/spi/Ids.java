@@ -19,8 +19,8 @@ package com.book.system.spi;
  * Contains the client IDs for allowed clients consuming the bookSystem API.
  */
 public class Ids {
-  public static final String WEB_CLIENT_ID = "615375088497-00o9ieitss4ikt6tgdaj6bki35e433iq.apps.googleusercontent.com";
-  public static final String ANDROID_CLIENT_ID = "615375088497-gi48ssb8p00rgv5t3vim1uel531a1370.apps.googleusercontent.com";
+  public static final String WEB_CLIENT_ID = "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com";
+  public static final String ANDROID_CLIENT_ID = "615375088497-k994khg6fncmb15ptakv6peiuj0ap26f.apps.googleusercontent.com";
   public static final String ANDROID_AUDIENCE = WEB_CLIENT_ID;
   public static final String EMAIL_SCOPE = "https://www.googleapis.com/auth/userinfo.email";
   public static final String API_EXPLORER_CLIENT_ID = com.google.api.server.spi.Constant.API_EXPLORER_CLIENT_ID;

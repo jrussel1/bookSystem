@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"gWnWV7fYC80JM0beuSxOtzgfiS0/CtG0_PY2Y4AlejiV7GS1H-Fbr5w\"",
+ "etag": "\"ADiYQGKhdYR9rpbhIFHih-UBYRs/STgLYJP8iZ9mRI1RbZrOIrwl9YE\"",
  "discoveryVersion": "v1",
  "id": "bookSystem:v1",
  "name": "bookSystem",
@@ -639,10 +639,6 @@
      "type": "string",
      "format": "int64"
     },
-    "isbn": {
-     "type": "string",
-     "format": "int64"
-    },
     "lastName": {
      "type": "string"
     }
@@ -783,6 +779,34 @@
   }
  },
  "methods": {
+  "bookSystem.book.insert": {
+   "id": "bookSystem.book.insert",
+   "parameters": {
+    "author": {
+     "type": "string",
+     "required": true
+    },
+    "isbn": {
+     "type": "string",
+     "required": true
+    },
+    "title": {
+     "type": "string",
+     "required": true
+    }
+   },
+   "parameterOrder": [
+    "isbn",
+    "title",
+    "author"
+   ],
+   "returns": {
+    "$ref": "Book"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
   "bookSystem.bookforsale.getAllBooksBySeller": {
    "id": "bookSystem.bookforsale.getAllBooksBySeller",
    "allowGet": true,
@@ -874,6 +898,34 @@
    "allowGet": true,
    "returns": {
     "$ref": "SaleShelf"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "bookSystem.seller.insert": {
+   "id": "bookSystem.seller.insert",
+   "parameters": {
+    "email": {
+     "type": "string",
+     "required": true
+    },
+    "first_name": {
+     "type": "string",
+     "required": true
+    },
+    "last_name": {
+     "type": "string",
+     "required": true
+    }
+   },
+   "parameterOrder": [
+    "email",
+    "first_name",
+    "last_name"
+   ],
+   "returns": {
+    "$ref": "Seller"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
