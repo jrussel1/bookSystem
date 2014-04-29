@@ -48,8 +48,8 @@ public class BookListActivity extends ListActivity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(BookListActivity.this, MyProfileActivity.class);
-				startActivity(intent);
+//				Intent intent = new Intent(BookListActivity.this, MyProfileActivity.class);
+//				startActivity(intent);
 				
 			}
 		});

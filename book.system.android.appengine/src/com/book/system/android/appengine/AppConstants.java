@@ -28,7 +28,7 @@ public class AppConstants {
    *
    * @see <a href="https://developers.google.com/console">https://developers.google.com/console</a>
    */
-  public static final String WEB_CLIENT_ID = "615375088497-00o9ieitss4ikt6tgdaj6bki35e433iq.apps.googleusercontent.com";
+  public static final String WEB_CLIENT_ID = "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com";
 
   /**
    * The audience is defined by the web client id, not the Android client id.
@@ -61,11 +61,11 @@ public class AppConstants {
   /**
    * Retrieve a BookSystem api service handle to access the API.
    */
-  public static BookSystem getApiServiceHandle(@Nullable GoogleAccountCredential credential) {
+  public static BookSystem getApiServiceHandle(GoogleAccountCredential credential) {
     // Use a builder to help formulate the API request.
 	  BookSystem.Builder bookSystem = new BookSystem.Builder(AppConstants.HTTP_TRANSPORT,
         AppConstants.JSON_FACTORY, credential);
-
+	  bookSystem.setApplicationName("Book System");
 	  if (CloudEndpointUtils.LOCAL_ANDROID_RUN) {
 	      bookSystem.setRootUrl(CloudEndpointUtils.LOCAL_APP_ENGINE_SERVER_URL_FOR_ANDROID
 	          + "/_ah/api/");
