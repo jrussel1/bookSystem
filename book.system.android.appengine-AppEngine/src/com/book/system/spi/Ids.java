@@ -20,7 +20,7 @@ package com.book.system.spi;
  */
 public class Ids {
   public static final String WEB_CLIENT_ID = "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com";
-  public static final String ANDROID_CLIENT_ID = "615375088497-k994khg6fncmb15ptakv6peiuj0ap26f.apps.googleusercontent.com";
+  public static final String ANDROID_CLIENT_ID = "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com";
   public static final String ANDROID_AUDIENCE = WEB_CLIENT_ID;
   public static final String EMAIL_SCOPE = "https://www.googleapis.com/auth/userinfo.email";
   public static final String API_EXPLORER_CLIENT_ID = com.google.api.server.spi.Constant.API_EXPLORER_CLIENT_ID;

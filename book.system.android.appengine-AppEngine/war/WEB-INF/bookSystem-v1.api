@@ -27,10 +27,10 @@
     "bookSystem.seller.insert" : {
       "path" : "seller/{email}/{first_name}/{last_name}",
       "httpMethod" : "post",
-      "authLevel" : "OPTIONAL",
+      "authLevel" : "REQUIRED",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
-      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-k994khg6fncmb15ptakv6peiuj0ap26f.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
       "rosyMethod" : "com.book.system.spi.BookForSaleV1.insertSeller",
       "request" : {
         "parameters" : {
@@ -56,10 +56,10 @@
     "bookSystem.bookforsale.getSellerByID" : {
       "path" : "seller/{personId}",
       "httpMethod" : "GET",
-      "authLevel" : "OPTIONAL",
+      "authLevel" : "REQUIRED",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
-      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-k994khg6fncmb15ptakv6peiuj0ap26f.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
       "rosyMethod" : "com.book.system.spi.BookForSaleV1.getSellerByID",
       "request" : {
         "parameters" : {
@@ -77,10 +77,10 @@
     "bookSystem.book.insert" : {
       "path" : "book/{isbn}/{title}/{author}",
       "httpMethod" : "post",
-      "authLevel" : "OPTIONAL",
+      "authLevel" : "REQUIRED",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
-      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-k994khg6fncmb15ptakv6peiuj0ap26f.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
       "rosyMethod" : "com.book.system.spi.BookForSaleV1.insertBook",
       "request" : {
         "parameters" : {
@@ -106,10 +106,10 @@
     "bookSystem.bookforsale.list" : {
       "path" : "list",
       "httpMethod" : "GET",
-      "authLevel" : "OPTIONAL",
+      "authLevel" : "REQUIRED",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
-      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-k994khg6fncmb15ptakv6peiuj0ap26f.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
       "rosyMethod" : "com.book.system.spi.BookForSaleV1.list",
       "request" : {
         "body" : "empty"
@@ -121,10 +121,10 @@
     "bookSystem.bookforsale.getAllSellersOfBook" : {
       "path" : "sellercollection/{ISBN}",
       "httpMethod" : "GET",
-      "authLevel" : "OPTIONAL",
+      "authLevel" : "REQUIRED",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
-      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-k994khg6fncmb15ptakv6peiuj0ap26f.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
       "rosyMethod" : "com.book.system.spi.BookForSaleV1.getAllSellersOfBook",
       "request" : {
         "parameters" : {
@@ -142,10 +142,10 @@
     "bookSystem.bookforsale.getBookByISBN" : {
       "path" : "book/{ISBN}",
       "httpMethod" : "GET",
-      "authLevel" : "OPTIONAL",
+      "authLevel" : "REQUIRED",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
-      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-k994khg6fncmb15ptakv6peiuj0ap26f.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
       "rosyMethod" : "com.book.system.spi.BookForSaleV1.getBookByISBN",
       "request" : {
         "parameters" : {
@@ -163,10 +163,10 @@
     "bookSystem.bookforsale.getAllBooksBySeller" : {
       "path" : "bookcollection/{personId}",
       "httpMethod" : "GET",
-      "authLevel" : "OPTIONAL",
+      "authLevel" : "REQUIRED",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
-      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-k994khg6fncmb15ptakv6peiuj0ap26f.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
       "rosyMethod" : "com.book.system.spi.BookForSaleV1.getAllBooksBySeller",
       "request" : {
         "parameters" : {

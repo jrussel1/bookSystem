@@ -23,7 +23,7 @@ public class DBConnection {
 			} else {
 				// Local MySQL instance to use during development.
 				Class.forName("com.mysql.jdbc.Driver");
-				url = "jdbc:mysql://173.194.81.34:3306/book-system?user=root";
+				url = "jdbc:mysql://173.194.81.34:3306/book-system?user=root"; //This might need password...
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

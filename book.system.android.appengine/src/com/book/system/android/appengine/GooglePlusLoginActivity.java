@@ -94,8 +94,8 @@ public class GooglePlusLoginActivity extends Activity implements ConnectionCallb
 	public void onConnected(Bundle connectionHint) {
 		mSignInClicked = false;
 		Toast.makeText(this, "User is connected!", Toast.LENGTH_LONG).show();
-//		Intent intent = new Intent(GooglePlusLoginActivity.this, BookListActivity.class);
-//		startActivity(intent);
+		Intent intent = new Intent(GooglePlusLoginActivity.this, BookListActivity.class);
+		startActivity(intent);
 	}
 
 	/* A helper method to resolve the current ConnectionResult error. */
