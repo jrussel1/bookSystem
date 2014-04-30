@@ -324,7 +324,6 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 						GooglePlusLoginActivity.this, AppConstants.AUDIENCE);
 				Log.d(LOG_TAG,credential.getScope());
 				credential.setSelectedAccountName(mEmailAccount);
-//				Log.d(LOG_TAG,credential.getScope());
 
 				// Retrieve service handle using credential since this is an authenticated call.
 				BookSystem apiServiceHandle = AppConstants.getApiServiceHandle(credential);
