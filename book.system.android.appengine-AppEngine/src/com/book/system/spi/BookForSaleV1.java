@@ -24,6 +24,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.inject.Named;
 
@@ -31,12 +33,14 @@ import com.book.system.model.Book;
 import com.book.system.model.BookForSale;
 import com.book.system.model.SaleShelf;
 import com.book.system.model.Seller;
+import com.google.api.server.spi.SystemService;
+import com.google.api.server.spi.SystemServiceServlet;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.AuthLevel;
+import com.google.appengine.api.backends.BackendService;
 import com.google.appengine.api.oauth.OAuthRequestException;
 import com.google.appengine.api.users.User;
-import com.google.appengine.api.utils.SystemProperty;
 
 /**
  * Defines v1 of a BookForSale resource as part of the bookSystem API, which provides
@@ -52,19 +56,30 @@ import com.google.appengine.api.utils.SystemProperty;
 public class BookForSaleV1 {
 
 	private static final String DEFAULT_LIMIT = "10";
-	private static Connection conn;
-	@ApiMethod(name = "bookforsale.list", authLevel=AuthLevel.OPTIONAL)
-	public SaleShelf list(User user) throws OAuthRequestException,
-	IOException {
+	private static Connection conn = null;
+    private static final Logger log = Logger.getLogger(SystemServiceServlet.class.getName());
+
+	@ApiMethod(name = "bookforsale.list", authLevel=AuthLevel.REQUIRED)
+	public SaleShelf list(User user) throws OAuthRequestException, IOException {
 		SaleShelf booksForSale = new SaleShelf();
 		try{
-			if(conn==null)
-				conn = createConnection();
+			if(conn==null){
+				log.setLevel(Level.WARNING);
+				log.warning("Creating connection...");
+				conn = DBConnection.createConnection();
+			}else{
+				log.setLevel(Level.WARNING);
+				boolean valid = conn.isValid(10);
+				log.warning("isValid():"+String.valueOf(valid));
+			}
 			PreparedStatement stmt = null;
 			PreparedStatement getPersonStmt = null;
 			PreparedStatement getBookStmt = null;
 			ResultSet resultSet = null;
 			try {
+				log.setLevel(Level.WARNING);
+				log.warning(conn.getMetaData().getURL());
+				
 				String statement = "SELECT * FROM Book_For_Sale";
 				stmt = conn.prepareStatement(statement);
 
@@ -81,10 +96,10 @@ public class BookForSaleV1 {
 
 				while (resultSet.next()) {
 					String ISBN = resultSet.getString("ISBN");
-					book = getBookByISBN(ISBN);
+					book = getBookByISBNWithoutClosing(ISBN);
 
 					Long personId = resultSet.getLong("Person_ID");
-					seller = getSellerByID(personId);
+					seller = getSellerByIDWithoutClosing(personId);
 
 					bfs = new BookForSale(book,seller);
 					booksForSale.addToShelf(bfs);
@@ -116,40 +131,22 @@ public class BookForSaleV1 {
 		return booksForSale;
 	}
 
-	private Connection createConnection(){
-		String url = null;
-		try {
-			if (SystemProperty.environment.value() ==
-					SystemProperty.Environment.Value.Production) {
-				//				// Load the class that provides the new "jdbc:google:mysql://" prefix.
-				Class.forName("com.mysql.jdbc.GoogleDriver");
-				url = "jdbc:google:mysql://mac-books:books/book-system?user=root&password=karma4YOU";
-			} else {
-				// Local MySQL instance to use during development.
-				Class.forName("com.mysql.jdbc.Driver");
-				url = "jdbc:mysql://173.194.81.34:3306/book-system?user=root&password=karma4YOU";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-		try {
-			Connection conn = DriverManager.getConnection(url);
-			return conn;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
-	@ApiMethod(name = "bookforsale.getBookByISBN", authLevel=AuthLevel.OPTIONAL)
+	@ApiMethod(name = "bookforsale.getBookByISBN", authLevel=AuthLevel.REQUIRED)
 	public Book getBookByISBN(@Named("ISBN") String ISBN){
-		if(conn==null)
-			conn = createConnection();
+
 		ResultSet resultSetBook = null;
 		PreparedStatement getBookStmt = null;
 		Book book = null;
 		try{
+			if(conn==null){
+				log.setLevel(Level.WARNING);
+				log.warning("Creating connection...");
+				conn = DBConnection.createConnection();
+			}else{
+				log.setLevel(Level.WARNING);
+				boolean valid = conn.isValid(10);
+				log.warning("isValid():"+String.valueOf(valid));
+			}
 			String getBook = "SELECT * FROM Book WHERE ISBN=?";
 			getBookStmt = conn.prepareStatement(getBook);
 			getBookStmt.setString(1, ISBN);
@@ -184,15 +181,55 @@ public class BookForSaleV1 {
 
 		return book;
 	}
+	private Book getBookByISBNWithoutClosing(String ISBN){
 
-	@ApiMethod(name = "bookforsale.getSellerByID", authLevel=AuthLevel.OPTIONAL)
+		ResultSet resultSetBook = null;
+		PreparedStatement getBookStmt = null;
+		Book book = null;
+		try{
+			String getBook = "SELECT * FROM Book WHERE ISBN=?";
+			getBookStmt = conn.prepareStatement(getBook);
+			getBookStmt.setString(1, ISBN);
+			resultSetBook = getBookStmt.executeQuery();
+			resultSetBook.next();
+			book = new Book(ISBN, resultSetBook.getString("Author"), resultSetBook.getString("Title"));
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally{
+			if(resultSetBook!=null)
+				try {
+					resultSetBook.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			if(getBookStmt!=null)
+				try {
+					getBookStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+
+		return book;
+	}
+	@ApiMethod(name = "bookforsale.getSellerByID", authLevel=AuthLevel.REQUIRED)
 	public Seller getSellerByID(@Named("personId") Long personId){
-		if(conn==null)
-			conn = createConnection();
 		ResultSet resultSetPerson = null;
 		Seller seller = null;
 		PreparedStatement getPersonStmt = null;
 		try{
+			if(conn==null){
+				log.setLevel(Level.WARNING);
+				log.warning("Creating connection...");
+				conn = DBConnection.createConnection();
+			}else{
+				log.setLevel(Level.WARNING);
+				boolean valid = conn.isValid(10);
+				log.warning("isValid():"+String.valueOf(valid));
+			}
 			String getPerson = "SELECT * FROM Person WHERE Person_ID=?";
 			getPersonStmt = conn.prepareStatement(getPerson);
 			getPersonStmt.setLong(1, personId);
@@ -229,11 +266,45 @@ public class BookForSaleV1 {
 		}
 		return seller;
 	}
+	private Seller getSellerByIDWithoutClosing(Long personId){
+		ResultSet resultSetPerson = null;
+		Seller seller = null;
+		PreparedStatement getPersonStmt = null;
+		try{
+		
+			String getPerson = "SELECT * FROM Person WHERE Person_ID=?";
+			getPersonStmt = conn.prepareStatement(getPerson);
+			getPersonStmt.setLong(1, personId);
+			resultSetPerson = getPersonStmt.executeQuery();
+			resultSetPerson.next();
+
+			String firstName = resultSetPerson.getString("First_Name");
+			String lastName = resultSetPerson.getString("Last_Name");
+			String email = resultSetPerson.getString("Email");
+
+			seller = new Seller( personId.intValue(), email, firstName, lastName);
+		}catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}finally{
+			if(resultSetPerson!=null)
+				try {
+					resultSetPerson.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			if(getPersonStmt!=null)
+				try {
+					getPersonStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		return seller;
+	}
 	//TODO: Combine the middle portions of the next two methods
-	@ApiMethod(name = "bookforsale.getAllBooksBySeller", authLevel=AuthLevel.OPTIONAL)
+	@ApiMethod(name = "bookforsale.getAllBooksBySeller", authLevel=AuthLevel.REQUIRED)
 	public List<Book> getAllBooksBySeller(@Named("personId") Long personId){
-		if(conn==null)
-			conn = createConnection();
 		String getBooksQry ="SELECT Book.* "
 				+ "FROM `book-system`.Book_For_Sale JOIN `book-system`.Book "
 				+ "WHERE Book_For_Sale.ISBN = Book.ISBN AND Book_For_Sale.Person_ID=?";
@@ -242,6 +313,15 @@ public class BookForSaleV1 {
 		Book book = null;
 		List<Book> bookList = new ArrayList<Book>();
 		try{
+			if(conn==null){
+				log.setLevel(Level.WARNING);
+				log.warning("Creating connection...");
+				conn = DBConnection.createConnection();
+			}else{
+				log.setLevel(Level.WARNING);
+				boolean valid = conn.isValid(10);
+				log.warning("isValid():"+String.valueOf(valid));
+			}
 			stmt = conn.prepareStatement(getBooksQry);
 			stmt.setLong(1, personId);
 			resultSetBooks = stmt.executeQuery();
@@ -270,10 +350,8 @@ public class BookForSaleV1 {
 
 		return bookList;
 	}
-	@ApiMethod(name = "bookforsale.getAllSellersOfBook", authLevel=AuthLevel.OPTIONAL)
+	@ApiMethod(name = "bookforsale.getAllSellersOfBook", authLevel=AuthLevel.REQUIRED)
 	public List<Seller> getAllSellersOfBook(@Named("ISBN") String ISBN){
-		if(conn==null)
-			conn = createConnection();
 		String getBooksQry ="SELECT Person.* "
 				+ "FROM `book-system`.Book_For_Sale JOIN `book-system`.Person "
 				+ "WHERE Book_For_Sale.Person_ID = Person.Person_ID AND Book_For_Sale.ISBN=?";
@@ -282,6 +360,15 @@ public class BookForSaleV1 {
 		Seller seller = null;
 		List<Seller> sellerList = new ArrayList<Seller>();
 		try{
+			if(conn==null){
+				log.setLevel(Level.WARNING);
+				log.warning("Creating connection...");
+				conn = DBConnection.createConnection();
+			}else{
+				log.setLevel(Level.WARNING);
+				boolean valid = conn.isValid(10);
+				log.warning("isValid():"+String.valueOf(valid));
+			}
 			stmt = conn.prepareStatement(getBooksQry);
 			stmt.setString(1, ISBN);
 			resultSetPerson = stmt.executeQuery();
@@ -315,7 +402,7 @@ public class BookForSaleV1 {
 
 		return sellerList;
 	}
-	@ApiMethod(name = "book.insert", httpMethod = "post", authLevel=AuthLevel.OPTIONAL)
+	@ApiMethod(name = "book.insert", httpMethod = "post", authLevel=AuthLevel.REQUIRED)
 	public Book insertBook(@Named("isbn") String isbn, @Named("title") String title, @Named("author") String author) {
 
 		Book response = new Book(isbn);
@@ -329,11 +416,19 @@ public class BookForSaleV1 {
 		}else {
 			author="Unknown";
 		}
-		if(conn==null)
-			conn = createConnection();
+		
 		String insertBookQry ="INSERT IGNORE INTO `book-system`.`Book` (`ISBN`, `Title`, `Author`) VALUES (?,?,?)";
 		PreparedStatement stmt = null;
 		try{
+			if(conn==null){
+				log.setLevel(Level.WARNING);
+				log.warning("Creating connection...");
+				conn = DBConnection.createConnection();
+			}else{
+				log.setLevel(Level.WARNING);
+				boolean valid = conn.isValid(10);
+				log.warning("isValid():"+String.valueOf(valid));
+			}
 			stmt = conn.prepareStatement(insertBookQry);
 			stmt.setString(1, isbn);
 			stmt.setString(2, title);
@@ -357,7 +452,7 @@ public class BookForSaleV1 {
 
 		return response;
 	}
-	@ApiMethod(name = "seller.insert", httpMethod = "post", authLevel=AuthLevel.OPTIONAL)
+	@ApiMethod(name = "seller.insert", httpMethod = "post", authLevel=AuthLevel.REQUIRED)
 	public Seller insertSeller(@Named("email") String email, @Named("first_name") String first_name, @Named("last_name") String last_name) {
 		Seller response = new Seller(email);
 		if(!first_name.isEmpty()){
@@ -370,12 +465,20 @@ public class BookForSaleV1 {
 		}else {
 			last_name="Unknown";
 		}
-		if(conn==null)
-			conn = createConnection();
+		
 		String insertPersonQry ="INSERT IGNORE INTO `book-system`.`Person` (`Email`, `First_Name`, `Last_Name`) VALUES (?,?,?)";
 		PreparedStatement stmt = null;
 		ResultSet resultSetPerson = null;
 		try{
+			if(conn==null){
+				log.setLevel(Level.WARNING);
+				log.warning("Creating connection...");
+				conn = DBConnection.createConnection();
+			}else{
+				log.setLevel(Level.WARNING);
+				boolean valid = conn.isValid(10);
+				log.warning("isValid():"+String.valueOf(valid));
+			}
 			stmt = conn.prepareStatement(insertPersonQry,PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, email);
 			stmt.setString(2, first_name);
