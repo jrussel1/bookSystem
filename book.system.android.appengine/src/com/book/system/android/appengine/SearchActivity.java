@@ -66,7 +66,7 @@ public class SearchActivity extends ListActivity {
 		bookNames.add(bookForSale7);
 		
 		for (BookForSale b: bookNames){
-			if ((b.getBook().getISBN().equals(query))) {
+			if ((b.getBook().getISBN().equalsIgnoreCase(query))) {
 				bookNames2.add(b);
 			}
 		}

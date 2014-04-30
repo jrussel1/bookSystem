@@ -128,7 +128,6 @@ public class BookListActivity extends ListActivity {
 		setListAdapter(adapter);
 
 
-
 	}
 
 
