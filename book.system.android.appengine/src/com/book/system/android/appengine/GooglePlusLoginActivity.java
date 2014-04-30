@@ -1,46 +1,30 @@
 package com.book.system.android.appengine;
 
+import java.io.IOException;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
-import android.content.IntentSender.SendIntentException;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.google.android.gms.plus.Plus;
+import com.appspot.mac_books.bookSystem.BookSystem;
+import com.appspot.mac_books.bookSystem.model.SaleShelf;
+import com.google.api.client.extensions.android.http.AndroidHttp;
+import com.google.api.client.json.gson.GsonFactory;
 
-public class GooglePlusLoginActivity extends Activity implements ConnectionCallbacks, OnConnectionFailedListener, OnClickListener {
-	/* Request code used to invoke sign in user interactions. */
-	private static final int RC_SIGN_IN = 0;
+public class GooglePlusLoginActivity extends Activity implements OnClickListener {
 
-	/* Client used to interact with Google APIs. */
-	private GoogleApiClient mGoogleApiClient;
 
-	/* A flag indicating that a PendingIntent is in progress and prevents
-	 * us from starting further intents.
-	 */
-	private boolean mIntentInProgress;
-
-	/* Track whether the sign-in button has been clicked so that we know to resolve
-	 * all issues preventing sign-in without waiting.
-	 */
-	private boolean mSignInClicked;
-
-	/* Store the connection result from onConnectionFailed callbacks so that we can
-	 * resolve them when the user clicks sign-in.
-	 */
-	private ConnectionResult mConnectionResult;
-
+	private BookSystem service = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,12 +32,10 @@ public class GooglePlusLoginActivity extends Activity implements ConnectionCallb
 		setContentView(R.layout.activity_google_plus_login);
 		findViewById(R.id.sign_in_button).setOnClickListener(this);
 
-		mGoogleApiClient = new GoogleApiClient.Builder(this)
-		.addConnectionCallbacks(this)
-		.addOnConnectionFailedListener(this)
-		.addApi(Plus.API, null)
-		.addScope(Plus.SCOPE_PLUS_LOGIN)
-		.build();
+		
+		BookSystem.Builder builder = new BookSystem.Builder(
+				  AndroidHttp.newCompatibleTransport(), new GsonFactory(), null);
+		service = builder.build();
 
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
@@ -61,80 +43,49 @@ public class GooglePlusLoginActivity extends Activity implements ConnectionCallb
 		}
 	}
 
-	public void onConnectionSuspended(int cause) {
-		mGoogleApiClient.connect();
-	}
-
-	protected void onStart() {
-		super.onStart();
-		mGoogleApiClient.connect();
-	}
-
-	protected void onStop() {
-		super.onStop();
-		if (mGoogleApiClient.isConnected()) {
-			mGoogleApiClient.disconnect();
-		}
-	}
-
-	protected void onActivityResult(int requestCode, int responseCode, Intent intent) {
-		if (requestCode == RC_SIGN_IN) {
-			if (responseCode != RESULT_OK) {
-				mSignInClicked = false;
-			}
-
-			mIntentInProgress = false;
-
-			if (!mGoogleApiClient.isConnecting()) {
-				mGoogleApiClient.connect();
-			}
-		}
-	}
-	@Override
-	public void onConnected(Bundle connectionHint) {
-		mSignInClicked = false;
-		Toast.makeText(this, "User is connected!", Toast.LENGTH_LONG).show();
-		Intent intent = new Intent(GooglePlusLoginActivity.this, BookListActivity.class);
-		startActivity(intent);
-	}
-
-	/* A helper method to resolve the current ConnectionResult error. */
-	private void resolveSignInErrors() {
-		if (mConnectionResult.hasResolution()) {
-			try {
-				mIntentInProgress = true;
-				mConnectionResult.startResolutionForResult(this, RC_SIGN_IN);
-
-			} catch (SendIntentException e) {
-				// The intent was canceled before it was sent.  Return to the default
-				// state and attempt to connect to get an updated ConnectionResult.
-				mIntentInProgress = false;
-				mGoogleApiClient.connect();
-			}
-		}
-	}
-
-	public void onConnectionFailed(ConnectionResult result) {
-		if (!mIntentInProgress) {
-			// Store the ConnectionResult so that we can use it later when the user clicks
-			// 'sign-in'.
-			mConnectionResult = result;
-
-			if (mSignInClicked) {
-				// The user has already clicked 'sign-in' so we attempt to resolve all
-				// errors until the user is signed in, or they cancel.
-				resolveSignInErrors();
-			}
-		}
-	}
-
+	
 	@Override
 	public void onClick(View view) {
-		if (view.getId() == R.id.sign_in_button
-				&& !mGoogleApiClient.isConnecting()) {
-			mSignInClicked = true;
-			resolveSignInErrors();
-		}
+//		if (view.getId() == R.id.sign_in_button
+//				&& !mGoogleApiClient.isConnecting()) {
+//			mSignInClicked = true;
+//			resolveSignInErrors();
+//		}
+		
+		AsyncTask<Integer, Void, SaleShelf> getShelf =
+	            new AsyncTask<Integer, Void, SaleShelf> () {
+	                @Override
+	                protected SaleShelf doInBackground(Integer... integers) {
+	                    // Retrieve service handle.
+
+	                    try {
+	                        BookSystem.Bookforsale.List getListCommand = service.bookforsale().list();
+	                        SaleShelf shelf = getListCommand.execute();
+	                        return shelf;
+	                    } catch (IOException e) {
+	                        Log.e("BookSystem call", "Exception during API call", e);
+	                    }
+	                    return null;
+	                }
+
+	                @Override
+	                protected void onPostExecute(SaleShelf shelf) {
+	                    if (shelf!=null) {
+	                        try {
+								Log.d("SaleShelf", shelf.toPrettyString());
+								Intent intent = new Intent(GooglePlusLoginActivity.this,BookListActivity.class);
+								startActivity(intent);
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+	                    } else {
+	                        Log.e("SaleShelf error", "No shelf were returned by the API.");
+	                    }
+	                }
+	            };
+
+	            getShelf.execute();
 	}
 
 	@Override
@@ -171,6 +122,6 @@ public class GooglePlusLoginActivity extends Activity implements ConnectionCallb
 		}
 	}
 
-
+	
 
 }

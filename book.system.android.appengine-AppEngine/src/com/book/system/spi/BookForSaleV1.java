@@ -59,7 +59,7 @@ public class BookForSaleV1 {
 	private static Connection conn = null;
     private static final Logger log = Logger.getLogger(SystemServiceServlet.class.getName());
 
-	@ApiMethod(name = "bookforsale.list", authLevel=AuthLevel.REQUIRED)
+	@ApiMethod(name = "bookforsale.list", authLevel=AuthLevel.OPTIONAL_CONTINUE)
 	public SaleShelf list(User user) throws OAuthRequestException, IOException {
 		SaleShelf booksForSale = new SaleShelf();
 		try{
@@ -131,7 +131,7 @@ public class BookForSaleV1 {
 		return booksForSale;
 	}
 
-	@ApiMethod(name = "bookforsale.getBookByISBN", authLevel=AuthLevel.REQUIRED)
+	@ApiMethod(name = "bookforsale.getBookByISBN", authLevel=AuthLevel.OPTIONAL_CONTINUE)
 	public Book getBookByISBN(@Named("ISBN") String ISBN){
 
 		ResultSet resultSetBook = null;
@@ -215,7 +215,7 @@ public class BookForSaleV1 {
 
 		return book;
 	}
-	@ApiMethod(name = "bookforsale.getSellerByID", authLevel=AuthLevel.REQUIRED)
+	@ApiMethod(name = "bookforsale.getSellerByID", authLevel=AuthLevel.OPTIONAL_CONTINUE)
 	public Seller getSellerByID(@Named("personId") Long personId){
 		ResultSet resultSetPerson = null;
 		Seller seller = null;
@@ -303,7 +303,7 @@ public class BookForSaleV1 {
 		return seller;
 	}
 	//TODO: Combine the middle portions of the next two methods
-	@ApiMethod(name = "bookforsale.getAllBooksBySeller", authLevel=AuthLevel.REQUIRED)
+	@ApiMethod(name = "bookforsale.getAllBooksBySeller", authLevel=AuthLevel.OPTIONAL_CONTINUE)
 	public List<Book> getAllBooksBySeller(@Named("personId") Long personId){
 		String getBooksQry ="SELECT Book.* "
 				+ "FROM `book-system`.Book_For_Sale JOIN `book-system`.Book "
@@ -350,7 +350,7 @@ public class BookForSaleV1 {
 
 		return bookList;
 	}
-	@ApiMethod(name = "bookforsale.getAllSellersOfBook", authLevel=AuthLevel.REQUIRED)
+	@ApiMethod(name = "bookforsale.getAllSellersOfBook", authLevel=AuthLevel.OPTIONAL_CONTINUE)
 	public List<Seller> getAllSellersOfBook(@Named("ISBN") String ISBN){
 		String getBooksQry ="SELECT Person.* "
 				+ "FROM `book-system`.Book_For_Sale JOIN `book-system`.Person "
@@ -402,7 +402,7 @@ public class BookForSaleV1 {
 
 		return sellerList;
 	}
-	@ApiMethod(name = "book.insert", httpMethod = "post", authLevel=AuthLevel.REQUIRED)
+	@ApiMethod(name = "book.insert", httpMethod = "post", authLevel=AuthLevel.OPTIONAL_CONTINUE)
 	public Book insertBook(@Named("isbn") String isbn, @Named("title") String title, @Named("author") String author) {
 
 		Book response = new Book(isbn);
@@ -452,7 +452,7 @@ public class BookForSaleV1 {
 
 		return response;
 	}
-	@ApiMethod(name = "seller.insert", httpMethod = "post", authLevel=AuthLevel.REQUIRED)
+	@ApiMethod(name = "seller.insert", httpMethod = "post", authLevel=AuthLevel.OPTIONAL_CONTINUE)
 	public Seller insertSeller(@Named("email") String email, @Named("first_name") String first_name, @Named("last_name") String last_name) {
 		Seller response = new Seller(email);
 		if(!first_name.isEmpty()){
