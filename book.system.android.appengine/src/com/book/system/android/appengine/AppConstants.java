@@ -76,7 +76,7 @@ public class AppConstants {
 			bookSystem.setRootUrl(CloudEndpointUtils.LOCAL_APP_ENGINE_SERVER_URL_FOR_ANDROID
 					+ "/_ah/api/");
 		}
-
+		bookSystem.setApplicationName("Mac Books");
 		return bookSystem.build();
 	}
 
