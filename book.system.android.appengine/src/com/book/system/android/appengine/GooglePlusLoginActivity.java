@@ -33,9 +33,7 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 		findViewById(R.id.sign_in_button).setOnClickListener(this);
 
 		
-		BookSystem.Builder builder = new BookSystem.Builder(
-				  AndroidHttp.newCompatibleTransport(), new GsonFactory(), null);
-		service = builder.build();
+		service = AppConstants.getApiServiceHandle(null);
 
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
