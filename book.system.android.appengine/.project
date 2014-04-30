@@ -30,4 +30,16 @@
 		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>res/drawable-hdpi/plus_button.png</name>
+			<type>1</type>
+			<location>C:/Users/Phillip/Pictures/Software Images/plus_button.png</location>
+		</link>
+		<link>
+			<name>res/drawable-hdpi/search_icon.png</name>
+			<type>1</type>
+			<location>C:/Users/Phillip/Pictures/Software Images/Search_Button_2-512.png</location>
+		</link>
+	</linkedResources>
 </projectDescription>
