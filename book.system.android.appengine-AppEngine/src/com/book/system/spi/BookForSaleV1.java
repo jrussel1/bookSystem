@@ -81,10 +81,10 @@ public class BookForSaleV1 {
 
 				while (resultSet.next()) {
 					String ISBN = resultSet.getString("ISBN");
-					book = getBookByISBN(getBookStmt,ISBN);
+					book = getBookByISBN(ISBN);
 
 					Long personId = resultSet.getLong("Person_ID");
-					seller = getSellerByID(getPersonStmt,personId);
+					seller = getSellerByID(personId);
 
 					bfs = new BookForSale(book,seller);
 					booksForSale.addToShelf(bfs);
@@ -94,16 +94,19 @@ public class BookForSaleV1 {
 				}
 
 			} finally {
-				if(conn!=null)
-					conn.close();
-				if(stmt!=null)
-					stmt.close();
-				if(getPersonStmt!=null)
-					getPersonStmt.close();
-				if(getBookStmt!=null)
-					getBookStmt.close();
-				if(resultSet!=null)
-					resultSet.close();	
+				try{
+					if(stmt!=null)
+						stmt.close();
+					if(getPersonStmt!=null)
+						getPersonStmt.close();
+					if(getBookStmt!=null)
+						getBookStmt.close();
+					if(resultSet!=null)
+						resultSet.close();	
+				}catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -140,12 +143,15 @@ public class BookForSaleV1 {
 	}
 
 	@ApiMethod(name = "bookforsale.getBookByISBN", authLevel=AuthLevel.OPTIONAL)
-	public Book getBookByISBN(PreparedStatement getBookStmt,@Named("ISBN") String ISBN){
+	public Book getBookByISBN(@Named("ISBN") String ISBN){
 		if(conn==null)
 			conn = createConnection();
 		ResultSet resultSetBook = null;
+		PreparedStatement getBookStmt = null;
 		Book book = null;
 		try{
+			String getBook = "SELECT * FROM Book WHERE ISBN=?";
+			getBookStmt = conn.prepareStatement(getBook);
 			getBookStmt.setString(1, ISBN);
 			resultSetBook = getBookStmt.executeQuery();
 			resultSetBook.next();
@@ -162,6 +168,12 @@ public class BookForSaleV1 {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+			if(getBookStmt!=null)
+				try {
+					getBookStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			if(conn!=null)
 				try {
 					conn.close();
@@ -174,12 +186,15 @@ public class BookForSaleV1 {
 	}
 
 	@ApiMethod(name = "bookforsale.getSellerByID", authLevel=AuthLevel.OPTIONAL)
-	public Seller getSellerByID(PreparedStatement getPersonStmt, @Named("personId") Long personId){
+	public Seller getSellerByID(@Named("personId") Long personId){
 		if(conn==null)
 			conn = createConnection();
 		ResultSet resultSetPerson = null;
 		Seller seller = null;
+		PreparedStatement getPersonStmt = null;
 		try{
+			String getPerson = "SELECT * FROM Person WHERE Person_ID=?";
+			getPersonStmt = conn.prepareStatement(getPerson);
 			getPersonStmt.setLong(1, personId);
 			resultSetPerson = getPersonStmt.executeQuery();
 			resultSetPerson.next();
@@ -196,6 +211,12 @@ public class BookForSaleV1 {
 			if(resultSetPerson!=null)
 				try {
 					resultSetPerson.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			if(getPersonStmt!=null)
+				try {
+					getPersonStmt.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -296,23 +317,23 @@ public class BookForSaleV1 {
 	}
 	@ApiMethod(name = "book.insert", httpMethod = "post", authLevel=AuthLevel.OPTIONAL)
 	public Book insertBook(@Named("isbn") String isbn, @Named("title") String title, @Named("author") String author) {
-		
+
 		Book response = new Book(isbn);
-	  if(!title.isEmpty()){
-		  response.setTitle(title);
-	  }else {
-		  title="Unknown";
-	  }
-	  if(!author.isEmpty()){
-		  response.setAuthor(author);
-	  }else {
-		  author="Unknown";
-	  }
-	  if(conn==null)
+		if(!title.isEmpty()){
+			response.setTitle(title);
+		}else {
+			title="Unknown";
+		}
+		if(!author.isEmpty()){
+			response.setAuthor(author);
+		}else {
+			author="Unknown";
+		}
+		if(conn==null)
 			conn = createConnection();
-	  String insertBookQry ="INSERT IGNORE INTO `book-system`.`Book` (`ISBN`, `Title`, `Author`) VALUES (?,?,?)";
-	  PreparedStatement stmt = null;
-	  try{
+		String insertBookQry ="INSERT IGNORE INTO `book-system`.`Book` (`ISBN`, `Title`, `Author`) VALUES (?,?,?)";
+		PreparedStatement stmt = null;
+		try{
 			stmt = conn.prepareStatement(insertBookQry);
 			stmt.setString(1, isbn);
 			stmt.setString(2, title);
@@ -334,27 +355,27 @@ public class BookForSaleV1 {
 			}
 		}
 
-	  return response;
+		return response;
 	}
 	@ApiMethod(name = "seller.insert", httpMethod = "post", authLevel=AuthLevel.OPTIONAL)
 	public Seller insertSeller(@Named("email") String email, @Named("first_name") String first_name, @Named("last_name") String last_name) {
-	  Seller response = new Seller(email);
-	  if(!first_name.isEmpty()){
-		  response.setfFirstName(first_name);
-	  }else {
-		  first_name="Unknown";
-	  }
-	  if(!last_name.isEmpty()){
-		  response.setfLastName(last_name);
-	  }else {
-		  last_name="Unknown";
-	  }
-	  if(conn==null)
+		Seller response = new Seller(email);
+		if(!first_name.isEmpty()){
+			response.setfFirstName(first_name);
+		}else {
+			first_name="Unknown";
+		}
+		if(!last_name.isEmpty()){
+			response.setfLastName(last_name);
+		}else {
+			last_name="Unknown";
+		}
+		if(conn==null)
 			conn = createConnection();
-	  String insertPersonQry ="INSERT IGNORE INTO `book-system`.`Person` (`Email`, `First_Name`, `Last_Name`) VALUES (?,?,?)";
-	  PreparedStatement stmt = null;
-	  ResultSet resultSetPerson = null;
-	  try{
+		String insertPersonQry ="INSERT IGNORE INTO `book-system`.`Person` (`Email`, `First_Name`, `Last_Name`) VALUES (?,?,?)";
+		PreparedStatement stmt = null;
+		ResultSet resultSetPerson = null;
+		try{
 			stmt = conn.prepareStatement(insertPersonQry,PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, email);
 			stmt.setString(2, first_name);
@@ -365,7 +386,7 @@ public class BookForSaleV1 {
 			if (resultSetPerson != null && resultSetPerson.next()) {
 				person_id = resultSetPerson.getLong(1);
 				response.setId(person_id);
-				
+
 				String insertSellerQry ="INSERT IGNORE INTO `book-system`.`Seller` (`Person_ID`) VALUES (?)";
 				PreparedStatement stmtSeller = null;
 				try{
@@ -384,7 +405,7 @@ public class BookForSaleV1 {
 					}
 				}
 			}
-			
+
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -403,6 +424,6 @@ public class BookForSaleV1 {
 			}
 		}
 
-	  return response;
+		return response;
 	}
 }

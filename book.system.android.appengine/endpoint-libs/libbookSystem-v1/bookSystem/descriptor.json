@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/bookSystem/v1/20140429055009/java/1.16.0-rc/mac_books_appspot_com-bookSystem-v1-20140429055009-java-1.16.0-rc-sources.jar", 
-      "path": "mac_books_appspot_com-bookSystem-v1-20140429055009-java-1.16.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/bookSystem/v1/20140430000720/java/1.16.0-rc/mac_books_appspot_com-bookSystem-v1-20140430000720-java-1.16.0-rc-sources.jar", 
+      "path": "mac_books_appspot_com-bookSystem-v1-20140430000720-java-1.16.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2014-04-29 05:50"
+      "timestamp": "2014-04-30 00:07"
     }, 
     {
-      "path": "mac_books_appspot_com-bookSystem-v1-20140429055009-java-1.16.0-rc.jar.properties", 
+      "path": "mac_books_appspot_com-bookSystem-v1-20140430000720-java-1.16.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -701,5 +701,5 @@
   "version": "v1", 
   "language_version": "1.16.0-rc", 
   "id": "bookSystem:v1", 
-  "revision": 20140429055009
+  "revision": 20140430000720
 }
