@@ -131,6 +131,9 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 		}
 	}
 
+	/**
+	 * An unauthenticated call to the app engine server.
+	 */
 	public void unauthenticatedSaleShelfTask(){
 		AsyncTask<Integer, Void, SaleShelf> getShelf =
 				new AsyncTask<Integer, Void, SaleShelf> () {
@@ -205,12 +208,13 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 			try {
 				// If the application has the appropriate access then a token will be retrieved, otherwise
 				// an error will be thrown.
-				//				GoogleAccountCredential credential = GoogleAccountCredential.usingAudience(
-				//						GooglePlusLoginActivity.this, AppConstants.AUDIENCE);
-				//				credential.setSelectedAccountName(emailAccount);
+				GoogleAccountCredential credential = GoogleAccountCredential.usingAudience(
+						GooglePlusLoginActivity.this, AppConstants.AUDIENCE);
+				Log.d(LOG_TAG,credential.getScope());
+				credential.setSelectedAccountName(emailAccount);
 				//
-				//				String accessToken = credential.getToken();
-				token = GoogleAuthUtil.getToken(GooglePlusLoginActivity.this, emailAccount, "oauth2:https://www.googleapis.com/auth/userinfo.email");
+				String accessToken = credential.getToken();
+//				token = GoogleAuthUtil.getToken(GooglePlusLoginActivity.this, emailAccount, "oauth2:https://www.googleapis.com/auth/userinfo.email");
 
 				Log.d(LOG_TAG, "AccessToken retrieved");
 
@@ -318,7 +322,7 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 				if (!AppConstants.checkGooglePlayServicesAvailable(GooglePlusLoginActivity.this)) {
 					return null;
 				}
-				
+
 				// Create a Google credential since this is an authenticated request to the API.
 				GoogleAccountCredential credential = GoogleAccountCredential.usingAudience(
 						GooglePlusLoginActivity.this, AppConstants.AUDIENCE);
