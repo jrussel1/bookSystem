@@ -26,7 +26,7 @@
        android:text="BookTitle"
        android:textSize="24dp"
        android:textStyle="bold"
-       android:textColor="#00A3CC" />
+       android:textColor="#167ABC" />
 
    <TextView
        android:id="@+id/SearchTest"
@@ -67,6 +67,6 @@
        android:layout_toLeftOf="@+id/tvPrice"
        android:text="$"
        android:fontFamily="sans-serif-thin"
-       android:textColor="#00A3CC"  />
+       android:textColor="#167ABC"  />
 
 </RelativeLayout>
