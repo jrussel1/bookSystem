@@ -267,10 +267,10 @@
           "lastName" : {
             "type" : "string"
           },
-          "fFirstName" : {
+          "fLastName" : {
             "type" : "string"
           },
-          "fLastName" : {
+          "fFirstName" : {
             "type" : "string"
           }
         }

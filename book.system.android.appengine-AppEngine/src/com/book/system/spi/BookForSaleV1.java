@@ -479,7 +479,72 @@ public class BookForSaleV1 {
 
 		return response;
 	}
-	
+	private Seller insertSellerWithoutClosing(String email, String first_name, String last_name) {
+		Seller response = new Seller(email);
+		if(!first_name.isEmpty()){
+			response.setfFirstName(first_name);
+		}else {
+			first_name="Unknown";
+		}
+		if(!last_name.isEmpty()){
+			response.setfLastName(last_name);
+		}else {
+			last_name="Unknown";
+		}
+		
+		String insertPersonQry ="INSERT IGNORE INTO `book-system`.`Person` (`Email`, `First_Name`, `Last_Name`) VALUES (?,?,?)";
+		PreparedStatement stmt = null;
+		ResultSet resultSetPerson = null;
+		try{
+			
+			stmt = conn.prepareStatement(insertPersonQry,PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, email);
+			stmt.setString(2, first_name);
+			stmt.setString(3, last_name);
+			stmt.executeUpdate(); 
+			resultSetPerson = stmt.getGeneratedKeys();
+			long person_id = -1L;
+			if (resultSetPerson != null && resultSetPerson.next()) {
+				person_id = resultSetPerson.getLong(1);
+				response.setId(person_id);
+
+				String insertSellerQry ="INSERT IGNORE INTO `book-system`.`Seller` (`Person_ID`) VALUES (?)";
+				PreparedStatement stmtSeller = null;
+				try{
+					stmtSeller = conn.prepareStatement(insertSellerQry);
+					stmtSeller.setLong(1, person_id);
+					stmtSeller.executeUpdate(); 
+				}catch(SQLException e){
+					e.printStackTrace();
+					return null;
+				}finally{
+					try{
+						if(stmtSeller!=null)
+							stmtSeller.close();
+					}catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally{
+			try {
+				if(stmt!=null)
+					stmt.close();
+				if(resultSetPerson!=null)
+					resultSetPerson.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return response;
+	}
 	@ApiMethod(name = "book.insert", httpMethod = "post", authLevel=AuthLevel.OPTIONAL_CONTINUE)
 	public Book insertBook(@Named("isbn") String isbn, @Named("title") String title, @Named("author") String author) {
 
@@ -521,6 +586,44 @@ public class BookForSaleV1 {
 			try {
 				if(conn!=null)
 					conn.close();
+				if(stmt!=null)
+					stmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return response;
+	}
+	private Book insertBookWithoutClosing(String isbn, String title, String author) {
+
+		Book response = new Book(isbn);
+		if(!title.isEmpty()){
+			response.setTitle(title);
+		}else {
+			title="Unknown";
+		}
+		if(!author.isEmpty()){
+			response.setAuthor(author);
+		}else {
+			author="Unknown";
+		}
+		
+		String insertBookQry ="INSERT IGNORE INTO `book-system`.`Book` (`ISBN`, `Title`, `Author`) VALUES (?,?,?)";
+		PreparedStatement stmt = null;
+		try{
+			stmt = conn.prepareStatement(insertBookQry);
+			stmt.setString(1, isbn);
+			stmt.setString(2, title);
+			stmt.setString(3, author);
+			stmt.executeUpdate(); //return int of rows affected, but with the insert ignore, there won't be an error if it exists already
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally{
+			try {
 				if(stmt!=null)
 					stmt.close();
 			} catch (SQLException e) {
@@ -637,11 +740,11 @@ public class BookForSaleV1 {
 			
 			seller = getSellerByEmailWithoutClosing(email);
 			if(seller==null){
-				seller = insertSeller(email,first_name,last_name);
+				seller = insertSellerWithoutClosing(email,first_name,last_name);
 			}
 			book = getBookByISBNWithoutClosing(isbn);
 			if(book==null){
-				book = insertBook(isbn,title,author);
+				book = insertBookWithoutClosing(isbn,title,author);
 			}
 			
 			stmt = conn.prepareStatement(insertBFSQry);
