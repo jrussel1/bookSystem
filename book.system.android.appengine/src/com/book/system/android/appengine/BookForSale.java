@@ -7,9 +7,9 @@ public class BookForSale {
 
 	private Book book;
 	private Seller seller;
-	private int price;
+	private Double price;
 
-	public BookForSale(Book book, Seller seller, int price) {
+	public BookForSale(Book book, Seller seller, Double price) {
 		this.setBook(book);
 		this.setSeller(seller);
 		this.setPrice(price);
@@ -42,11 +42,11 @@ public class BookForSale {
 		this.book = book;
 	}
 	
-	public void setPrice(int price){
+	public void setPrice(Double price){
 		this.price = price;
 	}
 	
-	public int getPrice(){
+	public Double getPrice(){
 		return price;
 	}
 	public String toString(){

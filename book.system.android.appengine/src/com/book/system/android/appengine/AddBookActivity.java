@@ -3,6 +3,8 @@ package com.book.system.android.appengine;
 import java.io.IOException;
 
 import com.appspot.mac_books.bookSystem.BookSystem;
+import com.appspot.mac_books.bookSystem.BookSystem.Bookforsale;
+import com.appspot.mac_books.bookSystem.model.BookForSale;
 import com.appspot.mac_books.bookSystem.model.SaleShelf;
 
 import android.app.Activity;
@@ -33,48 +35,48 @@ public class AddBookActivity extends Activity {
 	protected EditText mAuthor;
 	private BookSystem service = null;
 
-//	public void unauthenticatedAddBookTask(){
-//		AsyncTask<String, Void, Book> addBook =
-//				new AsyncTask<String, Void, Book> () {
-//			@Override
-//			protected Book doInBackground(String... strings) {
-//				// Retrieve service handle.
-//				String ISBN = mISBN.getText().toString();
-//				String BookTitle = mBookTitle.getText().toString();
-//				String Author = mAuthor.getText().toString();
-//				String email = "hliu1@macalester.edu";
-//				String FirstName = "Hongshan";
-//				String LastName = "Liu";
-//				Double Price = Double.valueOf(mPrice.getText().toString());
-//				try {
-//					BookSystem.Bookforsale.insert insertBookCommand = service.bookforsale().insert(ISBN,BookTitle,Author,email,FirstName, LastName,Price);
-//					Book book = insertBookCommand.execute();
-//					return book;
-//				} catch (IOException e) {
-//					Log.e("BookSystem call", "Exception during API call", e);
-//				}
-//				return null;
-//			}
-//
-//			@Override
-//			protected void onPostExecute(Book book) {
-//				if (book!=null) {
-//					try {
-//						Log.d("Book Insert", book.toPrettyString());
-////TODO: change the destination to be My Profile
-//						Intent intent = new Intent(AddBookActivity.this,BookListActivity.class);
-//						startActivity(intent);
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//					}
-//				} else {
-//					Log.e("Book Insert Error", "No shelf were returned by the API.");
-//				}
-//			}
-//		};
-//
-//		addBook.execute();
-//	}
+	public void unauthenticatedAddBookForSaleTask(){
+		AsyncTask<String, Void, BookForSale> addBookForSale =
+				new AsyncTask<String, Void, BookForSale> () {
+			@Override
+			protected BookForSale doInBackground(String... strings) {
+				// Retrieve service handle.
+				String ISBN = mISBN.getText().toString();
+				String BookTitle = mBookTitle.getText().toString();
+				String Author = mAuthor.getText().toString();
+				String email = "hliu1@macalester.edu";
+				String FirstName = "Hongshan";
+				String LastName = "Liu";
+				Double Price = Double.valueOf(mPrice.getText().toString());
+				try {
+					BookSystem.Bookforsale.Insert insertBookCommand = service.bookforsale().insert(ISBN,BookTitle,Author,email,FirstName, LastName,Price);
+					BookForSale bookforsale = insertBookCommand.execute();
+					return bookforsale;
+				} catch (IOException e) {
+					Log.e("BookSystem call", "Exception during API call", e);
+				}
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(BookForSale bookforsale) {
+				if (bookforsale!=null) {
+					try {
+						Log.d("BookForSale Insert", bookforsale.toPrettyString());
+//TODO: change the destination to be My Profile
+						Intent intent = new Intent(AddBookActivity.this,BookListActivity.class);
+						startActivity(intent);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				} else {
+					Log.e("BookForSale Insert Error", "No shelf were returned by the API.");
+				}
+			}
+		};
+
+		addBookForSale.execute();
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +98,8 @@ public class AddBookActivity extends Activity {
 		mBookTitle.setTypeface(tf2);
 		mPrice = (EditText)findViewById(R.id.EditText_Price);
 		mPrice.setTypeface(tf2);
+		mAuthor = (EditText)findViewById(R.id.EditText_Author);
+		mAuthor.setTypeface(tf2);
 		mAddButton = (Button)findViewById(R.id.button_AddBook);
 		mAddButton.setTypeface(tf2);
 		
@@ -139,7 +143,7 @@ public class AddBookActivity extends Activity {
 				AlertDialog dialog = builder.create();
 				dialog.show();
 				
-//				unauthenticatedAddBookTask();
+				unauthenticatedAddBookForSaleTask();
 				
 				
 			}

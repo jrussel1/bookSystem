@@ -98,13 +98,13 @@ public class BookListActivity extends ListActivity {
 		Seller seller1 = new Seller(12345,"hliu1@macalester.edu","Hongshan","Liu");
 		Seller seller2 = new Seller(23456,"hxu1@macalester.edu","Hanyue","Xu");
 		
-		BookForSale bookForSale1 = new BookForSale(book1,seller1, 10);
-		BookForSale bookForSale2 = new BookForSale(book2,seller2, 18);
-		BookForSale bookForSale3 = new BookForSale(book3,seller1, 25);
-		BookForSale bookForSale4 = new BookForSale(book4,seller2, 15);
-		BookForSale bookForSale5 = new BookForSale(book5,seller1, 35);
-		BookForSale bookForSale6 = new BookForSale(book6,seller2, 13);
-		BookForSale bookForSale7 = new BookForSale(book7,seller1, 12);
+		BookForSale bookForSale1 = new BookForSale(book1,seller1, 10.0);
+		BookForSale bookForSale2 = new BookForSale(book2,seller2, 18.0);
+		BookForSale bookForSale3 = new BookForSale(book3,seller1, 25.5);
+		BookForSale bookForSale4 = new BookForSale(book4,seller2, 15.9);
+		BookForSale bookForSale5 = new BookForSale(book5,seller1, 35.9);
+		BookForSale bookForSale6 = new BookForSale(book6,seller2, 13.9);
+		BookForSale bookForSale7 = new BookForSale(book7,seller1, 12.9);
 		
 
 
@@ -145,8 +145,8 @@ public class BookListActivity extends ListActivity {
 //		intent.putExtra("key", book);
 
 		String isbn = bookObject.getBook().getISBN();
-		int price1 = (bookObject.getPrice());
-		String price = Integer.toString(price1);
+		Double price1 = (bookObject.getPrice());
+		String price = Double.toString(price1);
 		String bookName = bookObject.getBook().getTitle();
 
 		intent.putExtra("ISBNkey", isbn);

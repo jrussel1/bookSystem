@@ -35,8 +35,8 @@ public class BookAdapter extends ArrayAdapter<BookForSale>{
        
        bookTitle.setText(book.getBook().getTitle());
        seller.setText(book.getSeller().getFirstName());
-       int temp = book.getPrice();
-       String priceString = Integer.toString(temp);
+       double temp = book.getPrice();
+       String priceString = Double.toString(temp);
        price.setText(priceString);
        // Return the completed view to render on screen
        
