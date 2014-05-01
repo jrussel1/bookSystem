@@ -29,7 +29,7 @@
        android:textColor="#167ABC" />
 
    <TextView
-       android:id="@+id/SearchTest"
+       android:id="@+id/ISBN_static1"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_above="@+id/tvHome"

@@ -1,11 +1,19 @@
 package com.book.system.android.appengine;
 
+import java.io.IOException;
+
+import com.appspot.mac_books.bookSystem.BookSystem;
+import com.appspot.mac_books.bookSystem.model.SaleShelf;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.appspot.mac_books.bookSystem.model.Book;
 
 public class AddBookActivity extends Activity {
 //test Alex
@@ -21,12 +30,58 @@ public class AddBookActivity extends Activity {
 	protected EditText mBookTitle;
 	protected EditText mPrice;
 	protected Button mAddButton;
+	protected EditText mAuthor;
+	private BookSystem service = null;
 
+//	public void unauthenticatedAddBookTask(){
+//		AsyncTask<String, Void, Book> addBook =
+//				new AsyncTask<String, Void, Book> () {
+//			@Override
+//			protected Book doInBackground(String... strings) {
+//				// Retrieve service handle.
+//				String ISBN = mISBN.getText().toString();
+//				String BookTitle = mBookTitle.getText().toString();
+//				String Author = mAuthor.getText().toString();
+//				String email = "hliu1@macalester.edu";
+//				String FirstName = "Hongshan";
+//				String LastName = "Liu";
+//				Double Price = Double.valueOf(mPrice.getText().toString());
+//				try {
+//					BookSystem.Bookforsale.insert insertBookCommand = service.bookforsale().insert(ISBN,BookTitle,Author,email,FirstName, LastName,Price);
+//					Book book = insertBookCommand.execute();
+//					return book;
+//				} catch (IOException e) {
+//					Log.e("BookSystem call", "Exception during API call", e);
+//				}
+//				return null;
+//			}
+//
+//			@Override
+//			protected void onPostExecute(Book book) {
+//				if (book!=null) {
+//					try {
+//						Log.d("Book Insert", book.toPrettyString());
+////TODO: change the destination to be My Profile
+//						Intent intent = new Intent(AddBookActivity.this,BookListActivity.class);
+//						startActivity(intent);
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}
+//				} else {
+//					Log.e("Book Insert Error", "No shelf were returned by the API.");
+//				}
+//			}
+//		};
+//
+//		addBook.execute();
+//	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_book);
+		
+		service = AppConstants.getApiServiceHandle(null);
 		
 		Typeface tf = Typeface.createFromAsset(getAssets(),
 		        "fonts/Roboto-Thin.ttf");
@@ -44,12 +99,14 @@ public class AddBookActivity extends Activity {
 		mAddButton = (Button)findViewById(R.id.button_AddBook);
 		mAddButton.setTypeface(tf2);
 		
-		TextView t = (TextView)findViewById(R.id.SearchTest);
+		TextView t = (TextView)findViewById(R.id.ISBN_static1);
 		t.setTypeface(tf2);
-		TextView t1 = (TextView)findViewById(R.id.TextEdit_BookTitle);
+		TextView t1 = (TextView)findViewById(R.id.BookTitle_static);
 		t1.setTypeface(tf2);
 		TextView t2 = (TextView)findViewById(R.id.price_static);
 		t2.setTypeface(tf2);
+		TextView t3 = (TextView)findViewById(R.id.Author_static);
+		t3.setTypeface(tf2);
 		
 		
 
@@ -66,19 +123,24 @@ public class AddBookActivity extends Activity {
 				String ISBN = mISBN.getText().toString();
 				String bookTitle = mBookTitle.getText().toString();
 				String price = mPrice.getText().toString();
+				String author = mAuthor.getText().toString();
 				
 				ISBN = ISBN.trim();
 				bookTitle = bookTitle.trim();
 				price = price.trim();
+				author = author.trim();
 				
 				
 				AlertDialog.Builder builder = new AlertDialog.Builder(AddBookActivity.this);
-				builder.setMessage("ISBN:  " + ISBN + "   BookTitle:" + bookTitle + "    Price:" + price);
+				builder.setMessage("ISBN:  " + ISBN + "   BookTitle:" + bookTitle + "    Price:" + price + "     Author:" + author);
 				builder.setTitle("test");
 				builder.setPositiveButton(android.R.string.ok, null);
 				
 				AlertDialog dialog = builder.create();
 				dialog.show();
+				
+//				unauthenticatedAddBookTask();
+				
 				
 			}
 		});

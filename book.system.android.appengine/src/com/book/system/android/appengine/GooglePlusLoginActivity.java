@@ -207,13 +207,13 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 			try {
 				// If the application has the appropriate access then a token will be retrieved, otherwise
 				// an error will be thrown.
-				GoogleAccountCredential credential = GoogleAccountCredential.usingAudience(
-						GooglePlusLoginActivity.this, AppConstants.AUDIENCE);
-				Log.d(LOG_TAG,credential.getScope());
-				credential.setSelectedAccountName(emailAccount);
-				//
-				String accessToken = credential.getToken();
-//				token = GoogleAuthUtil.getToken(GooglePlusLoginActivity.this, emailAccount, "oauth2:https://www.googleapis.com/auth/userinfo.email");
+//				GoogleAccountCredential credential = GoogleAccountCredential.usingAudience(
+//						GooglePlusLoginActivity.this, AppConstants.AUDIENCE);
+//				Log.d(LOG_TAG,credential.getScope());
+//				credential.setSelectedAccountName(emailAccount);
+//				//
+//				String accessToken = credential.getToken();
+				token = GoogleAuthUtil.getToken(GooglePlusLoginActivity.this, emailAccount, "oauth2:https://www.googleapis.com/auth/userinfo.email");
 
 				Log.d(LOG_TAG, "AccessToken retrieved");
 
@@ -257,7 +257,9 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 			if(success){
 				Log.d(LOG_TAG, "Successful auth of email");
 				mEmailAccount = attemptEmail;
-				onClickGetAuthenticatedSaleShelf(null);
+//				unauthenticatedSaleShelfTask();
+				Intent intent = new Intent(GooglePlusLoginActivity.this,BookListActivity.class);
+				startActivity(intent);
 			}else{
 				Log.e(LOG_TAG, "Failure to authenticate email");
 			}

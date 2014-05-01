@@ -10,12 +10,12 @@
       
      
     <TextView
-        android:id="@+id/SearchTest"
+        android:id="@+id/ISBN_static1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="66dp"
+        android:layout_marginTop="40dp"
         android:text="ISBN"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:fontFamily="roboto-light"
@@ -25,21 +25,11 @@
         android:id="@+id/EditText_ISBN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/SearchTest"
+        android:layout_below="@+id/ISBN_static1"
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:inputType="text"
         android:textColor="#167ABC" />
-
-    <EditText
-        android:id="@+id/EditText_BookTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/EditText_ISBN"
-        android:layout_below="@+id/TextEdit_BookTitle"
-        android:ems="10" 
-        android:inputType="text"
-        android:textColor="#167ABC"/>
 
 	
     <EditText
@@ -55,20 +45,8 @@
         <requestFocus />
     </EditText>
 
-    <Button
-        android:id="@+id/button_AddBook"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/EditText_Price"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp"
-        android:text="Add"
-        android:fontFamily="roboto-light"
-        android:background="#167ABC"
-        android:textColor="#FFFFFF"  />
-
     <TextView
-        android:id="@+id/TextEdit_BookTitle"
+        android:id="@+id/BookTitle_static"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/EditText_ISBN"
@@ -83,7 +61,7 @@
         android:id="@+id/price_static"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/SearchTest"
+        android:layout_alignLeft="@+id/ISBN_static1"
         android:layout_below="@+id/EditText_BookTitle"
         android:layout_marginTop="25dp"
         android:text="Price"
@@ -107,6 +85,48 @@
         </LinearLayout>
     </LinearLayout>
 
-   
+    <Button
+        android:id="@+id/button_AddBook"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:background="#167ABC"
+        android:fontFamily="roboto-light"
+        android:text="Add"
+        android:textColor="#FFFFFF" />
+
+    <EditText
+        android:id="@+id/EditText_Author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/EditText_Price"
+        android:layout_below="@+id/Author_static"
+        android:layout_marginTop="8dp"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/Author_static"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/EditText_Price"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:fontFamily="roboto-light"
+        android:text="Author"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#6A6A6A" />
+
+    <EditText
+        android:id="@+id/EditText_BookTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/EditText_Price"
+        android:layout_below="@+id/BookTitle_static"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textColor="#167ABC" />
 
 </RelativeLayout>

@@ -9,7 +9,7 @@
     android:background="@drawable/grey">
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/EditText_Author"
         android:layout_width="240dp"
         android:layout_height="35dp"
         android:layout_alignParentTop="true"
@@ -26,8 +26,8 @@
         android:id="@+id/button1"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_below="@+id/editText1"
+        android:layout_alignLeft="@+id/EditText_Author"
+        android:layout_below="@+id/EditText_Author"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="35dp"
         android:text="Search"
@@ -39,7 +39,7 @@
         android:layout_height="40dp"
         android:layout_alignBaseline="@+id/button1"
         android:layout_alignBottom="@+id/button1"
-        android:layout_alignRight="@+id/editText1"
+        android:layout_alignRight="@+id/EditText_Author"
         android:layout_marginRight="26dp"
         android:text="Sell"
         android:textColor="#FFFFFF" />

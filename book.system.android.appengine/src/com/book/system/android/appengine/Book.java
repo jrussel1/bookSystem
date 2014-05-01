@@ -11,6 +11,11 @@ public class Book {
 		this.title=title;
 
 	}
+	
+	public Book(String ISBN) {
+		this.ISBN=ISBN;
+
+	}
 
 	public void setTitle(String bookname){
 		title = bookname;
