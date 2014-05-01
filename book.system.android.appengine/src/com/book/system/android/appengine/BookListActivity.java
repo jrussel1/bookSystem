@@ -10,6 +10,7 @@ import android.app.ListActivity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,7 +34,7 @@ public class BookListActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
 		
-		setTitle("Main Menu");
+		setTitle("");
 		
 		mAddBookTextView = (TextView) findViewById(R.id.sellBookButton);
 		mAddBookTextView.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +81,7 @@ public class BookListActivity extends ListActivity {
 				return false;
 			}
 		};
+		
 		mSearchView.setOnQueryTextListener(queryTextListener);
 
 		//add stuff to the bookList 
@@ -133,11 +135,9 @@ public class BookListActivity extends ListActivity {
 
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		Log.i("alex","alex");
 		Object o =  this.getListAdapter().getItem(position);
 		BookForSale bookObject = (BookForSale) o;
 		String a = bookObject.getBook().getTitle();
-		Log.i("alex","alex"+a);
 
 
 		Intent intent = new Intent(BookListActivity.this, BookDetailActivity.class);

@@ -20,9 +20,9 @@ public class BookDetailActivity extends Activity {
 		setContentView(R.layout.activity_book_detail);
 		
 		Typeface tf = Typeface.createFromAsset(getAssets(),
-		        "fonts/Roboto-Light.ttf");
+		        "fonts/Roboto-Thin.ttf");
 		Typeface tf2 = Typeface.createFromAsset(getAssets(),
-		        "fonts/Roboto-Regular.ttf");
+		        "fonts/Roboto-Light.ttf");
 		
 
 		Intent intent = getIntent();

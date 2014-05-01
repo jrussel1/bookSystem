@@ -11,15 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
-public class MyProfileActivity extends Activity {
+public class MenuActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_my_profile);
-		
-		
-		
+		setContentView(R.layout.activity_menu);
 
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
@@ -31,7 +28,7 @@ public class MyProfileActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.my_profile, menu);
+		getMenuInflater().inflate(R.menu.menu, menu);
 		return true;
 	}
 
@@ -58,8 +55,8 @@ public class MyProfileActivity extends Activity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_my_profile,
-					container, false);
+			View rootView = inflater.inflate(R.layout.fragment_menu, container,
+					false);
 			return rootView;
 		}
 	}

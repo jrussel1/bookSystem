@@ -3,6 +3,7 @@ package com.book.system.android.appengine;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class AddBookActivity extends Activity {
 //test Alex
@@ -18,6 +20,7 @@ public class AddBookActivity extends Activity {
 	protected EditText mBookTitle;
 	protected EditText mPrice;
 	protected Button mAddButton;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +29,17 @@ public class AddBookActivity extends Activity {
 		
 		setTitle("Sell Book");
 		
+		Typeface tf = Typeface.createFromAsset(getAssets(),
+		        "fonts/Roboto-Light.ttf");
+		
 		mISBN = (EditText)findViewById(R.id.EditText_ISBN);
 		mBookTitle = (EditText)findViewById(R.id.EditText_BookTitle);
 		mPrice = (EditText)findViewById(R.id.EditText_Price);
 		mAddButton = (Button)findViewById(R.id.button_AddBook);
+		
+
+
+		
 
 		mAddButton.setOnClickListener(new View.OnClickListener() {
 			

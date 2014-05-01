@@ -3,6 +3,7 @@ package com.book.system.android.appengine;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ public class BookAdapter extends ArrayAdapter<BookForSale>{
        if (convertView == null) {
           convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_book, null);
        }
+       
        // Lookup view for data population
        TextView bookTitle = (TextView) convertView.findViewById(R.id.tvName);
        TextView seller = (TextView) convertView.findViewById(R.id.tvHome);

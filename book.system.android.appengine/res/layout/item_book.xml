@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
  android:layout_width="match_parent"
  android:layout_height="match_parent"
- android:fontFamily="sans-serif-light"  >
+ android:fontFamily="sans-serif-thin"  >
 
    <TextView
        android:id="@+id/tvHome"
@@ -10,9 +10,10 @@
        android:layout_height="wrap_content"
        android:layout_alignLeft="@+id/tvName"
        android:layout_below="@+id/tvName"
+       android:fontFamily="sans-serif-thin"
        android:text="Seller"
-       android:textSize="18dp" 
-       android:fontFamily="sans-serif-light" />
+       android:textSize="18dp"
+       android:textStyle="bold" />
 
    <TextView
        android:id="@+id/tvName"
@@ -21,9 +22,11 @@
        android:layout_alignParentLeft="true"
        android:layout_alignParentTop="true"
        android:layout_marginLeft="48dp"
-       android:fontFamily="sans-serif"
+       android:fontFamily="sans-serif-thin" 
        android:text="BookTitle"
-       android:textSize="20dp" />
+       android:textSize="24dp"
+       android:textStyle="bold"
+       android:textColor="#254AB8" />
 
    <TextView
        android:id="@+id/SearchTest"
@@ -32,7 +35,7 @@
        android:layout_above="@+id/tvHome"
        android:layout_alignParentLeft="true"
        android:text="Title"
-       android:fontFamily="sans-serif-light"  />
+       android:fontFamily="sans-serif-thin"  />
 
    <TextView
        android:id="@+id/textView2"
@@ -41,7 +44,7 @@
        android:layout_alignBottom="@+id/tvHome"
        android:layout_alignParentLeft="true"
        android:text="Seller" 
-       android:fontFamily="sans-serif-light" />
+       android:fontFamily="sans-serif-thin" />
 
    <TextView
        android:id="@+id/tvPrice"
@@ -50,9 +53,10 @@
        android:layout_alignParentRight="true"
        android:layout_below="@+id/tvName"
        android:layout_marginRight="20dp"
+       android:fontFamily="sans-serif-thin"
        android:text="Price"
        android:textAppearance="?android:attr/textAppearanceMedium"
-       android:fontFamily="sans-serif-light"  />
+       android:textStyle="bold" />
 
    <TextView
        android:id="@+id/textView3"
@@ -62,6 +66,6 @@
        android:layout_alignBottom="@+id/tvPrice"
        android:layout_toLeftOf="@+id/tvPrice"
        android:text="$"
-       android:fontFamily="sans-serif-light"  />
+       android:fontFamily="sans-serif-thin"  />
 
 </RelativeLayout>

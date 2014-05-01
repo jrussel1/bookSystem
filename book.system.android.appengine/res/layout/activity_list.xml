@@ -20,20 +20,26 @@
         <Button
             android:id="@+id/sellBookButton"
             style="@style/AppTheme"
-            android:layout_width="fill_parent"
+            android:layout_width="10dp"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:text="Sell Book"
+            android:textColor="#FFFFFF"
+			android:fontFamily="sans-serif-thin" 
+			android:background="#254AB8"
              />
 
 
         <Button
             android:id="@+id/myProfileButton"
             style="@style/AppBaseTheme"
-            android:layout_width="fill_parent"
+            android:layout_width="10dp"
             android:layout_height="50dp"
             android:text="@string/my_profile"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="#FFFFFF"
+            android:fontFamily="sans-serif-thin"
+            android:background="#516EC6" />
     </LinearLayout>
 
     <LinearLayout

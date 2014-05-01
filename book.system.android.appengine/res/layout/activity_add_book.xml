@@ -18,7 +18,7 @@
         android:layout_marginTop="66dp"
         android:text="ISBN"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:fontFamily="sans-serif-light"  />
+        android:fontFamily="roboto-light"  />
 
     <EditText
         android:id="@+id/EditText_ISBN"
@@ -26,8 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/SearchTest"
         android:layout_centerHorizontal="true"
-        android:ems="10" 
-        android:inputType="number"/>
+        android:ems="10"
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/EditText_BookTitle"
@@ -59,7 +59,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="33dp"
         android:text="Add"
-        android:fontFamily="sans-serif-light"  />
+        android:fontFamily="roboto-light"  />
 
     <TextView
         android:id="@+id/TextEdit_BookTitle"
@@ -70,7 +70,7 @@
         android:layout_marginTop="20dp"
         android:text="Book Title"
         android:textAppearance="?android:attr/textAppearanceMedium" 
-        android:fontFamily="sans-serif-light" />
+        android:fontFamily="roboto-light" />
 
     <TextView
         android:id="@+id/price_static"
@@ -81,7 +81,7 @@
         android:layout_marginTop="25dp"
         android:text="Price"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:fontFamily="sans-serif-light"  />
+        android:fontFamily="roboto-light"  />
 
     <LinearLayout
         android:id="@+id/linearLayout2"

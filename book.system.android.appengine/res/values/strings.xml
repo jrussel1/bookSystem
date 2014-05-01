@@ -36,5 +36,7 @@
     <string name="bookPrice">BookPrice</string>
     <string name="PurchasePrompt">Purchase</string>
     <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="title_activity_font_manager">FontManagerActivity</string>
 
 </resources>
