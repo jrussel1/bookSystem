@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"ADiYQGKhdYR9rpbhIFHih-UBYRs/L6IlIHWqT4lBJVkZdUng5sUJ1rA\"",
+ "etag": "\"ADiYQGKhdYR9rpbhIFHih-UBYRs/sN3bFe5hyu_baCfW-vVAlvby2G0\"",
  "discoveryVersion": "v1",
  "id": "bookSystem:v1",
  "name": "bookSystem",
@@ -93,6 +93,22 @@
      "items": {
       "$ref": "Book"
      }
+    }
+   }
+  },
+  "BookForSale": {
+   "id": "BookForSale",
+   "type": "object",
+   "properties": {
+    "book": {
+     "$ref": "Book"
+    },
+    "price": {
+     "type": "number",
+     "format": "double"
+    },
+    "seller": {
+     "$ref": "Seller"
     }
    }
   },
@@ -243,6 +259,25 @@
     "https://www.googleapis.com/auth/userinfo.email"
    ]
   },
+  "bookSystem.bookforsale.getSellerByEmail": {
+   "id": "bookSystem.bookforsale.getSellerByEmail",
+   "allowGet": true,
+   "parameters": {
+    "email": {
+     "type": "string",
+     "required": true
+    }
+   },
+   "parameterOrder": [
+    "email"
+   ],
+   "returns": {
+    "$ref": "Seller"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
   "bookSystem.bookforsale.getSellerByID": {
    "id": "bookSystem.bookforsale.getSellerByID",
    "allowGet": true,
@@ -258,6 +293,55 @@
    ],
    "returns": {
     "$ref": "Seller"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "bookSystem.bookforsale.insert": {
+   "id": "bookSystem.bookforsale.insert",
+   "parameters": {
+    "Price": {
+     "type": "number",
+     "required": true,
+     "format": "double"
+    },
+    "author": {
+     "type": "string",
+     "required": true
+    },
+    "email": {
+     "type": "string",
+     "required": true
+    },
+    "first_name": {
+     "type": "string",
+     "required": true
+    },
+    "isbn": {
+     "type": "string",
+     "required": true
+    },
+    "last_name": {
+     "type": "string",
+     "required": true
+    },
+    "title": {
+     "type": "string",
+     "required": true
+    }
+   },
+   "parameterOrder": [
+    "isbn",
+    "title",
+    "author",
+    "email",
+    "first_name",
+    "last_name",
+    "Price"
+   ],
+   "returns": {
+    "$ref": "BookForSale"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"

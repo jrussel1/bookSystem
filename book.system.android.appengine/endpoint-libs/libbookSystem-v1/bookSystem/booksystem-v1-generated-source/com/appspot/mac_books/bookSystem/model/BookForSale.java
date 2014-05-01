@@ -19,7 +19,7 @@
 package com.appspot.mac_books.bookSystem.model;
 
 /**
- * Model definition for SellerCollection.
+ * Model definition for BookForSale.
  *
  * <p> This is the Java data model class that specifies how to parse/serialize into the JSON that is
  * transmitted over HTTP when working with the bookSystem. For a detailed explanation see:
@@ -29,43 +29,79 @@ package com.appspot.mac_books.bookSystem.model;
  * @author Google, Inc.
  */
 @SuppressWarnings("javadoc")
-public final class SellerCollection extends com.google.api.client.json.GenericJson {
+public final class BookForSale extends com.google.api.client.json.GenericJson {
 
   /**
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private java.util.List<Seller> items;
+  private Book book;
 
-  static {
-    // hack to force ProGuard to consider Seller used, since otherwise it would be stripped out
-    // see http://code.google.com/p/google-api-java-client/issues/detail?id=528
-    com.google.api.client.util.Data.nullOf(Seller.class);
+  /**
+   * The value may be {@code null}.
+   */
+  @com.google.api.client.util.Key
+  private java.lang.Double price;
+
+  /**
+   * The value may be {@code null}.
+   */
+  @com.google.api.client.util.Key
+  private Seller seller;
+
+  /**
+   * @return value or {@code null} for none
+   */
+  public Book getBook() {
+    return book;
+  }
+
+  /**
+   * @param book book or {@code null} for none
+   */
+  public BookForSale setBook(Book book) {
+    this.book = book;
+    return this;
   }
 
   /**
    * @return value or {@code null} for none
    */
-  public java.util.List<Seller> getItems() {
-    return items;
+  public java.lang.Double getPrice() {
+    return price;
   }
 
   /**
-   * @param items items or {@code null} for none
+   * @param price price or {@code null} for none
    */
-  public SellerCollection setItems(java.util.List<Seller> items) {
-    this.items = items;
+  public BookForSale setPrice(java.lang.Double price) {
+    this.price = price;
+    return this;
+  }
+
+  /**
+   * @return value or {@code null} for none
+   */
+  public Seller getSeller() {
+    return seller;
+  }
+
+  /**
+   * @param seller seller or {@code null} for none
+   */
+  public BookForSale setSeller(Seller seller) {
+    this.seller = seller;
     return this;
   }
 
   @Override
-  public SellerCollection set(String fieldName, Object value) {
-    return (SellerCollection) super.set(fieldName, value);
+  public BookForSale set(String fieldName, Object value) {
+    return (BookForSale) super.set(fieldName, value);
   }
 
   @Override
-  public SellerCollection clone() {
-    return (SellerCollection) super.clone();
+  public BookForSale clone() {
+    return (BookForSale) super.clone();
   }
 
 }

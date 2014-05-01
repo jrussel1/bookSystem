@@ -20,7 +20,13 @@ public class BookForSale {
 
 	private Book book;
 	private Seller seller;
+	private Double price;
 
+	public BookForSale(Book book, Seller seller, Double price) {
+		this.setBook(book);
+		this.setSeller(seller);
+		this.setPrice(price);
+	}
 	public BookForSale(Book book, Seller seller) {
 		this.setBook(book);
 		this.setSeller(seller);
@@ -52,6 +58,14 @@ public class BookForSale {
 	public void setBook(Book book) {
 		this.book = book;
 	}
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
 	public String toString(){
 		StringBuilder s = new StringBuilder();
 		s.append("Book:\n"

@@ -27,7 +27,7 @@
     "bookSystem.seller.insert" : {
       "path" : "seller/{email}/{first_name}/{last_name}",
       "httpMethod" : "post",
-      "authLevel" : "REQUIRED",
+      "authLevel" : "OPTIONAL_CONTINUE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
       "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
@@ -56,7 +56,7 @@
     "bookSystem.bookforsale.getSellerByID" : {
       "path" : "seller/{personId}",
       "httpMethod" : "GET",
-      "authLevel" : "REQUIRED",
+      "authLevel" : "OPTIONAL_CONTINUE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
       "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
@@ -74,10 +74,31 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "bookSystem.bookforsale.getSellerByEmail" : {
+      "path" : "seller/email",
+      "httpMethod" : "GET",
+      "authLevel" : "OPTIONAL_CONTINUE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.book.system.spi.BookForSaleV1.getSellerByEmail",
+      "request" : {
+        "parameters" : {
+          "email" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "bookSystem.book.insert" : {
       "path" : "book/{isbn}/{title}/{author}",
       "httpMethod" : "post",
-      "authLevel" : "REQUIRED",
+      "authLevel" : "OPTIONAL_CONTINUE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
       "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
@@ -106,7 +127,7 @@
     "bookSystem.bookforsale.list" : {
       "path" : "list",
       "httpMethod" : "GET",
-      "authLevel" : "REQUIRED",
+      "authLevel" : "OPTIONAL_CONTINUE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
       "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
@@ -121,7 +142,7 @@
     "bookSystem.bookforsale.getAllSellersOfBook" : {
       "path" : "sellercollection/{ISBN}",
       "httpMethod" : "GET",
-      "authLevel" : "REQUIRED",
+      "authLevel" : "OPTIONAL_CONTINUE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
       "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
@@ -142,7 +163,7 @@
     "bookSystem.bookforsale.getBookByISBN" : {
       "path" : "book/{ISBN}",
       "httpMethod" : "GET",
-      "authLevel" : "REQUIRED",
+      "authLevel" : "OPTIONAL_CONTINUE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
       "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
@@ -163,7 +184,7 @@
     "bookSystem.bookforsale.getAllBooksBySeller" : {
       "path" : "bookcollection/{personId}",
       "httpMethod" : "GET",
-      "authLevel" : "REQUIRED",
+      "authLevel" : "OPTIONAL_CONTINUE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
       "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
@@ -172,6 +193,51 @@
         "parameters" : {
           "personId" : {
             "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "bookSystem.bookforsale.insert" : {
+      "path" : "bookforsale/{isbn}/{title}/{author}/{email}/{first_name}/{last_name}/{Price}",
+      "httpMethod" : "post",
+      "authLevel" : "OPTIONAL_CONTINUE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.book.system.spi.BookForSaleV1.insertBookForSale",
+      "request" : {
+        "parameters" : {
+          "isbn" : {
+            "type" : "string",
+            "required" : true
+          },
+          "title" : {
+            "type" : "string",
+            "required" : true
+          },
+          "author" : {
+            "type" : "string",
+            "required" : true
+          },
+          "email" : {
+            "type" : "string",
+            "required" : true
+          },
+          "first_name" : {
+            "type" : "string",
+            "required" : true
+          },
+          "last_name" : {
+            "type" : "string",
+            "required" : true
+          },
+          "Price" : {
+            "type" : "double",
             "required" : true
           }
         },
@@ -201,10 +267,10 @@
           "lastName" : {
             "type" : "string"
           },
-          "fLastName" : {
+          "fFirstName" : {
             "type" : "string"
           },
-          "fFirstName" : {
+          "fLastName" : {
             "type" : "string"
           }
         }
@@ -269,6 +335,21 @@
             }
           }
         }
+      },
+      "BookForSale" : {
+        "id" : "BookForSale",
+        "type" : "object",
+        "properties" : {
+          "book" : {
+            "$ref" : "Book"
+          },
+          "seller" : {
+            "$ref" : "Seller"
+          },
+          "price" : {
+            "type" : "number"
+          }
+        }
       }
     },
     "methods" : {
@@ -278,6 +359,11 @@
         }
       },
       "com.book.system.spi.BookForSaleV1.getSellerByID" : {
+        "response" : {
+          "$ref" : "Seller"
+        }
+      },
+      "com.book.system.spi.BookForSaleV1.getSellerByEmail" : {
         "response" : {
           "$ref" : "Seller"
         }
@@ -305,6 +391,11 @@
       "com.book.system.spi.BookForSaleV1.getAllBooksBySeller" : {
         "response" : {
           "$ref" : "BookCollection"
+        }
+      },
+      "com.book.system.spi.BookForSaleV1.insertBookForSale" : {
+        "response" : {
+          "$ref" : "BookForSale"
         }
       }
     }

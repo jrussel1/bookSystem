@@ -191,7 +191,6 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 			if (!AppConstants.checkGooglePlayServicesAvailable(GooglePlusLoginActivity.this)) {
 				return false;
 			}
-
 			String emailAccount = emailAccounts[0];
 			// Ensure only one task is running at a time.
 			mAuthTask = this;
@@ -274,7 +273,7 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-
+		
 		if (requestCode == ACTIVITY_RESULT_FROM_ACCOUNT_SELECTION && resultCode == RESULT_OK) {
 			// This path indicates the account selection activity resulted in the user selecting a
 			// Google account and clicking OK.
@@ -347,6 +346,7 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 				if (shelf!=null) {
 					try {
 						Log.d("SaleShelf", shelf.toPrettyString());
+//						Log.d(LOG_TAG,AccountManager.KEY_USERDATA);
 						Intent intent = new Intent(GooglePlusLoginActivity.this,BookListActivity.class);
 						startActivity(intent);
 					} catch (IOException e) {

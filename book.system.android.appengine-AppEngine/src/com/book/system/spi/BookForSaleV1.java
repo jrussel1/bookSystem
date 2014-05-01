@@ -100,8 +100,8 @@ public class BookForSaleV1 {
 
 					Long personId = resultSet.getLong("Person_ID");
 					seller = getSellerByIDWithoutClosing(personId);
-
-					bfs = new BookForSale(book,seller);
+					Double price = resultSet.getDouble("Price");
+					bfs = new BookForSale(book,seller,price);
 					booksForSale.addToShelf(bfs);
 					book = null;
 					seller = null;
@@ -402,56 +402,6 @@ public class BookForSaleV1 {
 
 		return sellerList;
 	}
-	@ApiMethod(name = "book.insert", httpMethod = "post", authLevel=AuthLevel.OPTIONAL_CONTINUE)
-	public Book insertBook(@Named("isbn") String isbn, @Named("title") String title, @Named("author") String author) {
-
-		Book response = new Book(isbn);
-		if(!title.isEmpty()){
-			response.setTitle(title);
-		}else {
-			title="Unknown";
-		}
-		if(!author.isEmpty()){
-			response.setAuthor(author);
-		}else {
-			author="Unknown";
-		}
-		
-		String insertBookQry ="INSERT IGNORE INTO `book-system`.`Book` (`ISBN`, `Title`, `Author`) VALUES (?,?,?)";
-		PreparedStatement stmt = null;
-		try{
-			if(conn==null){
-				log.setLevel(Level.WARNING);
-				log.warning("Creating connection...");
-				conn = DBConnection.createConnection();
-			}else{
-				log.setLevel(Level.WARNING);
-				boolean valid = conn.isValid(10);
-				log.warning("isValid():"+String.valueOf(valid));
-			}
-			stmt = conn.prepareStatement(insertBookQry);
-			stmt.setString(1, isbn);
-			stmt.setString(2, title);
-			stmt.setString(3, author);
-			stmt.executeUpdate(); //return int of rows affected, but with the insert ignore, there won't be an error if it exists already
-		}
-		catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}
-		finally{
-			try {
-				if(conn!=null)
-					conn.close();
-				if(stmt!=null)
-					stmt.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return response;
-	}
 	@ApiMethod(name = "seller.insert", httpMethod = "post", authLevel=AuthLevel.OPTIONAL_CONTINUE)
 	public Seller insertSeller(@Named("email") String email, @Named("first_name") String first_name, @Named("last_name") String last_name) {
 		Seller response = new Seller(email);
@@ -528,5 +478,194 @@ public class BookForSaleV1 {
 		}
 
 		return response;
+	}
+	
+	@ApiMethod(name = "book.insert", httpMethod = "post", authLevel=AuthLevel.OPTIONAL_CONTINUE)
+	public Book insertBook(@Named("isbn") String isbn, @Named("title") String title, @Named("author") String author) {
+
+		Book response = new Book(isbn);
+		if(!title.isEmpty()){
+			response.setTitle(title);
+		}else {
+			title="Unknown";
+		}
+		if(!author.isEmpty()){
+			response.setAuthor(author);
+		}else {
+			author="Unknown";
+		}
+		
+		String insertBookQry ="INSERT IGNORE INTO `book-system`.`Book` (`ISBN`, `Title`, `Author`) VALUES (?,?,?)";
+		PreparedStatement stmt = null;
+		try{
+			if(conn==null){
+				log.setLevel(Level.WARNING);
+				log.warning("Creating connection...");
+				conn = DBConnection.createConnection();
+			}else{
+				log.setLevel(Level.WARNING);
+				boolean valid = conn.isValid(10);
+				log.warning("isValid():"+String.valueOf(valid));
+			}
+			stmt = conn.prepareStatement(insertBookQry);
+			stmt.setString(1, isbn);
+			stmt.setString(2, title);
+			stmt.setString(3, author);
+			stmt.executeUpdate(); //return int of rows affected, but with the insert ignore, there won't be an error if it exists already
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally{
+			try {
+				if(conn!=null)
+					conn.close();
+				if(stmt!=null)
+					stmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return response;
+	}
+	@ApiMethod(name = "bookforsale.getSellerByEmail", path="seller/email", authLevel=AuthLevel.OPTIONAL_CONTINUE)
+	public Seller getSellerByEmail(@Named("email") String email){
+		ResultSet resultSetPerson = null;
+		Seller seller = null;
+		PreparedStatement getPersonStmt = null;
+		try{
+			if(conn==null){
+				log.setLevel(Level.WARNING);
+				log.warning("Creating connection...");
+				conn = DBConnection.createConnection();
+			}else{
+				log.setLevel(Level.WARNING);
+				boolean valid = conn.isValid(10);
+				log.warning("isValid():"+String.valueOf(valid));
+			}
+			String getPerson = "SELECT * FROM Person WHERE Email=?";
+			getPersonStmt = conn.prepareStatement(getPerson);
+			getPersonStmt.setString(1, email);
+			resultSetPerson = getPersonStmt.executeQuery();
+			resultSetPerson.next();
+
+			String firstName = resultSetPerson.getString("First_Name");
+			String lastName = resultSetPerson.getString("Last_Name");
+			Long personId = resultSetPerson.getLong("Person_ID");
+
+			seller = new Seller( personId.intValue(), email, firstName, lastName);
+		}catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}finally{
+			if(resultSetPerson!=null)
+				try {
+					resultSetPerson.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			if(getPersonStmt!=null)
+				try {
+					getPersonStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		return seller;
+	}
+	private Seller getSellerByEmailWithoutClosing(String email){
+		ResultSet resultSetPerson = null;
+		Seller seller = null;
+		PreparedStatement getPersonStmt = null;
+		try{
+			String getPerson = "SELECT * FROM Person WHERE Email=?";
+			getPersonStmt = conn.prepareStatement(getPerson);
+			getPersonStmt.setString(1, email);
+			resultSetPerson = getPersonStmt.executeQuery();
+			resultSetPerson.next();
+
+			String firstName = resultSetPerson.getString("First_Name");
+			String lastName = resultSetPerson.getString("Last_Name");
+			Long personId = resultSetPerson.getLong("Person_ID");
+
+			seller = new Seller( personId.intValue(), email, firstName, lastName);
+		}catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}finally{
+			if(resultSetPerson!=null)
+				try {
+					resultSetPerson.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			if(getPersonStmt!=null)
+				try {
+					getPersonStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		return seller;
+	}
+	@ApiMethod(name = "bookforsale.insert", httpMethod = "post", authLevel=AuthLevel.OPTIONAL_CONTINUE)
+	public BookForSale insertBookForSale(@Named("isbn") String isbn, @Named("title") String title, @Named("author") String author,
+			@Named("email") String email, @Named("first_name") String first_name, @Named("last_name") String last_name, @Named("Price") Double price) {
+		Book book = null;
+		Seller seller = null;
+		String insertBFSQry ="INSERT INTO `book-system`.`Book_For_Sale` (`ISBN`, `Person_ID`, `Price`) "
+				+ "VALUES (?, ?, ?);";
+		PreparedStatement stmt = null;
+		try{
+			if(conn==null){
+				log.setLevel(Level.WARNING);
+				log.warning("Creating connection...");
+				conn = DBConnection.createConnection();
+			}else{
+				log.setLevel(Level.WARNING);
+				boolean valid = conn.isValid(10);
+				log.warning("isValid():"+String.valueOf(valid));
+			}
+			
+			seller = getSellerByEmailWithoutClosing(email);
+			if(seller==null){
+				seller = insertSeller(email,first_name,last_name);
+			}
+			book = getBookByISBNWithoutClosing(isbn);
+			if(book==null){
+				book = insertBook(isbn,title,author);
+			}
+			
+			stmt = conn.prepareStatement(insertBFSQry);
+			stmt.setString(1, book.getISBN());
+			stmt.setLong(2, seller.getId());
+			stmt.setDouble(3, price);
+			stmt.executeUpdate(); //return int of rows affected, but with the insert ignore, there won't be an error if it exists already
+
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		finally{
+			try {
+				if(conn!=null)
+					conn.close();
+				if(stmt!=null)
+					stmt.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return new BookForSale(book,seller,price);
 	}
 }
