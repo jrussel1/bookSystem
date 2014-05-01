@@ -55,7 +55,6 @@ import com.google.appengine.api.users.User;
 		)
 public class BookForSaleV1 {
 
-	private static final String DEFAULT_LIMIT = "10";
 	private static Connection conn = null;
     private static final Logger log = Logger.getLogger(SystemServiceServlet.class.getName());
 
