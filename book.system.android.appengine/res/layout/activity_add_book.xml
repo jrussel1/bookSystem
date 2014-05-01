@@ -18,7 +18,8 @@
         android:layout_marginTop="66dp"
         android:text="ISBN"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:fontFamily="roboto-light"  />
+        android:fontFamily="roboto-light"
+        android:textColor="#6A6A6A"  />
 
     <EditText
         android:id="@+id/EditText_ISBN"
@@ -27,7 +28,8 @@
         android:layout_below="@+id/SearchTest"
         android:layout_centerHorizontal="true"
         android:ems="10"
-        android:inputType="text" />
+        android:inputType="text"
+        android:textColor="#00A3CC" />
 
     <EditText
         android:id="@+id/EditText_BookTitle"
@@ -36,7 +38,8 @@
         android:layout_alignRight="@+id/EditText_ISBN"
         android:layout_below="@+id/TextEdit_BookTitle"
         android:ems="10" 
-        android:inputType="text"/>
+        android:inputType="text"
+        android:textColor="#00A3CC"/>
 
 	
     <EditText
@@ -46,7 +49,8 @@
         android:layout_below="@+id/price_static"
         android:layout_centerHorizontal="true"
         android:ems="10"
-        android:inputType="number" >
+        android:inputType="number"
+        android:textColor="#00A3CC" >
 
         <requestFocus />
     </EditText>
@@ -59,7 +63,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="33dp"
         android:text="Add"
-        android:fontFamily="roboto-light"  />
+        android:fontFamily="roboto-light"
+        android:background="#00A3CC"
+        android:textColor="#FFFFFF"  />
 
     <TextView
         android:id="@+id/TextEdit_BookTitle"
@@ -70,7 +76,8 @@
         android:layout_marginTop="20dp"
         android:text="Book Title"
         android:textAppearance="?android:attr/textAppearanceMedium" 
-        android:fontFamily="roboto-light" />
+        android:fontFamily="roboto-light"
+        android:textColor="#6A6A6A" />
 
     <TextView
         android:id="@+id/price_static"
@@ -81,7 +88,8 @@
         android:layout_marginTop="25dp"
         android:text="Price"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:fontFamily="roboto-light"  />
+        android:fontFamily="roboto-light"
+        android:textColor="#6A6A6A"  />
 
     <LinearLayout
         android:id="@+id/linearLayout2"

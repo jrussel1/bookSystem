@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,15 +28,31 @@ public class AddBookActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_add_book);
 		
-		setTitle("Sell Book");
-		
 		Typeface tf = Typeface.createFromAsset(getAssets(),
+		        "fonts/Roboto-Thin.ttf");
+		Typeface tf2 = Typeface.createFromAsset(getAssets(),
 		        "fonts/Roboto-Light.ttf");
 		
+		setTitle("Sell Book");
+		
 		mISBN = (EditText)findViewById(R.id.EditText_ISBN);
+		mISBN.setTypeface(tf2);
 		mBookTitle = (EditText)findViewById(R.id.EditText_BookTitle);
+		mBookTitle.setTypeface(tf2);
 		mPrice = (EditText)findViewById(R.id.EditText_Price);
+		mPrice.setTypeface(tf2);
 		mAddButton = (Button)findViewById(R.id.button_AddBook);
+		mAddButton.setTypeface(tf2);
+		
+		TextView t = (TextView)findViewById(R.id.SearchTest);
+		t.setTypeface(tf2);
+		TextView t1 = (TextView)findViewById(R.id.TextEdit_BookTitle);
+		t1.setTypeface(tf2);
+		TextView t2 = (TextView)findViewById(R.id.price_static);
+		t2.setTypeface(tf2);
+		
+		
+
 		
 
 

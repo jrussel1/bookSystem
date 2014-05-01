@@ -26,7 +26,8 @@
             android:text="Sell Book"
             android:textColor="#FFFFFF"
 			android:fontFamily="sans-serif-thin" 
-			android:background="#254AB8"
+			android:background="#00A3CC"
+			android:textSize="20dp"
              />
 
 
@@ -39,7 +40,8 @@
             android:layout_weight="1"
             android:textColor="#FFFFFF"
             android:fontFamily="sans-serif-thin"
-            android:background="#516EC6" />
+            android:background="#33B5D6"
+            android:textSize="20dp" />
     </LinearLayout>
 
     <LinearLayout

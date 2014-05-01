@@ -1,10 +1,9 @@
 package com.book.system.android.appengine;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
-import android.widget.TextView;
+import android.view.MenuInflater;
 
 public class MainActivity extends Activity {
 
@@ -14,23 +13,22 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		Intent intent = new Intent(this, BookListActivity.class);
-//		Intent intent = new Intent(this, GooglePlusLoginActivity.class);
-//		Intent intent = new Intent(this, MenuActivity.class);
-		
 
 		
+		Intent intent = new Intent(MainActivity.this, BookListActivity.class);
+//		Intent intent = new Intent(MainActivity.this, GooglePlusLoginActivity.class);
 		
 		
 
 		startActivity(intent);
 	}
 
-//	@Override
-//	public boolean onCreateOptionsMenu(Menu menu) {
-//		// Inflate the menu; this adds items to the action bar if it is present.
-//		getMenuInflater().inflate(R.menu.main, menu);
-//		return true;
-//	}
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		MenuInflater mif = getMenuInflater();
+		mif.inflate(R.menu.main_activity_action, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
 
 }
