@@ -39,6 +39,7 @@ public class BookListActivity extends ListActivity {
 	private BookSystem service = null;
 	private SaleShelf saleshelf = null;
 	
+
 	public void unauthenticatedSaleShelfTask(){
 		AsyncTask<Integer, Void, SaleShelf> getShelf =
 				new AsyncTask<Integer, Void, SaleShelf> () {
@@ -74,7 +75,6 @@ public class BookListActivity extends ListActivity {
 
 		getShelf.execute();
 	}
-	
 	
 	
 	@Override
