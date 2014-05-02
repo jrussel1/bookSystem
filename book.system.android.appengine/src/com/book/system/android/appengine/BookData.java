@@ -10,7 +10,7 @@ public class BookData {
 		return data;
 	}
 	
-	public void setData(SaleShelf data) {
+	public void setData(SaleShelf data) { 
 		this.data = data;
 	}
 
