@@ -25,7 +25,7 @@ public class SearchActivity extends ListActivity {
 		setContentView(R.layout.activity_search);
 		
 		Intent intent = getIntent();
-		String query = intent.getStringExtra("query");
+		String query = intent.getStringExtra("query").toLowerCase();
 		
 		
 		Book book1 = new Book("Harry Poter","A1B2C3D4","JK Rowling");
@@ -65,10 +65,17 @@ public class SearchActivity extends ListActivity {
 		bookNames.add(bookForSale7);
 		
 		for (BookForSale b: bookNames){
-			if ((b.getBook().getISBN().equalsIgnoreCase(query))) {
+//			if ((b.getBook().getISBN().equalsIgnoreCase(query))) {
+//				bookNames2.add(b);
+//			}
+			if (b.getBook().getISBN().toLowerCase().indexOf(query)>-1 ||
+					b.getBook().getTitle().toLowerCase().indexOf(query)>-1 ||
+					b.getBook().getAuthor().toLowerCase().indexOf(query)>-1) {
 				bookNames2.add(b);
 			}
+			
 		}
+		
 		
 		BookAdapter adapter = new BookAdapter(this, bookNames2);
 		// Attach the adapter to a ListView
