@@ -1,18 +1,19 @@
 package com.book.system.android.appengine;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
 import com.appspot.mac_books.bookSystem.model.BookForSale;
 
 import android.R.menu;
+
 import android.app.Fragment;
 import android.app.ListActivity;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,12 +26,56 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.appspot.mac_books.bookSystem.BookSystem;
+import com.appspot.mac_books.bookSystem.model.BookForSale;
+import com.appspot.mac_books.bookSystem.model.SaleShelf;
+
 public class BookListActivity extends ListActivity {
 
 	protected Map<String,BookForSale> bookList = new HashMap<String,BookForSale>();
 	protected TextView mAddBookTextView;
 	protected TextView mMyProfileButton;
 	protected SearchView mSearchView;
+	private BookSystem service = null;
+	private SaleShelf saleshelf = null;
+	
+	public void unauthenticatedSaleShelfTask(){
+		AsyncTask<Integer, Void, SaleShelf> getShelf =
+				new AsyncTask<Integer, Void, SaleShelf> () {
+			@Override
+			protected SaleShelf doInBackground(Integer... integers) {
+				// Retrieve service handle.
+
+				try {
+					BookSystem.Bookforsale.List getListCommand = service.bookforsale().list();
+					SaleShelf shelf = getListCommand.execute();
+					return shelf;
+				} catch (IOException e) {
+					Log.e("BookSystem call", "Exception during API call", e);
+				}
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(SaleShelf shelf) {
+				if (shelf!=null) {
+					try {
+						Log.d("SaleShelf", shelf.toPrettyString());
+						saleshelf = shelf;
+						
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				} else {
+					Log.e("SaleShelf error", "No shelf were returned by the API.");
+				}
+			}
+		};
+
+		getShelf.execute();
+	}
+	
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

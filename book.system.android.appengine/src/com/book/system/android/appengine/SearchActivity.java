@@ -69,9 +69,6 @@ public class SearchActivity extends ListActivity {
 //		bookNames.add(bookForSale7);
 		
 		for (BookForSale b: shelf.getList()){
-//			if ((b.getBook().getISBN().equalsIgnoreCase(query))) {
-//				bookNames2.add(b);
-//			}
 			if (b.getBook().getIsbn().toLowerCase().indexOf(query)>-1 ||
 					b.getBook().getTitle().toLowerCase().indexOf(query)>-1 ||
 					b.getBook().getAuthor().toLowerCase().indexOf(query)>-1) {
@@ -79,7 +76,7 @@ public class SearchActivity extends ListActivity {
 			}
 			
 		}
-		
+
 		
 		BookAdapter adapter = new BookAdapter(this, foundBooks);
 		// Attach the adapter to a ListView
