@@ -59,8 +59,8 @@ public class BookForSaleV1 {
 	private static Connection conn = null;
     private static final Logger log = Logger.getLogger(SystemServiceServlet.class.getName());
 
-	@ApiMethod(name = "bookforsale.list", authLevel=AuthLevel.OPTIONAL_CONTINUE)
-	public SaleShelf list(User user) throws OAuthRequestException, IOException {
+	@ApiMethod(name = "bookforsale.listAll", authLevel=AuthLevel.OPTIONAL_CONTINUE)
+	public SaleShelf listAll(User user) throws OAuthRequestException, IOException {
 		SaleShelf booksForSale = new SaleShelf();
 		try{
 			if(conn==null){
@@ -130,7 +130,77 @@ public class BookForSaleV1 {
 
 		return booksForSale;
 	}
+	@ApiMethod(name = "bookforsale.list", authLevel=AuthLevel.OPTIONAL_CONTINUE)
+	public SaleShelf list(User user) throws OAuthRequestException, IOException {
+		SaleShelf booksForSale = new SaleShelf();
+		try{
+			if(conn==null){
+				log.setLevel(Level.WARNING);
+				log.warning("Creating connection...");
+				conn = DBConnection.createConnection();
+			}else{
+				log.setLevel(Level.WARNING);
+				boolean valid = conn.isValid(10);
+				log.warning("isValid():"+String.valueOf(valid));
+			}
+			PreparedStatement stmt = null;
+			PreparedStatement getPersonStmt = null;
+			PreparedStatement getBookStmt = null;
+			ResultSet resultSet = null;
+			try {
+				log.setLevel(Level.WARNING);
+				log.warning(conn.getMetaData().getURL());
+				
+				String statement = "SELECT * FROM Book_For_Sale";
+				stmt = conn.prepareStatement(statement);
 
+				String getPerson = "SELECT * FROM Person WHERE Person_ID=?";
+				getPersonStmt = conn.prepareStatement(getPerson);
+				String getBook = "SELECT * FROM Book WHERE ISBN=?";
+				getBookStmt = conn.prepareStatement(getBook);
+
+				Book book = null;
+				Seller seller = null;
+				BookForSale bfs = null;
+
+				resultSet = stmt.executeQuery();
+
+				while (resultSet.next()) {
+					String ISBN = resultSet.getString("ISBN");
+					book = getBookByISBNWithoutClosing(ISBN);
+
+					Long personId = resultSet.getLong("Person_ID");
+					seller = getSellerByIDWithoutClosing(personId);
+					Double price = resultSet.getDouble("Price");
+					bfs = new BookForSale(book,seller,price);
+					booksForSale.addToList(bfs);
+					book = null;
+					seller = null;
+					bfs = null;
+				}
+
+			} finally {
+				try{
+					if(stmt!=null)
+						stmt.close();
+					if(getPersonStmt!=null)
+						getPersonStmt.close();
+					if(getBookStmt!=null)
+						getBookStmt.close();
+					if(resultSet!=null)
+						resultSet.close();	
+				}catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		return booksForSale;
+	}
 	@ApiMethod(name = "bookforsale.getBookByISBN", authLevel=AuthLevel.OPTIONAL_CONTINUE)
 	public Book getBookByISBN(@Named("ISBN") String ISBN){
 

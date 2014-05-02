@@ -10,7 +10,8 @@ public class SaleShelf {
 	private HashMap<Long,List<BookForSale>> sellerIdToList = null;
 	private HashMap<String,HashMap<Long,BookForSale>> isbnToMap = null;
 	private HashMap<Long,HashMap<String,BookForSale>> sellerIdToMap = null;
-
+	private ArrayList<BookForSale> list = new ArrayList<BookForSale>();
+	
 	public SaleShelf(){
 		this.isbnToList = new HashMap<String,List<BookForSale>>();
 		this.sellerIdToList = new HashMap<Long,List<BookForSale>>();
@@ -40,7 +41,9 @@ public class SaleShelf {
 			temp = null;
 		}
 	}
-	
+	public void addToList(BookForSale bfs){
+		this.list.add(bfs);
+	}
 	public void addToIDList(Long id, BookForSale bfs){
 		List<BookForSale> temp;
 		if(sellerIdToList.containsKey(id)){
@@ -103,5 +106,13 @@ public class SaleShelf {
 	 */
 	public HashMap<Long, HashMap<String, BookForSale>> getSellerIdToMap() {
 		return sellerIdToMap;
+	}
+
+	public ArrayList<BookForSale> getList() {
+		return list;
+	}
+
+	public void setList(ArrayList<BookForSale> list) {
+		this.list = list;
 	}
 }

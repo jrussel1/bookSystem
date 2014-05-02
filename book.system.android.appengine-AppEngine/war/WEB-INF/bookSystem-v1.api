@@ -139,6 +139,21 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "bookSystem.bookforsale.listAll" : {
+      "path" : "listAll",
+      "httpMethod" : "GET",
+      "authLevel" : "OPTIONAL_CONTINUE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.book.system.spi.BookForSaleV1.listAll",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "bookSystem.bookforsale.getAllSellersOfBook" : {
       "path" : "sellercollection/{ISBN}",
       "httpMethod" : "GET",
@@ -305,12 +320,33 @@
           },
           "sellerIdToMap" : {
             "$ref" : "JsonMap"
+          },
+          "list" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "BookForSale"
+            }
           }
         }
       },
       "JsonMap" : {
         "id" : "JsonMap",
         "type" : "object"
+      },
+      "BookForSale" : {
+        "id" : "BookForSale",
+        "type" : "object",
+        "properties" : {
+          "book" : {
+            "$ref" : "Book"
+          },
+          "seller" : {
+            "$ref" : "Seller"
+          },
+          "price" : {
+            "type" : "number"
+          }
+        }
       },
       "SellerCollection" : {
         "id" : "SellerCollection",
@@ -333,21 +369,6 @@
             "items" : {
               "$ref" : "Book"
             }
-          }
-        }
-      },
-      "BookForSale" : {
-        "id" : "BookForSale",
-        "type" : "object",
-        "properties" : {
-          "book" : {
-            "$ref" : "Book"
-          },
-          "seller" : {
-            "$ref" : "Seller"
-          },
-          "price" : {
-            "type" : "number"
           }
         }
       }
@@ -374,6 +395,11 @@
         }
       },
       "com.book.system.spi.BookForSaleV1.list" : {
+        "response" : {
+          "$ref" : "SaleShelf"
+        }
+      },
+      "com.book.system.spi.BookForSaleV1.listAll" : {
         "response" : {
           "$ref" : "SaleShelf"
         }

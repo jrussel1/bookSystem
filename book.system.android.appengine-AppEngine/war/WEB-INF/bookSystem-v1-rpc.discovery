@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"ADiYQGKhdYR9rpbhIFHih-UBYRs/sN3bFe5hyu_baCfW-vVAlvby2G0\"",
+ "etag": "\"ADiYQGKhdYR9rpbhIFHih-UBYRs/XjIQYbV-tqeHwJfi8pHjuijvx78\"",
  "discoveryVersion": "v1",
  "id": "bookSystem:v1",
  "name": "bookSystem",
@@ -125,6 +125,12 @@
     },
     "isbnToMap": {
      "$ref": "JsonMap"
+    },
+    "list": {
+     "type": "array",
+     "items": {
+      "$ref": "BookForSale"
+     }
     },
     "sellerIdToList": {
      "$ref": "JsonMap"
@@ -349,6 +355,16 @@
   },
   "bookSystem.bookforsale.list": {
    "id": "bookSystem.bookforsale.list",
+   "allowGet": true,
+   "returns": {
+    "$ref": "SaleShelf"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "bookSystem.bookforsale.listAll": {
+   "id": "bookSystem.bookforsale.listAll",
    "allowGet": true,
    "returns": {
     "$ref": "SaleShelf"

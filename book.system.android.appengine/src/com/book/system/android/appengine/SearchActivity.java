@@ -2,6 +2,9 @@ package com.book.system.android.appengine;
 
 import java.util.ArrayList;
 
+import com.appspot.mac_books.bookSystem.model.BookForSale;
+import com.appspot.mac_books.bookSystem.model.SaleShelf;
+
 import android.app.Fragment;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -27,57 +30,58 @@ public class SearchActivity extends ListActivity {
 		Intent intent = getIntent();
 		String query = intent.getStringExtra("query").toLowerCase();
 		
+		SaleShelf shelf = BookData.getInstance().getData();
 		
-		Book book1 = new Book("Harry Poter","A1B2C3D4","JK Rowling");
-		Book book2 = new Book("The Great Gatsby","A2B3C4D5","F.Scott Fitzgerald");
-		Book book3 = new Book("Carnal Curiosity","A2B3C4D5","Stuart Woods");
-		Book book4 = new Book("The Fixed Triology","A2B3C4D5","Laurelin Paige");
-		Book book5 = new Book("Missing You","A2B3C4D5","Harlan Coben");
-		Book book6 = new Book("NYPD Red 2","A2B3C4D5","James Patterson and Marshall Karp");
-		Book book7 = new Book("Got You Under My Skin","A2B3C4D5","Mary Higgins Clark");
+//		Book book1 = new Book("Harry Poter","A1B2C3D4","JK Rowling");
+//		Book book2 = new Book("The Great Gatsby","A2B3C4D5","F.Scott Fitzgerald");
+//		Book book3 = new Book("Carnal Curiosity","A2B3C4D5","Stuart Woods");
+//		Book book4 = new Book("The Fixed Triology","A2B3C4D5","Laurelin Paige");
+//		Book book5 = new Book("Missing You","A2B3C4D5","Harlan Coben");
+//		Book book6 = new Book("NYPD Red 2","A2B3C4D5","James Patterson and Marshall Karp");
+//		Book book7 = new Book("Got You Under My Skin","A2B3C4D5","Mary Higgins Clark");
+//		
+//		Seller seller1 = new Seller(12345,"hliu1@macalester.edu","Hongshan","Liu");
+//		Seller seller2 = new Seller(23456,"hxu1@macalester.edu","Hanyue","Xu");
+//		
+//		BookForSale bookForSale1 = new BookForSale(book1,seller1, 10.0);
+//		BookForSale bookForSale2 = new BookForSale(book2,seller2, 18.0);
+//		BookForSale bookForSale3 = new BookForSale(book3,seller1, 25.5);
+//		BookForSale bookForSale4 = new BookForSale(book4,seller2, 15.9);
+//		BookForSale bookForSale5 = new BookForSale(book5,seller1, 35.9);
+//		BookForSale bookForSale6 = new BookForSale(book6,seller2, 13.9);
+//		BookForSale bookForSale7 = new BookForSale(book7,seller1, 12.9);
+//
+//
+//		ArrayList<BookForSale> bookNames = new ArrayList<BookForSale>();
+		ArrayList<BookForSale> foundBooks = new ArrayList<BookForSale>();
+//		
+//		bookNames.add(bookForSale1);
+//		bookNames.add(bookForSale2);
+//		bookNames.add(bookForSale3);
+//		bookNames.add(bookForSale4);
+//		bookNames.add(bookForSale5);
+//		bookNames.add(bookForSale6);
+//		bookNames.add(bookForSale7);
+//		bookNames.add(bookForSale3);
+//		bookNames.add(bookForSale1);
+//		bookNames.add(bookForSale5);
+//		bookNames.add(bookForSale6);
+//		bookNames.add(bookForSale7);
 		
-		Seller seller1 = new Seller(12345,"hliu1@macalester.edu","Hongshan","Liu");
-		Seller seller2 = new Seller(23456,"hxu1@macalester.edu","Hanyue","Xu");
-		
-		BookForSale bookForSale1 = new BookForSale(book1,seller1, 10.0);
-		BookForSale bookForSale2 = new BookForSale(book2,seller2, 18.0);
-		BookForSale bookForSale3 = new BookForSale(book3,seller1, 25.5);
-		BookForSale bookForSale4 = new BookForSale(book4,seller2, 15.9);
-		BookForSale bookForSale5 = new BookForSale(book5,seller1, 35.9);
-		BookForSale bookForSale6 = new BookForSale(book6,seller2, 13.9);
-		BookForSale bookForSale7 = new BookForSale(book7,seller1, 12.9);
-
-
-		ArrayList<BookForSale> bookNames = new ArrayList<BookForSale>();
-		ArrayList<BookForSale> bookNames2 = new ArrayList<BookForSale>();
-		
-		bookNames.add(bookForSale1);
-		bookNames.add(bookForSale2);
-		bookNames.add(bookForSale3);
-		bookNames.add(bookForSale4);
-		bookNames.add(bookForSale5);
-		bookNames.add(bookForSale6);
-		bookNames.add(bookForSale7);
-		bookNames.add(bookForSale3);
-		bookNames.add(bookForSale1);
-		bookNames.add(bookForSale5);
-		bookNames.add(bookForSale6);
-		bookNames.add(bookForSale7);
-		
-		for (BookForSale b: bookNames){
+		for (BookForSale b: shelf.getList()){
 //			if ((b.getBook().getISBN().equalsIgnoreCase(query))) {
 //				bookNames2.add(b);
 //			}
-			if (b.getBook().getISBN().toLowerCase().indexOf(query)>-1 ||
+			if (b.getBook().getIsbn().toLowerCase().indexOf(query)>-1 ||
 					b.getBook().getTitle().toLowerCase().indexOf(query)>-1 ||
 					b.getBook().getAuthor().toLowerCase().indexOf(query)>-1) {
-				bookNames2.add(b);
+				foundBooks.add(b);
 			}
 			
 		}
 		
 		
-		BookAdapter adapter = new BookAdapter(this, bookNames2);
+		BookAdapter adapter = new BookAdapter(this, foundBooks);
 		// Attach the adapter to a ListView
 		ListView list = getListView();
 		ListView listView = (ListView) list;
@@ -104,7 +108,7 @@ public class SearchActivity extends ListActivity {
 
 		Intent intent = new Intent(SearchActivity.this, BookDetailActivity.class);
 
-		String isbn = bookObject.getBook().getISBN();
+		String isbn = bookObject.getBook().getIsbn();
 		Double price1 = (bookObject.getPrice());
 		String price = Double.toString(price1);
 		String bookName = bookObject.getBook().getTitle();

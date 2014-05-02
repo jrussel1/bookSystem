@@ -2,6 +2,8 @@ package com.book.system.android.appengine;
 
 import java.util.ArrayList;
 
+import com.appspot.mac_books.bookSystem.model.BookForSale;
+
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
