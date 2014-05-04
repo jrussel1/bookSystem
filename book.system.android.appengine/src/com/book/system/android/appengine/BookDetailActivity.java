@@ -94,6 +94,7 @@ public class BookDetailActivity extends Activity {
 		}
 	}
 
+	//Adapter from http://stackoverflow.com/a/2197841
 	private void sendEmail(){
 		Intent i = new Intent(Intent.ACTION_SEND);
 		i.setType("message/rfc822");
