@@ -3,12 +3,8 @@ package com.book.system.android.appengine;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
-
-import com.appspot.mac_books.bookSystem.model.BookForSale;
-
-import android.R.menu;
 
 import android.app.Fragment;
 import android.app.ListActivity;
@@ -133,6 +129,13 @@ public class BookListActivity extends ListActivity {
 		mSearchView.setOnQueryTextListener(queryTextListener);
 
 		//add stuff to the bookList 
+		
+		BookForSale b1 = saleshelf.getList().get(0);
+		
+		
+
+		
+		
 
 //		Book book1 = new Book("Harry Poter","A1B2C3D4","JK Rowling");
 //		Book book2 = new Book("The Great Gatsby","A2B3C4D5","F.Scott Fitzgerald");
@@ -156,6 +159,7 @@ public class BookListActivity extends ListActivity {
 
 
 		ArrayList<BookForSale> bookNames = new ArrayList<BookForSale>();
+		bookNames.add(b1);
 //		bookNames.add(bookForSale1);
 //		bookNames.add(bookForSale2);
 //		bookNames.add(bookForSale3);
