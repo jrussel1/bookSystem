@@ -71,6 +71,9 @@ public class BookForSaleV1 {
 				log.setLevel(Level.WARNING);
 				boolean valid = conn.isValid(10);
 				log.warning("isValid():"+String.valueOf(valid));
+				if(!valid){
+					conn = DBConnection.createConnection();
+				}
 			}
 			PreparedStatement stmt = null;
 			PreparedStatement getPersonStmt = null;
@@ -222,6 +225,9 @@ public class BookForSaleV1 {
 				log.setLevel(Level.WARNING);
 				boolean valid = conn.isValid(10);
 				log.warning("isValid():"+String.valueOf(valid));
+				if(!valid){
+					conn = DBConnection.createConnection();
+				}
 			}
 			String getBook = "SELECT * FROM Book WHERE ISBN=?";
 			getBookStmt = conn.prepareStatement(getBook);
@@ -305,6 +311,10 @@ public class BookForSaleV1 {
 				log.setLevel(Level.WARNING);
 				boolean valid = conn.isValid(10);
 				log.warning("isValid():"+String.valueOf(valid));
+				if(!valid){
+					conn = DBConnection.createConnection();
+									conn = DBConnection.createConnection();
+				}
 			}
 			String getPerson = "SELECT * FROM Person WHERE Person_ID=?";
 			getPersonStmt = conn.prepareStatement(getPerson);
@@ -397,6 +407,10 @@ public class BookForSaleV1 {
 				log.setLevel(Level.WARNING);
 				boolean valid = conn.isValid(10);
 				log.warning("isValid():"+String.valueOf(valid));
+				if(!valid){
+					conn = DBConnection.createConnection();
+									conn = DBConnection.createConnection();
+				}
 			}
 			stmt = conn.prepareStatement(getBooksQry);
 			stmt.setLong(1, personId);
@@ -444,6 +458,10 @@ public class BookForSaleV1 {
 				log.setLevel(Level.WARNING);
 				boolean valid = conn.isValid(10);
 				log.warning("isValid():"+String.valueOf(valid));
+				if(!valid){
+					conn = DBConnection.createConnection();
+									conn = DBConnection.createConnection();
+				}
 			}
 			stmt = conn.prepareStatement(getBooksQry);
 			stmt.setString(1, ISBN);
@@ -504,6 +522,10 @@ public class BookForSaleV1 {
 				log.setLevel(Level.WARNING);
 				boolean valid = conn.isValid(10);
 				log.warning("isValid():"+String.valueOf(valid));
+				if(!valid){
+					conn = DBConnection.createConnection();
+									conn = DBConnection.createConnection();
+				}
 			}
 			stmt = conn.prepareStatement(insertPersonQry,PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, email);
@@ -647,6 +669,10 @@ public class BookForSaleV1 {
 				log.setLevel(Level.WARNING);
 				boolean valid = conn.isValid(10);
 				log.warning("isValid():"+String.valueOf(valid));
+				if(!valid){
+					conn = DBConnection.createConnection();
+									conn = DBConnection.createConnection();
+				}
 			}
 			stmt = conn.prepareStatement(insertBookQry);
 			stmt.setString(1, isbn);
@@ -723,6 +749,10 @@ public class BookForSaleV1 {
 				log.setLevel(Level.WARNING);
 				boolean valid = conn.isValid(10);
 				log.warning("isValid():"+String.valueOf(valid));
+				if(!valid){
+					conn = DBConnection.createConnection();
+									conn = DBConnection.createConnection();
+				}
 			}
 			String getPerson = "SELECT * FROM Person WHERE Email=?";
 			getPersonStmt = conn.prepareStatement(getPerson);
@@ -812,6 +842,10 @@ public class BookForSaleV1 {
 				log.setLevel(Level.WARNING);
 				boolean valid = conn.isValid(10);
 				log.warning("isValid():"+String.valueOf(valid));
+				if(!valid){
+					conn = DBConnection.createConnection();
+									conn = DBConnection.createConnection();
+				}
 			}
 			
 			seller = getSellerByEmailWithoutClosing(email);
@@ -861,6 +895,10 @@ public class BookForSaleV1 {
 				log.setLevel(Level.WARNING);
 				boolean valid = conn.isValid(10);
 				log.warning("isValid():"+String.valueOf(valid));
+				if(!valid){
+					conn = DBConnection.createConnection();
+									conn = DBConnection.createConnection();
+				}
 			}
 			String deleteBFS = "DELETE FROM `book-system`.`Book_For_Sale` WHERE ISBN=? AND Person_ID=?";
 			
