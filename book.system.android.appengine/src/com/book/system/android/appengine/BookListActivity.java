@@ -145,8 +145,6 @@ public class BookListActivity extends ListActivity {
 		mSearchView.setOnQueryTextListener(queryTextListener);
 
 
-		BookForSale b1 = saleshelf.getList().get(0);
-		
 		
 
 		
@@ -174,7 +172,6 @@ public class BookListActivity extends ListActivity {
 
 
 		ArrayList<BookForSale> bookNames = new ArrayList<BookForSale>();
-		bookNames.add(b1);
 //		bookNames.add(bookForSale1);
 //		bookNames.add(bookForSale2);
 //		bookNames.add(bookForSale3);
