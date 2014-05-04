@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class BookDetailActivity extends Activity {
 
@@ -93,4 +94,16 @@ public class BookDetailActivity extends Activity {
 		}
 	}
 
+	private void sendEmail(){
+		Intent i = new Intent(Intent.ACTION_SEND);
+		i.setType("message/rfc822");
+		i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"seller@email.com"});
+		i.putExtra(Intent.EXTRA_SUBJECT, "testing email sending");
+		i.putExtra(Intent.EXTRA_TEXT   , "body of email test");
+		try {
+		    startActivity(Intent.createChooser(i, "Send mail..."));
+		} catch (android.content.ActivityNotFoundException ex) {
+		    Toast.makeText(BookDetailActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+		}
+	}
 }

@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import com.appspot.mac_books.bookSystem.model.BookForSale;
 
 import android.R.menu;
@@ -25,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.appspot.mac_books.bookSystem.BookSystem;
 import com.appspot.mac_books.bookSystem.model.BookForSale;
@@ -87,7 +87,6 @@ public class BookListActivity extends ListActivity {
 		setListAdapter(adapter);
 		
 	}
-
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
