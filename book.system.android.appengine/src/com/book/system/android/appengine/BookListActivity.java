@@ -37,8 +37,9 @@ public class BookListActivity extends ListActivity {
 	protected SearchView mSearchView;
 	private BookSystem service = null;
 	private SaleShelf saleshelf = null;
+	private String currentUserEmail = null;
+	private final String LOG_TAG = "BookListActivity";
 	
-
 	public void unauthenticatedSaleShelfTask(){
 		AsyncTask<Integer, Void, SaleShelf> getShelf =
 				new AsyncTask<Integer, Void, SaleShelf> () {
@@ -81,8 +82,6 @@ public class BookListActivity extends ListActivity {
 		BookAdapter adapter = new BookAdapter(BookListActivity.this, aList);
 		// Attach the adapter to a ListView
 		ListView list = (ListView)findViewById(android.R.id.list);
-		Log.d("TESTINGSBNG", String.valueOf(list.getCount()));
-//		ListView listView = (ListView) list;
 		list.setAdapter(adapter);
 		setListAdapter(adapter);
 		
@@ -94,12 +93,16 @@ public class BookListActivity extends ListActivity {
 		setContentView(R.layout.activity_list);
 		setTitle("");
 		
+		Intent intent = getIntent();
+		currentUserEmail = intent.getStringExtra("CURRENT_USER");
+		
 		mAddBookTextView = (TextView) findViewById(R.id.sellBookButton);
 		mAddBookTextView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(BookListActivity.this, AddBookActivity.class);
+				intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
 				startActivity(intent);
 
 			}
@@ -110,6 +113,7 @@ public class BookListActivity extends ListActivity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(BookListActivity.this, MyProfileActivity.class);
+				intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
 				startActivity(intent);
 				
 			}
@@ -200,11 +204,11 @@ public class BookListActivity extends ListActivity {
 		Double price1 = (bookObject.getPrice());
 		String price = Double.toString(price1);
 		String bookName = bookObject.getBook().getTitle();
-
+		Log.d(LOG_TAG, currentUserEmail);
 		intent.putExtra("ISBNkey", isbn);
 		intent.putExtra("priceKey", price);
 		intent.putExtra("nameKey", bookName);
-
+		intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
 		startActivity(intent);
 
 	}

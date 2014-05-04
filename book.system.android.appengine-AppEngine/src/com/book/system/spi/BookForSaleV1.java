@@ -142,6 +142,9 @@ public class BookForSaleV1 {
 				log.setLevel(Level.WARNING);
 				boolean valid = conn.isValid(10);
 				log.warning("isValid():"+String.valueOf(valid));
+				if(!valid){
+					conn = DBConnection.createConnection();
+				}
 			}
 			PreparedStatement stmt = null;
 			PreparedStatement getPersonStmt = null;

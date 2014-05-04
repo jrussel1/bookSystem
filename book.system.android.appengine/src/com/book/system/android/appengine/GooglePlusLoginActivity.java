@@ -259,6 +259,7 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 				mEmailAccount = attemptEmail;
 //				unauthenticatedSaleShelfTask();
 				Intent intent = new Intent(GooglePlusLoginActivity.this,BookListActivity.class);
+				intent.putExtra("CURRENT_USER_EMAIL", mEmailAccount);
 				startActivity(intent);
 			}else{
 				Log.e(LOG_TAG, "Failure to authenticate email");
