@@ -143,50 +143,7 @@ public class BookListActivity extends ListActivity {
 		};
 		
 		mSearchView.setOnQueryTextListener(queryTextListener);
-
-
-		BookForSale b1 = saleshelf.getList().get(0);
 		
-		
-
-		
-		
-
-//		Book book1 = new Book("Harry Poter","A1B2C3D4","JK Rowling");
-//		Book book2 = new Book("The Great Gatsby","A2B3C4D5","F.Scott Fitzgerald");
-//		Book book3 = new Book("Carnal Curiosity","A2B3C4D5","Stuart Woods");
-//		Book book4 = new Book("The Fixed Triology","A2B3C4D5","Laurelin Paige");
-//		Book book5 = new Book("Missing You","A2B3C4D5","Harlan Coben");
-//		Book book6 = new Book("NYPD Red 2","A2B3C4D5","James Patterson and Marshall Karp");
-//		Book book7 = new Book("Got You Under My Skin","A2B3C4D5","Mary Higgins Clark");
-//		
-//		Seller seller1 = new Seller(12345,"hliu1@macalester.edu","Hongshan","Liu");
-//		Seller seller2 = new Seller(23456,"hxu1@macalester.edu","Hanyue","Xu");
-//		
-//		BookForSale bookForSale1 = new BookForSale(book1,seller1, 10.0);
-//		BookForSale bookForSale2 = new BookForSale(book2,seller2, 18.0);
-//		BookForSale bookForSale3 = new BookForSale(book3,seller1, 25.5);
-//		BookForSale bookForSale4 = new BookForSale(book4,seller2, 15.9);
-//		BookForSale bookForSale5 = new BookForSale(book5,seller1, 35.9);
-//		BookForSale bookForSale6 = new BookForSale(book6,seller2, 13.9);
-//		BookForSale bookForSale7 = new BookForSale(book7,seller1, 12.9);
-		
-
-
-		ArrayList<BookForSale> bookNames = new ArrayList<BookForSale>();
-		bookNames.add(b1);
-//		bookNames.add(bookForSale1);
-//		bookNames.add(bookForSale2);
-//		bookNames.add(bookForSale3);
-//		bookNames.add(bookForSale4);
-//		bookNames.add(bookForSale5);
-//		bookNames.add(bookForSale6);
-//		bookNames.add(bookForSale7);
-//		bookNames.add(bookForSale3);
-//		bookNames.add(bookForSale1);
-//		bookNames.add(bookForSale5);
-//		bookNames.add(bookForSale6);
-//		bookNames.add(bookForSale7);
 
 		service = AppConstants.getApiServiceHandle(null);
 
