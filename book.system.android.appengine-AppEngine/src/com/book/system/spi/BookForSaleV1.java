@@ -844,4 +844,46 @@ public class BookForSaleV1 {
 
 		return new BookForSale(book,seller,price);
 	}
+	@ApiMethod(name = "bookforsale.delete", authLevel=AuthLevel.OPTIONAL_CONTINUE)
+	public void deleteBookForSale(@Named("email") String email, @Named("isbn") String isbn){
+		Seller seller = null;
+		PreparedStatement deleteBFSStmt = null;
+		
+		try{
+			if(conn==null){
+				log.setLevel(Level.WARNING);
+				log.warning("Creating connection...");
+				conn = DBConnection.createConnection();
+			}else{
+				log.setLevel(Level.WARNING);
+				boolean valid = conn.isValid(10);
+				log.warning("isValid():"+String.valueOf(valid));
+			}
+			String deleteBFS = "DELETE FROM `book-system`.`Book_For_Sale` WHERE ISBN=? AND Person_ID=?";
+			
+			seller = getSellerByEmailWithoutClosing(email);
+			
+			deleteBFSStmt = conn.prepareStatement(deleteBFS);
+			deleteBFSStmt.setString(1, isbn);
+			deleteBFSStmt.setLong(2, seller.getId());
+			
+			deleteBFSStmt.executeUpdate();
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			if(deleteBFSStmt!=null)
+				try {
+					deleteBFSStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+	}
 }

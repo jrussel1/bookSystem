@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class BookDetailActivity extends Activity {
 
@@ -53,6 +54,14 @@ public class BookDetailActivity extends Activity {
 		
 		TextView t7 = (TextView)findViewById(R.id.purchaseButton);
 		t7.setTypeface(tf2);
+		t7.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Send to method all information necessary for email
+				sendEmail("jesser@comcast.net","jrussel1@macalester.edu","Test Book Title","Test Book Author","Test Book ISBN",35.55);
+
+			}
+		});
 
 	}
 
@@ -93,4 +102,26 @@ public class BookDetailActivity extends Activity {
 		}
 	}
 
+	//Adapter from http://stackoverflow.com/a/2197841
+	private void sendEmail(String sellerEmail, String currentUserEmail, 
+			String bookTitle, String bookAuthor, String bookISBN, Double bookPrice ){
+		Intent i = new Intent(Intent.ACTION_SEND);
+		String emailBody = "Hi!"
+							+ "\n\nI saw you posted the following book on Mac Books and would like buy it!"
+							+ "\n\nBook Title: "+bookTitle
+							+"\nBook Author: "+bookAuthor
+							+"\nBook ISBN: "+bookISBN
+							+"\nPrice: "+bookPrice
+							+"\n\nPlease let me know if it is still available."
+							+ "\n\nThanks!";
+		i.setType("message/rfc822");
+		i.putExtra(Intent.EXTRA_EMAIL  , new String[]{sellerEmail});
+		i.putExtra(Intent.EXTRA_SUBJECT, "Mac Books: I want to buy "+bookTitle+"!");
+		i.putExtra(Intent.EXTRA_TEXT   , emailBody);
+		try {
+		    startActivity(Intent.createChooser(i, "Send mail..."));
+		} catch (android.content.ActivityNotFoundException ex) {
+		    Toast.makeText(BookDetailActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+		}
+	}
 }

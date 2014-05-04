@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import com.appspot.mac_books.bookSystem.model.BookForSale;
 
 import android.R.menu;
@@ -25,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.appspot.mac_books.bookSystem.BookSystem;
 import com.appspot.mac_books.bookSystem.model.BookForSale;
@@ -88,17 +88,14 @@ public class BookListActivity extends ListActivity {
 		
 	}
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
-		
 		setTitle("");
 		
 		mAddBookTextView = (TextView) findViewById(R.id.sellBookButton);
 		mAddBookTextView.setOnClickListener(new View.OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -108,10 +105,8 @@ public class BookListActivity extends ListActivity {
 			}
 		});
 		
-		
 		mMyProfileButton = (TextView) findViewById(R.id.myProfileButton);
 		mMyProfileButton.setOnClickListener(new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(BookListActivity.this, MyProfileActivity.class);
@@ -140,7 +135,7 @@ public class BookListActivity extends ListActivity {
 				// TODO Auto-generated method stub
 				return false;
 			}
-		};
+		};	
 		
 		mSearchView.setOnQueryTextListener(queryTextListener);
 
@@ -185,13 +180,9 @@ public class BookListActivity extends ListActivity {
 //		bookNames.add(bookForSale6);
 //		bookNames.add(bookForSale7);
 
+
 		service = AppConstants.getApiServiceHandle(null);
-
-
 		unauthenticatedSaleShelfTask();
-		
-
-
 	}
 
 
