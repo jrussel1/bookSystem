@@ -173,6 +173,7 @@ public class BookForSaleV1 {
 					seller = getSellerByIDWithoutClosing(personId);
 					Double price = resultSet.getDouble("Price");
 					bfs = new BookForSale(book,seller,price);
+					
 					booksForSale.addToList(bfs);
 					book = null;
 					seller = null;
@@ -198,7 +199,9 @@ public class BookForSaleV1 {
 			e.printStackTrace();
 			return null;
 		}
-
+//		log.setLevel(Level.WARNING);
+//		log.warning(booksForSale.getList().toString());
+		
 		return booksForSale;
 	}
 	@ApiMethod(name = "bookforsale.getBookByISBN", authLevel=AuthLevel.OPTIONAL_CONTINUE)

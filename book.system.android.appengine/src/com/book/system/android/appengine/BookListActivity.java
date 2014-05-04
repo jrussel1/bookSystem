@@ -6,6 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+import com.appspot.mac_books.bookSystem.model.BookForSale;
+
+import android.R.menu;
 import android.app.Fragment;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -28,7 +32,6 @@ import com.appspot.mac_books.bookSystem.model.SaleShelf;
 
 public class BookListActivity extends ListActivity {
 
-	protected Map<String,BookForSale> bookList = new HashMap<String,BookForSale>();
 	protected TextView mAddBookTextView;
 	protected TextView mMyProfileButton;
 	protected SearchView mSearchView;
@@ -59,7 +62,7 @@ public class BookListActivity extends ListActivity {
 					try {
 						Log.d("SaleShelf", shelf.toPrettyString());
 						saleshelf = shelf;
-						
+						setAdapter();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -73,6 +76,19 @@ public class BookListActivity extends ListActivity {
 	}
 	
 	
+	private void setAdapter() {
+		ArrayList<BookForSale> aList = new ArrayList<BookForSale>(saleshelf.getList());
+		BookAdapter adapter = new BookAdapter(BookListActivity.this, aList);
+		// Attach the adapter to a ListView
+		ListView list = (ListView)findViewById(android.R.id.list);
+		Log.d("TESTINGSBNG", String.valueOf(list.getCount()));
+//		ListView listView = (ListView) list;
+		list.setAdapter(adapter);
+		setListAdapter(adapter);
+		
+	}
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -128,8 +144,7 @@ public class BookListActivity extends ListActivity {
 		
 		mSearchView.setOnQueryTextListener(queryTextListener);
 
-		//add stuff to the bookList 
-		
+
 		BookForSale b1 = saleshelf.getList().get(0);
 		
 		
@@ -173,13 +188,11 @@ public class BookListActivity extends ListActivity {
 //		bookNames.add(bookForSale6);
 //		bookNames.add(bookForSale7);
 
+		service = AppConstants.getApiServiceHandle(null);
 
-		BookAdapter adapter = new BookAdapter(this, bookNames);
-		// Attach the adapter to a ListView
-		ListView list = getListView();
-		ListView listView = (ListView) list;
-		listView.setAdapter(adapter);
-		setListAdapter(adapter);
+
+		unauthenticatedSaleShelfTask();
+		
 
 
 	}
