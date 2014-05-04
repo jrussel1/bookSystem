@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"ADiYQGKhdYR9rpbhIFHih-UBYRs/XjIQYbV-tqeHwJfi8pHjuijvx78\"",
+ "etag": "\"ADiYQGKhdYR9rpbhIFHih-UBYRs/ARaV-CnMyNgdsk8gZLDwt8bP_qM\"",
  "discoveryVersion": "v1",
  "id": "bookSystem:v1",
  "name": "bookSystem",
@@ -203,6 +203,26 @@
    "returns": {
     "$ref": "Book"
    },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "bookSystem.bookforsale.delete": {
+   "id": "bookSystem.bookforsale.delete",
+   "parameters": {
+    "email": {
+     "type": "string",
+     "required": true
+    },
+    "isbn": {
+     "type": "string",
+     "required": true
+    }
+   },
+   "parameterOrder": [
+    "email",
+    "isbn"
+   ],
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
    ]

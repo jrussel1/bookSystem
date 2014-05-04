@@ -74,6 +74,31 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "bookSystem.bookforsale.delete" : {
+      "path" : "bookforsale/{email}/{isbn}",
+      "httpMethod" : "DELETE",
+      "authLevel" : "OPTIONAL_CONTINUE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.book.system.spi.BookForSaleV1.deleteBookForSale",
+      "request" : {
+        "parameters" : {
+          "email" : {
+            "type" : "string",
+            "required" : true
+          },
+          "isbn" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
     "bookSystem.bookforsale.getSellerByEmail" : {
       "path" : "seller/email",
       "httpMethod" : "GET",
@@ -196,6 +221,27 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "bookSystem.bookforsale.getAllBooksBySeller" : {
+      "path" : "bookcollection/{personId}",
+      "httpMethod" : "GET",
+      "authLevel" : "OPTIONAL_CONTINUE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.book.system.spi.BookForSaleV1.getAllBooksBySeller",
+      "request" : {
+        "parameters" : {
+          "personId" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "bookSystem.bookforsale.insert" : {
       "path" : "bookforsale/{isbn}/{title}/{author}/{email}/{first_name}/{last_name}/{Price}",
       "httpMethod" : "post",
@@ -240,27 +286,6 @@
       "response" : {
         "body" : "autoTemplate(backendResponse)"
       }
-    },
-    "bookSystem.bookforsale.getAllBooksBySeller" : {
-      "path" : "bookcollection/{personId}",
-      "httpMethod" : "GET",
-      "authLevel" : "OPTIONAL_CONTINUE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
-      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.book.system.spi.BookForSaleV1.getAllBooksBySeller",
-      "request" : {
-        "parameters" : {
-          "personId" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
     }
   },
   "descriptor" : {
@@ -282,10 +307,10 @@
           "lastName" : {
             "type" : "string"
           },
-          "fLastName" : {
+          "fFirstName" : {
             "type" : "string"
           },
-          "fFirstName" : {
+          "fLastName" : {
             "type" : "string"
           }
         }
@@ -384,6 +409,8 @@
           "$ref" : "Seller"
         }
       },
+      "com.book.system.spi.BookForSaleV1.deleteBookForSale" : {
+      },
       "com.book.system.spi.BookForSaleV1.getSellerByEmail" : {
         "response" : {
           "$ref" : "Seller"
@@ -414,14 +441,14 @@
           "$ref" : "Book"
         }
       },
-      "com.book.system.spi.BookForSaleV1.insertBookForSale" : {
-        "response" : {
-          "$ref" : "BookForSale"
-        }
-      },
       "com.book.system.spi.BookForSaleV1.getAllBooksBySeller" : {
         "response" : {
           "$ref" : "BookCollection"
+        }
+      },
+      "com.book.system.spi.BookForSaleV1.insertBookForSale" : {
+        "response" : {
+          "$ref" : "BookForSale"
         }
       }
     }

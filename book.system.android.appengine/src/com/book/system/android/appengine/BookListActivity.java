@@ -93,7 +93,6 @@ public class BookListActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
-		
 		setTitle("");
 		
 		mAddBookTextView = (TextView) findViewById(R.id.sellBookButton);
@@ -107,8 +106,6 @@ public class BookListActivity extends ListActivity {
 
 			}
 		});
-		
-		
 		mMyProfileButton = (TextView) findViewById(R.id.myProfileButton);
 		mMyProfileButton.setOnClickListener(new View.OnClickListener() {
 			
@@ -119,7 +116,6 @@ public class BookListActivity extends ListActivity {
 				
 			}
 		});
-		
 		mSearchView = (SearchView) findViewById(R.id.search_view);
 		mSearchView.setQueryHint("Search by ISBN");
 		String a = mSearchView.getQuery().toString();
@@ -140,18 +136,11 @@ public class BookListActivity extends ListActivity {
 				// TODO Auto-generated method stub
 				return false;
 			}
-		};
-		
+		};	
 		mSearchView.setOnQueryTextListener(queryTextListener);
 		
-
 		service = AppConstants.getApiServiceHandle(null);
-
-
 		unauthenticatedSaleShelfTask();
-		
-
-
 	}
 
 
