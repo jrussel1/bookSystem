@@ -96,7 +96,6 @@ public class BookListActivity extends ListActivity {
 		
 		mAddBookTextView = (TextView) findViewById(R.id.sellBookButton);
 		mAddBookTextView.setOnClickListener(new View.OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
@@ -105,9 +104,9 @@ public class BookListActivity extends ListActivity {
 
 			}
 		});
+		
 		mMyProfileButton = (TextView) findViewById(R.id.myProfileButton);
 		mMyProfileButton.setOnClickListener(new View.OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(BookListActivity.this, MyProfileActivity.class);
@@ -115,6 +114,7 @@ public class BookListActivity extends ListActivity {
 				
 			}
 		});
+		
 		mSearchView = (SearchView) findViewById(R.id.search_view);
 		mSearchView.setQueryHint("Search by ISBN");
 		String a = mSearchView.getQuery().toString();
