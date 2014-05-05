@@ -247,12 +247,40 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 				Log.e(LOG_TAG, "Exception checking OAuth2 authentication.", unrecoverableException);
 				publishProgress(R.string.toast_exception_checking_authorization);
 				// Failure.
-				return false;
+				try{
+					authToken = GoogleAuthUtil.getToken(GooglePlusLoginActivity.this, emailAccount, "oauth2:https://www.googleapis.com/auth/userinfo.email");
+					Log.d(LOG_TAG, "AuthToken retrieved");
+					return true;
+				}catch (GoogleAuthException unrecoverableException2) {
+					Log.e(LOG_TAG, "Exception checking OAuth2 authentication.", unrecoverableException2);
+					publishProgress(R.string.toast_exception_checking_authorization);
+					// Failure.
+					return false;
+				} catch (IOException e) {
+					Log.e(LOG_TAG, "Exception checking OAuth2 authentication.", e);
+					publishProgress(R.string.toast_exception_checking_authorization);
+					// Failure or cancel request.
+					return false;
+				}
 			} catch (IOException ioException) {
 				Log.e(LOG_TAG, "Exception checking OAuth2 authentication.", ioException);
 				publishProgress(R.string.toast_exception_checking_authorization);
 				// Failure or cancel request.
-				return false;
+				try{
+					authToken = GoogleAuthUtil.getToken(GooglePlusLoginActivity.this, emailAccount, "oauth2:https://www.googleapis.com/auth/userinfo.email");
+					Log.d(LOG_TAG, "AuthToken retrieved");
+					return true;
+				}catch (GoogleAuthException unrecoverableException2) {
+					Log.e(LOG_TAG, "Exception checking OAuth2 authentication.", unrecoverableException2);
+					publishProgress(R.string.toast_exception_checking_authorization);
+					// Failure.
+					return false;
+				} catch (IOException e) {
+					Log.e(LOG_TAG, "Exception checking OAuth2 authentication.", ioException);
+					publishProgress(R.string.toast_exception_checking_authorization);
+					// Failure or cancel request.
+					return false;
+				}
 			}
 		}
 
