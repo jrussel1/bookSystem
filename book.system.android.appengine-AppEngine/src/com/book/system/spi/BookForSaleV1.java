@@ -22,6 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.logging.Level;
@@ -57,7 +58,7 @@ public class BookForSaleV1 {
 
 	private static final String DEFAULT_LIMIT = "10";
 	private static Connection conn = null;
-    private static final Logger log = Logger.getLogger(SystemServiceServlet.class.getName());
+	private static final Logger log = Logger.getLogger(SystemServiceServlet.class.getName());
 
 	@ApiMethod(name = "bookforsale.listAll", authLevel=AuthLevel.OPTIONAL_CONTINUE)
 	public SaleShelf listAll(User user) throws OAuthRequestException, IOException {
@@ -82,7 +83,7 @@ public class BookForSaleV1 {
 			try {
 				log.setLevel(Level.WARNING);
 				log.warning(conn.getMetaData().getURL());
-				
+
 				String statement = "SELECT * FROM Book_For_Sale";
 				stmt = conn.prepareStatement(statement);
 
@@ -156,7 +157,7 @@ public class BookForSaleV1 {
 			try {
 				log.setLevel(Level.WARNING);
 				log.warning(conn.getMetaData().getURL());
-				
+
 				String statement = "SELECT * FROM Book_For_Sale";
 				stmt = conn.prepareStatement(statement);
 
@@ -179,7 +180,7 @@ public class BookForSaleV1 {
 					seller = getSellerByIDWithoutClosing(personId);
 					Double price = resultSet.getDouble("Price");
 					bfs = new BookForSale(book,seller,price);
-					
+
 					booksForSale.addToList(bfs);
 					book = null;
 					seller = null;
@@ -205,9 +206,95 @@ public class BookForSaleV1 {
 			e.printStackTrace();
 			return null;
 		}
-//		log.setLevel(Level.WARNING);
-//		log.warning(booksForSale.getList().toString());
-		
+		//		log.setLevel(Level.WARNING);
+		//		log.warning(booksForSale.getList().toString());
+
+		return booksForSale;
+	}
+	@ApiMethod(name = "bookforsale.listBooksAndSellers", authLevel=AuthLevel.OPTIONAL_CONTINUE)
+	public HashMap<String,ArrayList<BookForSale>> listBooksAndSellers(User user) throws OAuthRequestException, IOException {
+		HashMap<String,ArrayList<BookForSale>> booksForSale = new HashMap<String,ArrayList<BookForSale>>();
+		try{
+			if(conn==null){
+				log.setLevel(Level.WARNING);
+				log.warning("Creating connection...");
+				conn = DBConnection.createConnection();
+			}else{
+				log.setLevel(Level.WARNING);
+				boolean valid = conn.isValid(10);
+				log.warning("isValid():"+String.valueOf(valid));
+				if(!valid){
+					conn = DBConnection.createConnection();
+				}
+			}
+			PreparedStatement stmt = null;
+			PreparedStatement getSellersStmt = null;
+			ResultSet resultSet = null;
+			ResultSet resultSellersSet = null;
+			try {				
+				String statement = "SELECT DISTINCT Book.* FROM `book-system`.Book JOIN `book-system`.Book_For_Sale "
+						+ "WHERE Book.ISBN=Book_For_Sale.ISBN;";
+				stmt = conn.prepareStatement(statement);
+
+				String getSeller = "SELECT Person.*,ISBN,Price FROM `book-system`.Seller,`book-system`.Person "
+						+ "JOIN `book-system`.Book_For_Sale "
+						+ "WHERE Seller.Person_ID=Person.Person_ID "
+						+ "AND Seller.Person_ID = Book_For_Sale.Person_ID"
+						+ "AND Book_For_Sale.ISBN=?";
+				getSellersStmt = conn.prepareStatement(getSeller);
+
+				Book book = null;
+				Seller seller = null;
+				BookForSale bfs = null;
+
+				resultSet = stmt.executeQuery();
+				String isbn=null;
+				while (resultSet.next()) {
+					isbn = resultSet.getString("ISBN");
+					book = new Book(isbn, resultSet.getString("Author"), resultSet.getString("Title"));
+
+					booksForSale.put(isbn, new ArrayList<BookForSale>());
+					getSellersStmt.setString(1, isbn);
+					resultSellersSet = getSellersStmt.executeQuery();
+					while (resultSellersSet.next()) {
+						seller = new Seller(
+								resultSellersSet.getInt("Person_ID"), 
+								resultSellersSet.getString("Email"), 
+								resultSellersSet.getString("First_Name"),
+								resultSellersSet.getString("Last_Name")
+								);
+						bfs = new BookForSale(book,seller,resultSellersSet.getDouble("Price"));
+						booksForSale.get(isbn).add(bfs);
+						seller = null;
+						bfs = null;
+					}
+					book = null;
+				}
+
+			} finally {
+				try{
+					if(stmt!=null)
+						stmt.close();
+					if(getSellersStmt!=null)
+						getSellersStmt.close();
+					if(resultSellersSet!=null)
+						resultSellersSet.close();
+					if(resultSet!=null)
+						resultSet.close();
+					if(conn!=null)
+						conn.close();
+				}catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		//		log.setLevel(Level.WARNING);
+		//		log.warning(booksForSale.getList().toString());
+
 		return booksForSale;
 	}
 	@ApiMethod(name = "bookforsale.getBookByISBN", authLevel=AuthLevel.OPTIONAL_CONTINUE)
@@ -313,7 +400,7 @@ public class BookForSaleV1 {
 				log.warning("isValid():"+String.valueOf(valid));
 				if(!valid){
 					conn = DBConnection.createConnection();
-									conn = DBConnection.createConnection();
+					conn = DBConnection.createConnection();
 				}
 			}
 			String getPerson = "SELECT * FROM Person WHERE Person_ID=?";
@@ -357,7 +444,7 @@ public class BookForSaleV1 {
 		Seller seller = null;
 		PreparedStatement getPersonStmt = null;
 		try{
-		
+
 			String getPerson = "SELECT * FROM Person WHERE Person_ID=?";
 			getPersonStmt = conn.prepareStatement(getPerson);
 			getPersonStmt.setLong(1, personId);
@@ -409,7 +496,7 @@ public class BookForSaleV1 {
 				log.warning("isValid():"+String.valueOf(valid));
 				if(!valid){
 					conn = DBConnection.createConnection();
-									conn = DBConnection.createConnection();
+					conn = DBConnection.createConnection();
 				}
 			}
 			stmt = conn.prepareStatement(getBooksQry);
@@ -460,7 +547,7 @@ public class BookForSaleV1 {
 				log.warning("isValid():"+String.valueOf(valid));
 				if(!valid){
 					conn = DBConnection.createConnection();
-									conn = DBConnection.createConnection();
+					conn = DBConnection.createConnection();
 				}
 			}
 			stmt = conn.prepareStatement(getBooksQry);
@@ -509,7 +596,7 @@ public class BookForSaleV1 {
 		}else {
 			last_name="Unknown";
 		}
-		
+
 		String insertPersonQry ="INSERT IGNORE INTO `book-system`.`Person` (`Email`, `First_Name`, `Last_Name`) VALUES (?,?,?)";
 		PreparedStatement stmt = null;
 		ResultSet resultSetPerson = null;
@@ -524,7 +611,7 @@ public class BookForSaleV1 {
 				log.warning("isValid():"+String.valueOf(valid));
 				if(!valid){
 					conn = DBConnection.createConnection();
-									conn = DBConnection.createConnection();
+					conn = DBConnection.createConnection();
 				}
 			}
 			stmt = conn.prepareStatement(insertPersonQry,PreparedStatement.RETURN_GENERATED_KEYS);
@@ -589,12 +676,12 @@ public class BookForSaleV1 {
 		}else {
 			last_name="Unknown";
 		}
-		
+
 		String insertPersonQry ="INSERT IGNORE INTO `book-system`.`Person` (`Email`, `First_Name`, `Last_Name`) VALUES (?,?,?)";
 		PreparedStatement stmt = null;
 		ResultSet resultSetPerson = null;
 		try{
-			
+
 			stmt = conn.prepareStatement(insertPersonQry,PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, email);
 			stmt.setString(2, first_name);
@@ -657,7 +744,7 @@ public class BookForSaleV1 {
 		}else {
 			author="Unknown";
 		}
-		
+
 		String insertBookQry ="INSERT IGNORE INTO `book-system`.`Book` (`ISBN`, `Title`, `Author`) VALUES (?,?,?)";
 		PreparedStatement stmt = null;
 		try{
@@ -671,7 +758,7 @@ public class BookForSaleV1 {
 				log.warning("isValid():"+String.valueOf(valid));
 				if(!valid){
 					conn = DBConnection.createConnection();
-									conn = DBConnection.createConnection();
+					conn = DBConnection.createConnection();
 				}
 			}
 			stmt = conn.prepareStatement(insertBookQry);
@@ -710,7 +797,7 @@ public class BookForSaleV1 {
 		}else {
 			author="Unknown";
 		}
-		
+
 		String insertBookQry ="INSERT IGNORE INTO `book-system`.`Book` (`ISBN`, `Title`, `Author`) VALUES (?,?,?)";
 		PreparedStatement stmt = null;
 		try{
@@ -751,7 +838,7 @@ public class BookForSaleV1 {
 				log.warning("isValid():"+String.valueOf(valid));
 				if(!valid){
 					conn = DBConnection.createConnection();
-									conn = DBConnection.createConnection();
+					conn = DBConnection.createConnection();
 				}
 			}
 			String getPerson = "SELECT * FROM Person WHERE Email=?";
@@ -844,10 +931,10 @@ public class BookForSaleV1 {
 				log.warning("isValid():"+String.valueOf(valid));
 				if(!valid){
 					conn = DBConnection.createConnection();
-									conn = DBConnection.createConnection();
+					conn = DBConnection.createConnection();
 				}
 			}
-			
+
 			seller = getSellerByEmailWithoutClosing(email);
 			if(seller==null){
 				seller = insertSellerWithoutClosing(email,first_name,last_name);
@@ -856,7 +943,7 @@ public class BookForSaleV1 {
 			if(book==null){
 				book = insertBookWithoutClosing(isbn,title,author);
 			}
-			
+
 			stmt = conn.prepareStatement(insertBFSQry);
 			stmt.setString(1, book.getISBN());
 			stmt.setLong(2, seller.getId());
@@ -885,7 +972,7 @@ public class BookForSaleV1 {
 	public void deleteBookForSale(@Named("email") String email, @Named("isbn") String isbn){
 		Seller seller = null;
 		PreparedStatement deleteBFSStmt = null;
-		
+
 		try{
 			if(conn==null){
 				log.setLevel(Level.WARNING);
@@ -897,19 +984,19 @@ public class BookForSaleV1 {
 				log.warning("isValid():"+String.valueOf(valid));
 				if(!valid){
 					conn = DBConnection.createConnection();
-									conn = DBConnection.createConnection();
+					conn = DBConnection.createConnection();
 				}
 			}
 			String deleteBFS = "DELETE FROM `book-system`.`Book_For_Sale` WHERE ISBN=? AND Person_ID=?";
-			
+
 			seller = getSellerByEmailWithoutClosing(email);
-			
+
 			deleteBFSStmt = conn.prepareStatement(deleteBFS);
 			deleteBFSStmt.setString(1, isbn);
 			deleteBFSStmt.setLong(2, seller.getId());
-			
+
 			deleteBFSStmt.executeUpdate();
-			
+
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}finally{
