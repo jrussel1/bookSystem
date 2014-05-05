@@ -14,7 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class BookDetailActivity extends Activity {
-
+	private String currentUserEmail = null;
+	private String bookISBN = null;
+	private String bookTitle = null;
+	private String bookPrice = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,20 +30,21 @@ public class BookDetailActivity extends Activity {
 		
 
 		Intent intent = getIntent();
-		String value = intent.getStringExtra("ISBNkey");
-		String bookName = intent.getStringExtra("nameKey");
-		String price = intent.getStringExtra("priceKey");
+		bookISBN = intent.getStringExtra("ISBNkey");
+		bookTitle = intent.getStringExtra("nameKey");
+		bookPrice = intent.getStringExtra("priceKey");
+		currentUserEmail = intent.getStringExtra("CURRENT_USER_EMAIL");
 
 		TextView t = (TextView)findViewById(R.id.bookTitleTag);
-		t.setText(bookName);
+		t.setText(bookTitle);
 		t.setTypeface(tf);
 
 		TextView t1 = (TextView)findViewById(R.id.isbn);
-		t1.setText(value);
+		t1.setText(bookISBN);
 		t1.setTypeface(tf);
 
 		TextView t2 = (TextView)findViewById(R.id.price);
-		t2.setText(price);
+		t2.setText(bookPrice);
 		t2.setTypeface(tf);
 		
 		TextView t4 = (TextView)findViewById(R.id.bookTitle_Static);
@@ -58,7 +62,7 @@ public class BookDetailActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Send to method all information necessary for email
-				sendEmail("jesser@comcast.net","jrussel1@macalester.edu","Test Book Title","Test Book Author","Test Book ISBN",35.55);
+				sendEmail("jesser@comcast.net",currentUserEmail,bookTitle,"TEST AUTHOR",bookISBN,bookPrice);
 
 			}
 		});
@@ -104,7 +108,7 @@ public class BookDetailActivity extends Activity {
 
 	//Adapter from http://stackoverflow.com/a/2197841
 	private void sendEmail(String sellerEmail, String currentUserEmail, 
-			String bookTitle, String bookAuthor, String bookISBN, Double bookPrice ){
+			String bookTitle, String bookAuthor, String bookISBN, String bookPrice ){
 		Intent i = new Intent(Intent.ACTION_SEND);
 		String emailBody = "Hi!"
 							+ "\n\nI saw you posted the following book on Mac Books and would like buy it!"

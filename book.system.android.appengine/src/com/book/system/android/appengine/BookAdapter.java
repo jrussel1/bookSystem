@@ -31,13 +31,13 @@ public class BookAdapter extends ArrayAdapter<BookForSale>{
        
        // Lookup view for data population
        TextView bookTitle = (TextView) convertView.findViewById(R.id.tvName);
-       TextView seller = (TextView) convertView.findViewById(R.id.tvHome);
+       TextView author = (TextView) convertView.findViewById(R.id.tvHome);
        TextView price = (TextView) convertView.findViewById(R.id.tvPrice);
        // Populate the data into the template view using the data object
 
        
        bookTitle.setText(book.getBook().getTitle());
-       seller.setText(book.getSeller().getFirstName());
+       author.setText(book.getBook().getAuthor());
        double temp = book.getPrice();
        String priceString = Double.toString(temp);
        price.setText(priceString);

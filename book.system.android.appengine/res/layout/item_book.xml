@@ -43,7 +43,7 @@
        android:layout_height="wrap_content"
        android:layout_alignBottom="@+id/tvHome"
        android:layout_alignParentLeft="true"
-       android:text="Seller" 
+       android:text="Author" 
        android:fontFamily="sans-serif-thin" />
 
    <TextView
