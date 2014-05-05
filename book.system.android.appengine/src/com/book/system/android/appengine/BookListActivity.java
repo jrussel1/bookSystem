@@ -39,7 +39,8 @@ public class BookListActivity extends ListActivity {
 	private SaleShelf saleshelf = null;
 	private String currentUserEmail = null;
 	private final String LOG_TAG = "BookListActivity";
-	
+	String currentUserFirstName = null;
+	String currentUserLastName = null;
 	public void unauthenticatedSaleShelfTask(){
 		AsyncTask<Integer, Void, SaleShelf> getShelf =
 				new AsyncTask<Integer, Void, SaleShelf> () {
@@ -95,7 +96,9 @@ public class BookListActivity extends ListActivity {
 		
 		Intent intent = getIntent();
 		currentUserEmail = intent.getStringExtra("CURRENT_USER_EMAIL");
-		
+		currentUserFirstName = intent.getStringExtra("first_name");
+		currentUserLastName = intent.getStringExtra("last_name");
+
 		mAddBookTextView = (TextView) findViewById(R.id.sellBookButton);
 		mAddBookTextView.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -103,6 +106,8 @@ public class BookListActivity extends ListActivity {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(BookListActivity.this, AddBookActivity.class);
 				intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
+				intent.putExtra("last_name", currentUserLastName);
+				intent.putExtra("first_name", currentUserFirstName);
 				startActivity(intent);
 
 			}
@@ -114,6 +119,8 @@ public class BookListActivity extends ListActivity {
 			public void onClick(View v) {
 				Intent intent = new Intent(BookListActivity.this, MyProfileActivity.class);
 				intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
+				intent.putExtra("last_name", currentUserLastName);
+				intent.putExtra("first_name", currentUserFirstName);
 				startActivity(intent);
 				
 			}

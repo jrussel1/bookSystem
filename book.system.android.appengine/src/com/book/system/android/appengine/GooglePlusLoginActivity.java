@@ -1,7 +1,20 @@
 package com.book.system.android.appengine;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONStringer;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -23,6 +36,9 @@ import com.google.android.gms.auth.GoogleAuthException;
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.auth.UserRecoverableAuthException;
 import com.google.android.gms.common.AccountPicker;
+import com.google.android.gms.plus.People;
+import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.model.people.Person;
 import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
 import com.google.api.client.googleapis.extensions.android.gms.auth.UserRecoverableAuthIOException;
 import com.google.api.client.util.Strings;
@@ -38,12 +54,12 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 	public static final int REQUEST_AUTHORIZATION = 991;
 
 	private final String LOG_TAG = "GooglePlusLoginActivity";
-
+	String authToken = null;
 	private AuthorizationCheckTask mAuthTask;
 	private String mEmailAccount = "";
 	private BookSystem service = null;
 	private String attemptEmail = "";
-
+	private Account mAccount = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -79,6 +95,7 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 				// Select account and perform authorization check.
 				//		      emailAddressTV.setText(accounts[0].name);
 				mEmailAccount = accounts[0].name;
+				mAccount = accounts[0];
 				performAuthCheck(accounts[0].name);
 			}
 		} else {
@@ -203,7 +220,7 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 			}
 
 			Log.d(LOG_TAG, "Attempting to get AuthToken for account: " + emailAccount);
-			String token = null;
+			
 			try {
 				// If the application has the appropriate access then a token will be retrieved, otherwise
 				// an error will be thrown.
@@ -213,9 +230,9 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 //				credential.setSelectedAccountName(emailAccount);
 //				//
 //				String accessToken = credential.getToken();
-				token = GoogleAuthUtil.getToken(GooglePlusLoginActivity.this, emailAccount, "oauth2:https://www.googleapis.com/auth/userinfo.email");
-
-				Log.d(LOG_TAG, "AccessToken retrieved");
+				authToken = GoogleAuthUtil.getToken(GooglePlusLoginActivity.this, emailAccount, "oauth2:https://www.googleapis.com/auth/plus.me");
+				
+				Log.d(LOG_TAG, "AuthToken retrieved");
 
 				// Success.
 				return true;
@@ -258,9 +275,9 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 				Log.d(LOG_TAG, "Successful auth of email");
 				mEmailAccount = attemptEmail;
 //				unauthenticatedSaleShelfTask();
-				Intent intent = new Intent(GooglePlusLoginActivity.this,BookListActivity.class);
-				intent.putExtra("CURRENT_USER_EMAIL", mEmailAccount);
-				startActivity(intent);
+				Log.d(LOG_TAG, authToken);
+				new RequestTask().execute("https://www.googleapis.com/plus/v1/people/me?access_token="+authToken);
+				
 			}else{
 				Log.e(LOG_TAG, "Failure to authenticate email");
 			}
@@ -280,9 +297,18 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 		if (requestCode == ACTIVITY_RESULT_FROM_ACCOUNT_SELECTION && resultCode == RESULT_OK) {
 			// This path indicates the account selection activity resulted in the user selecting a
 			// Google account and clicking OK.
-
+			AccountManager am = AccountManager.get(this);
+			Account[] accounts = am.getAccountsByType(GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE);
+			
 			// Set the selected account.
 			String accountName = data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME);
+			
+			for(int i=0;i<accounts.length;i++){
+				if(accounts[i].name.equals(accountName)){
+					mAccount=accounts[i];
+				}
+			}
+			
 
 			// Fire off the authorization check for this account and OAuth2 scopes.
 			performAuthCheck(accountName);
@@ -350,8 +376,8 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 					try {
 						Log.d("SaleShelf", shelf.toPrettyString());
 //						Log.d(LOG_TAG,AccountManager.KEY_USERDATA);
-						Intent intent = new Intent(GooglePlusLoginActivity.this,BookListActivity.class);
-						startActivity(intent);
+						
+						
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -370,5 +396,58 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 		} else {
 			return false;
 		}
+	}
+	class RequestTask extends AsyncTask<String, String, String>{
+
+	    @Override
+	    protected String doInBackground(String... uri) {
+	        HttpClient httpclient = new DefaultHttpClient();
+	        HttpResponse response;
+	        String responseString = null;
+	        
+	        try {
+	            response = httpclient.execute(new HttpGet(uri[0]));
+	            StatusLine statusLine = response.getStatusLine();
+	            if(statusLine.getStatusCode() == HttpStatus.SC_OK){
+	                ByteArrayOutputStream out = new ByteArrayOutputStream();
+	                response.getEntity().writeTo(out);
+	                out.close();
+	                responseString = out.toString();
+	            } else{
+	                //Closes the connection.
+	                response.getEntity().getContent().close();
+	                throw new IOException(statusLine.getReasonPhrase());
+	            }
+	        } catch (ClientProtocolException e) {
+	            //TODO Handle problems..
+	        	e.printStackTrace();
+	        } catch (IOException e) {
+	            //TODO Handle problems..
+	        	e.printStackTrace();
+	        	Log.e(LOG_TAG,e.getLocalizedMessage());
+	        }
+	        Log.d(LOG_TAG,responseString);
+	        return responseString;
+	    }
+
+	    @Override
+	    protected void onPostExecute(String result) {
+	        super.onPostExecute(result);
+	        Log.d(LOG_TAG,result);
+	        try {
+				JSONObject jObject = new JSONObject(result);
+				
+				Intent intent = new Intent(GooglePlusLoginActivity.this,BookListActivity.class);
+				intent.putExtra("CURRENT_USER_EMAIL", mEmailAccount);
+				intent.putExtra("last_name", jObject.getJSONObject("name").getString("familyName"));
+				intent.putExtra("first_name", jObject.getJSONObject("name").getString("givenName"));
+				startActivity(intent);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
+	        
+	    }
 	}
 }
