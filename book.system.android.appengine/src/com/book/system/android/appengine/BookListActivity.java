@@ -35,6 +35,7 @@ public class BookListActivity extends ListActivity {
 	protected TextView mAddBookTextView;
 	protected TextView mMyProfileButton;
 	protected SearchView mSearchView;
+	protected ArrayList<BookForSale> tempList;
 	private BookSystem service = null;
 	private SaleShelf saleshelf = null;
 	private String currentUserEmail = null;
@@ -79,6 +80,8 @@ public class BookListActivity extends ListActivity {
 	
 	
 	private void setAdapter() {
+		//filter out the same books
+		
 		ArrayList<BookForSale> aList = new ArrayList<BookForSale>(saleshelf.getList());
 		BookAdapter adapter = new BookAdapter(BookListActivity.this, aList);
 		// Attach the adapter to a ListView
