@@ -232,41 +232,59 @@ public class BookForSaleV1 {
 			ResultSet resultSet = null;
 			ResultSet resultSellersSet = null;
 			try {				
-				String statement = "SELECT DISTINCT Book.* FROM `book-system`.Book JOIN `book-system`.Book_For_Sale "
-						+ "WHERE Book.ISBN=Book_For_Sale.ISBN;";
-				stmt = conn.prepareStatement(statement);
+				String statement = "SELECT DISTINCT `Book`.* FROM `book-system`.`Book` JOIN `book-system`.`Book_For_Sale` WHERE `Book`.ISBN=`Book_For_Sale`.ISBN";
+				stmt = conn.prepareStatement(statement,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
-				String getSeller = "SELECT Person.*,ISBN,Price FROM `book-system`.Seller,`book-system`.Person "
-						+ "JOIN `book-system`.Book_For_Sale "
-						+ "WHERE Seller.Person_ID=Person.Person_ID "
-						+ "AND Seller.Person_ID = Book_For_Sale.Person_ID"
-						+ "AND Book_For_Sale.ISBN=?";
-				getSellersStmt = conn.prepareStatement(getSeller);
+				String getSeller = "SELECT Person.*,ISBN,Price FROM `book-system`.Seller,`book-system`.Person JOIN `book-system`.Book_For_Sale "
+						+ "WHERE Seller.Person_ID=Person.Person_ID AND Seller.Person_ID = Book_For_Sale.Person_ID AND Book_For_Sale.ISBN=?";
+				getSellersStmt = conn.prepareStatement(getSeller,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
 				Book book = null;
 				Seller seller = null;
 				BookForSale bfs = null;
-
+				log.setLevel(Level.WARNING);
+				log.warning("Executing Query 'stmt'...");
 				resultSet = stmt.executeQuery();
 				String isbn=null;
+				log.setLevel(Level.WARNING);
+				int size = 0;
+				resultSet.last();
+				size = resultSet.getRow();
+				resultSet.beforeFirst();
+				log.warning(String.valueOf(size));
 				while (resultSet.next()) {
 					isbn = resultSet.getString("ISBN");
 					book = new Book(isbn, resultSet.getString("Author"), resultSet.getString("Title"));
 
 					booksForSale.put(isbn, new ArrayList<BookForSale>());
 					getSellersStmt.setString(1, isbn);
-					resultSellersSet = getSellersStmt.executeQuery();
-					while (resultSellersSet.next()) {
-						seller = new Seller(
-								resultSellersSet.getInt("Person_ID"), 
-								resultSellersSet.getString("Email"), 
-								resultSellersSet.getString("First_Name"),
-								resultSellersSet.getString("Last_Name")
-								);
-						bfs = new BookForSale(book,seller,resultSellersSet.getDouble("Price"));
-						booksForSale.get(isbn).add(bfs);
-						seller = null;
-						bfs = null;
+					log.setLevel(Level.WARNING);
+					log.warning("Executing Query 'getSellersStmt': "+getSellersStmt.toString());
+					try {
+						resultSellersSet = getSellersStmt.executeQuery();
+						resultSellersSet.last();
+						size = resultSellersSet.getRow();
+						resultSellersSet.beforeFirst();
+						log.setLevel(Level.WARNING);
+						log.warning("Query 'getSellersStmt' returned: "+size);
+						while (resultSellersSet.next()) {
+							seller = new Seller(
+									resultSellersSet.getInt("Person_ID"), 
+									resultSellersSet.getString("Email"), 
+									resultSellersSet.getString("First_Name"),
+									resultSellersSet.getString("Last_Name")
+									);
+							bfs = new BookForSale(book,seller,resultSellersSet.getDouble("Price"));
+							booksForSale.get(isbn).add(bfs);
+							seller = null;
+							bfs = null;
+							
+						}
+						resultSellersSet.close();
+						resultSellersSet=null;
+					}catch (SQLException e) {
+						e.printStackTrace();
+						return null;
 					}
 					book = null;
 				}
@@ -292,8 +310,8 @@ public class BookForSaleV1 {
 			e.printStackTrace();
 			return null;
 		}
-		//		log.setLevel(Level.WARNING);
-		//		log.warning(booksForSale.getList().toString());
+		log.setLevel(Level.WARNING);
+		log.warning(booksForSale.toString());
 
 		return booksForSale;
 	}

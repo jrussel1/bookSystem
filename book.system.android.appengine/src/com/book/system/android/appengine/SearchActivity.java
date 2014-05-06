@@ -1,6 +1,7 @@
 package com.book.system.android.appengine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.appspot.mac_books.bookSystem.model.BookForSale;
 import com.appspot.mac_books.bookSystem.model.SaleShelf;
@@ -30,7 +31,7 @@ public class SearchActivity extends ListActivity {
 		Intent intent = getIntent();
 		String query = intent.getStringExtra("query").toLowerCase();
 		
-		SaleShelf shelf = BookData.getInstance().getData();
+		HashMap<String, ArrayList<BookForSale>> shelf = BookData.getInstance().getData();
 		
 //		Book book1 = new Book("Harry Poter","A1B2C3D4","JK Rowling");
 //		Book book2 = new Book("The Great Gatsby","A2B3C4D5","F.Scott Fitzgerald");
@@ -67,15 +68,15 @@ public class SearchActivity extends ListActivity {
 //		bookNames.add(bookForSale5);
 //		bookNames.add(bookForSale6);
 //		bookNames.add(bookForSale7);
-		
-		for (BookForSale b: shelf.getList()){
-			if (b.getBook().getIsbn().toLowerCase().indexOf(query)>-1 ||
-					b.getBook().getTitle().toLowerCase().indexOf(query)>-1 ||
-					b.getBook().getAuthor().toLowerCase().indexOf(query)>-1) {
-				foundBooks.add(b);
-			}
-			
-		}
+		//TODO:FIX THIS 
+//		for (BookForSale b: shelf){
+//			if (b.getBook().getIsbn().toLowerCase().indexOf(query)>-1 ||
+//					b.getBook().getTitle().toLowerCase().indexOf(query)>-1 ||
+//					b.getBook().getAuthor().toLowerCase().indexOf(query)>-1) {
+//				foundBooks.add(b);
+//			}
+//			
+//		}
 
 		
 		BookAdapter adapter = new BookAdapter(this, foundBooks);

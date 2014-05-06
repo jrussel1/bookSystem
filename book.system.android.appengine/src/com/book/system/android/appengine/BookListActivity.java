@@ -1,10 +1,16 @@
 package com.book.system.android.appengine;
 
 import java.io.IOException;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.appspot.mac_books.bookSystem.model.BookForSale;
 
@@ -27,8 +33,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.appspot.mac_books.bookSystem.BookSystem;
+import com.appspot.mac_books.bookSystem.model.Book;
 import com.appspot.mac_books.bookSystem.model.BookForSale;
+import com.appspot.mac_books.bookSystem.model.JsonMap;
 import com.appspot.mac_books.bookSystem.model.SaleShelf;
+import com.appspot.mac_books.bookSystem.model.Seller;
+import com.google.api.client.json.GenericJson;
+import com.google.gson.Gson;
 
 public class BookListActivity extends ListActivity {
 
@@ -36,22 +47,23 @@ public class BookListActivity extends ListActivity {
 	protected TextView mMyProfileButton;
 	protected SearchView mSearchView;
 	private BookSystem service = null;
-	private SaleShelf saleshelf = null;
+	private HashMap<String, ArrayList<BookForSale>> saleshelf = null;
 	private String currentUserEmail = null;
 	private final String LOG_TAG = "BookListActivity";
 	String currentUserFirstName = null;
 	String currentUserLastName = null;
+	ArrayList<String> isbnList = null;
 	public void unauthenticatedSaleShelfTask(){
-		AsyncTask<Integer, Void, SaleShelf> getShelf =
-				new AsyncTask<Integer, Void, SaleShelf> () {
+		AsyncTask<Integer, Void, GenericJson> getShelf =
+				new AsyncTask<Integer, Void, GenericJson> () {
 			@Override
-			protected SaleShelf doInBackground(Integer... integers) {
+			protected GenericJson doInBackground(Integer... integers) {
 				// Retrieve service handle.
 
 				try {
-					BookSystem.Bookforsale.List getListCommand = service.bookforsale().list();
-					SaleShelf shelf = getListCommand.execute();
-					return shelf;
+					BookSystem.Bookforsale.ListBooksAndSellers getListCommand = service.bookforsale().listBooksAndSellers();
+					AbstractMap<String, Object> shelf = getListCommand.execute();
+					return (GenericJson) shelf;
 				} catch (IOException e) {
 					Log.e("BookSystem call", "Exception during API call", e);
 				}
@@ -59,15 +71,67 @@ public class BookListActivity extends ListActivity {
 			}
 
 			@Override
-			protected void onPostExecute(SaleShelf shelf) {
+			protected void onPostExecute(GenericJson shelf) {
 				if (shelf!=null) {
-					try {
-						Log.d("SaleShelf", shelf.toPrettyString());
-						saleshelf = shelf;
-						setAdapter();
-					} catch (IOException e) {
-						e.printStackTrace();
+					saleshelf=new HashMap<String, ArrayList<BookForSale>>();
+					Log.d("SaleShelf", shelf.toString());
+					isbnList = new ArrayList<String>(shelf.keySet());
+					JSONObject jObject = new JSONObject(shelf);
+					Iterator iter = jObject.keys();
+					String key=null;
+					ArrayList<BookForSale> bfs = null;
+					JSONObject cur = null;
+					JSONObject curBook = null;
+					JSONObject curSeller = null;
+					while(iter.hasNext()){
+						key=(String) iter.next();
+						bfs = new ArrayList<BookForSale>();
+						try {
+							for(int i = 0; i < jObject.getJSONArray(key).length(); i++){
+								cur=jObject.getJSONArray(key).getJSONObject(i);
+								curBook=cur.getJSONObject("book");
+								curSeller=cur.getJSONObject("seller");
+								bfs.add(
+										new BookForSale()
+										.setBook(
+												new Book()
+												.setIsbn(curBook.getString("isbn"))
+												.setAuthor(curBook.getString("author"))
+												.setTitle(curBook.getString("title"))
+												)
+												.setSeller(
+														new Seller()
+														.setId(curSeller.getLong("id"))
+														.setEmail(curSeller.getString("email"))
+														.setFirstName(curSeller.getString("firstName"))
+														.setLastName(curSeller.getString("lastName"))
+														)
+														.setPrice(
+																cur.getDouble("price")
+																)
+										);
+								//										Log.d(LOG_TAG,jObject.getJSONArray(key).get(i).toString());
+								
+								saleshelf.put(key, bfs);
+								bfs=null;
+							}
+
+
+							
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						catch (NullPointerException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						////							saleshelf.put(entry.getKey(), new ArrayList<String>(entry.getValue()));
 					}
+
+					//						shelf.putAll(saleshelf);
+					setAdapter();
+
 				} else {
 					Log.e("SaleShelf error", "No shelf were returned by the API.");
 				}
@@ -76,16 +140,21 @@ public class BookListActivity extends ListActivity {
 
 		getShelf.execute();
 	}
-	
-	
+
+
 	private void setAdapter() {
-		ArrayList<BookForSale> aList = new ArrayList<BookForSale>(saleshelf.getList());
+		ArrayList<BookForSale> aList = new ArrayList<BookForSale>();
+		for(Entry<String, ArrayList<BookForSale>> entry:saleshelf.entrySet()){
+			aList.add(entry.getValue().get(0));
+		}
+		Log.i(LOG_TAG,aList.toString());
+		Log.i(LOG_TAG,String.valueOf(aList.size()));
 		BookAdapter adapter = new BookAdapter(BookListActivity.this, aList);
 		// Attach the adapter to a ListView
 		ListView list = (ListView)findViewById(android.R.id.list);
 		list.setAdapter(adapter);
 		setListAdapter(adapter);
-		
+
 	}
 
 	@Override
@@ -93,7 +162,7 @@ public class BookListActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
 		setTitle("");
-		
+
 		Intent intent = getIntent();
 		currentUserEmail = intent.getStringExtra("CURRENT_USER_EMAIL");
 		currentUserFirstName = intent.getStringExtra("first_name");
@@ -112,7 +181,7 @@ public class BookListActivity extends ListActivity {
 
 			}
 		});
-		
+
 		mMyProfileButton = (TextView) findViewById(R.id.myProfileButton);
 		mMyProfileButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -122,36 +191,41 @@ public class BookListActivity extends ListActivity {
 				intent.putExtra("last_name", currentUserLastName);
 				intent.putExtra("first_name", currentUserFirstName);
 				startActivity(intent);
-				
+
 			}
 		});
-		
+
 		mSearchView = (SearchView) findViewById(R.id.search_view);
 		mSearchView.setQueryHint("Search by ISBN");
 		String a = mSearchView.getQuery().toString();
 		SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
-			
+
 			@Override
 			public boolean onQueryTextSubmit(String query) {
 				// TODO Auto-generated method stub
-				
+
 				Intent intent = new Intent(BookListActivity.this, SearchActivity.class);
 				intent.putExtra("query", query.toString());
 				startActivity(intent);
 				return false;
 			}
-			
+
 			@Override
 			public boolean onQueryTextChange(String newText) {
 				// TODO Auto-generated method stub
 				return false;
 			}
 		};	
-		
+
 		mSearchView.setOnQueryTextListener(queryTextListener);
 
 		service = AppConstants.getApiServiceHandle(null);
-		unauthenticatedSaleShelfTask();
+		saleshelf=BookData.getInstance().getData();
+		if(saleshelf==null){
+			unauthenticatedSaleShelfTask();
+		}else{
+			setAdapter();
+		}
 	}
 
 
@@ -163,7 +237,7 @@ public class BookListActivity extends ListActivity {
 
 
 		Intent intent = new Intent(BookListActivity.this, BookDetailActivity.class);
-//		intent.putExtra("key", book);
+		//		intent.putExtra("key", book);
 
 		String isbn = bookObject.getBook().getIsbn();
 		Double price1 = (bookObject.getPrice());

@@ -467,8 +467,12 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 				
 				Intent intent = new Intent(GooglePlusLoginActivity.this,BookListActivity.class);
 				intent.putExtra("CURRENT_USER_EMAIL", mEmailAccount);
-				intent.putExtra("last_name", jObject.getJSONObject("name").getString("familyName"));
-				intent.putExtra("first_name", jObject.getJSONObject("name").getString("givenName"));
+				if(jObject.has("name")){
+					intent.putExtra("last_name", jObject.getJSONObject("name").getString("familyName"));
+					intent.putExtra("first_name", jObject.getJSONObject("name").getString("givenName"));
+				}else{
+					Log.e(LOG_TAG,"No name");
+				}
 				startActivity(intent);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block

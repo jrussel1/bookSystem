@@ -1,16 +1,20 @@
 package com.book.system.android.appengine;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.appspot.mac_books.bookSystem.model.BookForSale;
 import com.appspot.mac_books.bookSystem.model.SaleShelf;
 
 public class BookData {
-	private SaleShelf data;
+	private HashMap<String, ArrayList<BookForSale>> data;
 	private static final BookData holder = new BookData();
 
-	public SaleShelf getData() {
+	public HashMap<String, ArrayList<BookForSale>> getData() {
 		return data;
 	}
 	
-	public void setData(SaleShelf data) { 
+	public void setData(HashMap<String, ArrayList<BookForSale>> data) { 
 		this.data = data;
 	}
 
