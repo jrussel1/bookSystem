@@ -12,9 +12,7 @@ import java.util.Map.Entry;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.appspot.mac_books.bookSystem.model.BookForSale;
 
-import android.R.menu;
 import android.app.Fragment;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -30,7 +28,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.appspot.mac_books.bookSystem.BookSystem;
 import com.appspot.mac_books.bookSystem.model.Book;
@@ -46,6 +43,7 @@ public class BookListActivity extends ListActivity {
 	protected TextView mAddBookTextView;
 	protected TextView mMyProfileButton;
 	protected SearchView mSearchView;
+	protected List<BookForSale> tempList;
 	private BookSystem service = null;
 	private HashMap<String, ArrayList<BookForSale>> saleshelf = null;
 	private String currentUserEmail = null;
@@ -149,6 +147,7 @@ public class BookListActivity extends ListActivity {
 		}
 		Log.i(LOG_TAG,aList.toString());
 		Log.i(LOG_TAG,String.valueOf(aList.size()));
+
 		BookAdapter adapter = new BookAdapter(BookListActivity.this, aList);
 		// Attach the adapter to a ListView
 		ListView list = (ListView)findViewById(android.R.id.list);
@@ -243,7 +242,6 @@ public class BookListActivity extends ListActivity {
 		Double price1 = (bookObject.getPrice());
 		String price = Double.toString(price1);
 		String bookName = bookObject.getBook().getTitle();
-		Log.d(LOG_TAG, currentUserEmail);
 		intent.putExtra("ISBNkey", isbn);
 		intent.putExtra("priceKey", price);
 		intent.putExtra("nameKey", bookName);

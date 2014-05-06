@@ -16,7 +16,7 @@ public class MainActivity extends Activity {
 
 		
 //		Intent intent = new Intent(MainActivity.this, BookListActivity.class);
-		Intent intent = new Intent(MainActivity.this, GooglePlusLoginActivity.class);
+		Intent intent = new Intent(MainActivity.this, BookListActivity.class);
 		
 		
 
