@@ -4,11 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import com.appspot.mac_books.bookSystem.model.BookForSale;
-
-import android.R.menu;
 import android.app.Fragment;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -24,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.appspot.mac_books.bookSystem.BookSystem;
 import com.appspot.mac_books.bookSystem.model.BookForSale;
@@ -35,7 +30,7 @@ public class BookListActivity extends ListActivity {
 	protected TextView mAddBookTextView;
 	protected TextView mMyProfileButton;
 	protected SearchView mSearchView;
-	protected ArrayList<BookForSale> tempList;
+	protected List<BookForSale> tempList;
 	private BookSystem service = null;
 	private SaleShelf saleshelf = null;
 	private String currentUserEmail = null;
@@ -81,8 +76,27 @@ public class BookListActivity extends ListActivity {
 	
 	private void setAdapter() {
 		//filter out the same books
+//TODO:improve the algorithm to make it more efficient
+		tempList = saleshelf.getList();
+		HashMap<String, BookForSale> tempHash = new HashMap<String, BookForSale>();
 		
-		ArrayList<BookForSale> aList = new ArrayList<BookForSale>(saleshelf.getList());
+		for (BookForSale book: tempList){
+			if (!tempHash.containsKey(book.getBook().getIsbn())){
+				tempHash.put(book.getBook().getIsbn(), book);
+			}
+		}
+		
+		Log.i("alex","alex"+tempHash.get("3456787654").getBook().getTitle());
+		
+		List<BookForSale> newtemplist = new ArrayList<BookForSale>();
+		
+		for (BookForSale bookforsale : tempHash.values()){
+			newtemplist.add(bookforsale);
+		}
+		
+
+		
+		ArrayList<BookForSale> aList = new ArrayList<BookForSale>(newtemplist);
 		BookAdapter adapter = new BookAdapter(BookListActivity.this, aList);
 		// Attach the adapter to a ListView
 		ListView list = (ListView)findViewById(android.R.id.list);
@@ -172,7 +186,6 @@ public class BookListActivity extends ListActivity {
 		Double price1 = (bookObject.getPrice());
 		String price = Double.toString(price1);
 		String bookName = bookObject.getBook().getTitle();
-		Log.d(LOG_TAG, currentUserEmail);
 		intent.putExtra("ISBNkey", isbn);
 		intent.putExtra("priceKey", price);
 		intent.putExtra("nameKey", bookName);
