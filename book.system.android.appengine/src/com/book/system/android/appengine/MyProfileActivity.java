@@ -107,14 +107,7 @@ public class MyProfileActivity extends ListActivity {
 	}
 	
 	private void setAdapter() {
-		ArrayList<BookForSale> aList = new ArrayList<BookForSale>();
-		for(Entry<String, ArrayList<BookForSale>> entry:saleshelf.entrySet()){
-			aList.add(entry.getValue().get(0));
-		}
-		Log.i(LOG_TAG,aList.toString());
-		Log.i(LOG_TAG,String.valueOf(aList.size()));
-
-		BookAdapter adapter = new BookAdapter(MyProfileActivity.this, aList);
+		BookAdapter adapter = new BookAdapter(MyProfileActivity.this, usersBooks);
 		// Attach the adapter to a ListView
 		ListView list = (ListView)findViewById(R.id.mybooklist);
 		list.setAdapter(adapter);
