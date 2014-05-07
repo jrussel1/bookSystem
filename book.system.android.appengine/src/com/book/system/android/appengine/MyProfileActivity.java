@@ -11,6 +11,7 @@ import com.appspot.mac_books.bookSystem.model.BookForSale;
 import com.appspot.mac_books.bookSystem.model.BookForSaleCollection;
 import com.appspot.mac_books.bookSystem.model.Seller;
 import com.appspot.mac_books.bookSystem.model.Book;
+import com.appspot.mac_books.bookSystem.model.BookForSale;
 
 import android.app.Activity;
 import android.app.ActionBar;
@@ -83,12 +84,12 @@ public class MyProfileActivity extends ListActivity {
 					BookSystem.Bookforsale.GetAllBooksForSaleBySeller getBooksForSaleCommand = service.bookforsale().getAllBooksForSaleBySeller(userAsSeller.getId());
 					BookForSaleCollection books = getBooksForSaleCommand.execute();
 					return books;
+
 				} catch (IOException e) {
 					Log.e("BookSystem call", "Exception during API call", e);
 				}
 				return null;
 			}
-
 			@Override
 			protected void onPostExecute(BookForSaleCollection books) {
 				if (books!=null) {
