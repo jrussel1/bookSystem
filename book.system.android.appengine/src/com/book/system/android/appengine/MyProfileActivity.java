@@ -97,6 +97,7 @@ public class MyProfileActivity extends ListActivity {
 				if (books!=null) {
 					Log.d("GetAllBooks", books.toString());
 					usersBooks= new ArrayList<BookForSale>(books.getItems());
+					setAdapter();
 				} else {
 					Log.e("GetAllBooks Error", "No books for sale returned by API");
 				}
