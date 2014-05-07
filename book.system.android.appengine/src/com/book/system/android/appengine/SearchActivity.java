@@ -72,7 +72,7 @@ public class SearchActivity extends ListActivity {
 		String a = bookObject.getBook().getTitle();
 
 
-		Intent intent = new Intent(SearchActivity.this, BookDetailActivity.class);
+		Intent intent = new Intent(SearchActivity.this, BookForSaleListActivity.class);
 		//		intent.putExtra("key", book);
 
 		String isbn = bookObject.getBook().getIsbn();

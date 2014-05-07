@@ -194,7 +194,7 @@ public class BookListActivity extends ListActivity {
 		});
 
 		mSearchView = (SearchView) findViewById(R.id.search_view);
-		mSearchView.setQueryHint("Search by ISBN");
+		mSearchView.setQueryHint("Search by ISBN, Title, or Author");
 		String a = mSearchView.getQuery().toString();
 		SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
 
