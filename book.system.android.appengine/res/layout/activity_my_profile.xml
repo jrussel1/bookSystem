@@ -32,6 +32,20 @@
                     android:text="My Books\n"
                     android:textSize="30dip" />
                 
+                <ListView
+                    android:id="@+id/mybooklist"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@android:color/transparent"
+                    android:cacheColorHint="@android:color/transparent"
+                    android:divider="#CCCCCC"
+                    android:dividerHeight="1dp"
+                    android:paddingLeft="2dp" >
+                    
+                </ListView>
+                
                  <Button
         			android:id="@+id/addButton"
         			android:layout_width="100dp"

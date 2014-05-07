@@ -180,7 +180,6 @@ public class BookListActivity extends ListActivity {
 				intent.putExtra("last_name", currentUserLastName);
 				intent.putExtra("first_name", currentUserFirstName);
 				startActivity(intent);
-
 			}
 		});
 
