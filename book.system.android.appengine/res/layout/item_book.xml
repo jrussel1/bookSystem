@@ -50,13 +50,14 @@
        android:id="@+id/isbn"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
+       android:layout_alignBottom="@+id/tvHome"
        android:layout_alignParentRight="true"
-       android:layout_below="@+id/tvName"
-       android:layout_marginRight="20dp"
+       android:layout_marginRight="26dp"
+       android:alpha="0.5"
        android:fontFamily="sans-serif-thin"
        android:text="isbn"
        android:textAppearance="?android:attr/textAppearanceMedium"
+       android:textSize="12dp"
        android:textStyle="bold" />
-
 
 </RelativeLayout>
