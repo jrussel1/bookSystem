@@ -2,6 +2,7 @@ package com.book.system.android.appengine;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -42,6 +43,7 @@ public class MyProfileActivity extends ListActivity {
 	private String currentUserFirstName = null;
 	private String currentUserLastName = null;
 	private Seller userAsSeller = null;
+	private ArrayList<BookForSale> usersBooks = null;
 	
 	public void unauthenticatedGetSellerTask(){
 		AsyncTask<String, Void, Seller> getSeller =
@@ -94,7 +96,7 @@ public class MyProfileActivity extends ListActivity {
 			protected void onPostExecute(BookForSaleCollection books) {
 				if (books!=null) {
 					Log.d("GetAllBooks", books.toString());
-					
+					usersBooks= new ArrayList<BookForSale>(books.getItems());
 				} else {
 					Log.e("GetAllBooks Error", "No books for sale returned by API");
 				}
