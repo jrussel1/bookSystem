@@ -11,6 +11,7 @@ import com.appspot.mac_books.bookSystem.model.SaleShelf;
 import android.app.Fragment;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class BookForSaleListActivity extends ListActivity {
 	private String currentUserEmail = null;
@@ -27,6 +29,10 @@ public class BookForSaleListActivity extends ListActivity {
 	private String currentBookTitle = null;
 	private String currentBookAuthor =null;
 	HashMap<String,ArrayList<BookForSale>> saleshelf = null;
+	
+	private String bookISBN = null;
+	private String bookTitle = null;
+	private String bookAuthor = null;
 	
 	
 	private void setAdapter() {
@@ -36,8 +42,6 @@ public class BookForSaleListActivity extends ListActivity {
 		ListView list = (ListView)findViewById(android.R.id.list);
 		list.setAdapter(adapter);
 		setListAdapter(adapter);
-
-		
 	}
 
 	@Override
@@ -59,6 +63,30 @@ public class BookForSaleListActivity extends ListActivity {
 		}
 		
 		setAdapter();
+		
+		bookISBN = saleshelf.get(currentIsbn).get(0).getBook().getIsbn().toString();
+		bookTitle = saleshelf.get(currentIsbn).get(0).getBook().getTitle().toString();
+		bookAuthor = saleshelf.get(currentIsbn).get(0).getBook().getAuthor().toString();
+		
+		Typeface tf = Typeface.createFromAsset(getAssets(),
+		        "fonts/Roboto-Thin.ttf");
+		Typeface tf2 = Typeface.createFromAsset(getAssets(),
+		        "fonts/Roboto-Light.ttf");
+
+//TODO views got mixed up somehow, have to fix later.
+		TextView t = (TextView)findViewById(R.id.ISBNS);
+		t.setText(bookTitle);
+		t.setTypeface(tf2);
+		
+		TextView t2 = (TextView)findViewById(R.id.BookTitleS);
+		t2.setText(bookISBN);
+		t2.setTypeface(tf2);
+		
+		TextView t3 = (TextView)findViewById(R.id.ISBNS_static);
+		t3.setText(bookAuthor);
+		t3.setTypeface(tf2);
+		
+		
 	}
 	
 	
