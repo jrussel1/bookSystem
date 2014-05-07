@@ -9,17 +9,6 @@
     tools:context=".BookDetail" >
 
     <TextView
-        android:id="@+id/ISBN_static"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bookTitleTag"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:text="ISBN:"
-        android:textSize="26dp"
-        android:textColor = "#6A6A6A" />
-
-    <TextView
         android:id="@+id/isbn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,20 +16,8 @@
         android:layout_centerHorizontal="true"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="30dp"
-        android:textColor="#167ABC"  />
-
-    <TextView
-        android:id="@+id/price_static"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/isbn"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:text="Price:"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="26dp"
-        android:textColor = "#6A6A6A" />
+        android:textColor="#167ABC"
+        android:textSize="24dp" />
 
     <TextView
         android:id="@+id/price"
@@ -50,19 +27,8 @@
         android:layout_centerHorizontal="true"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="30dp"
-        android:textColor="#167ABC"  />
-
-    <Button
-        android:id="@+id/purchaseButton"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_below="@+id/price"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="34dp"
-        android:text="Purchase"
-        android:background="#167ABC"
-        android:textColor="#FFFFFF" />
+        android:textColor="#167ABC"
+        android:textSize="24dp" />
 
     <TextView
         android:id="@+id/bookTitleTag"
@@ -71,8 +37,8 @@
         android:layout_alignLeft="@+id/ISBN_static"
         android:layout_below="@+id/bookTitle_Static"
         android:text="helloWorld"
-        android:textSize="30dp"
-        android:textColor="#167ABC"  />
+        android:textColor="#167ABC"
+        android:textSize="24dp" />
 
     <TextView
         android:id="@+id/bookTitle_Static"
@@ -80,9 +46,74 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/bookTitleTag"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="58dp"
+        android:layout_marginTop="25dp"
         android:text="Book Title:"
-        android:textSize="26dp"
-        android:textColor = "#6A6A6A" />
+        android:textColor="#6A6A6A"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/purchaseButton"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignLeft="@+id/price"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="38dp"
+        android:background="#167ABC"
+        android:text="Purchase"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/ISBN_static"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/isbn"
+        android:layout_below="@+id/bookTitleTag"
+        android:text="ISBN:"
+        android:textColor="#6A6A6A"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/price_static"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/isbn"
+        android:layout_below="@+id/isbn"
+        android:text="Price:"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#6A6A6A"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/seller_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/seller_detail_static"
+        android:layout_below="@+id/seller_detail_static"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#167ABC"
+        android:textSize="24dp" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_alignLeft="@+id/price"
+        android:layout_centerVertical="true"
+        android:alpha="0.5"
+        android:background="#167ABC" />
+
+
+    <TextView
+        android:id="@+id/seller_detail_static"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/view1"
+        android:layout_below="@+id/view1"
+        android:layout_marginTop="14dp"
+        android:text="Seller:"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#6A6A6A"
+        android:textSize="20dp" />
 
 </RelativeLayout>

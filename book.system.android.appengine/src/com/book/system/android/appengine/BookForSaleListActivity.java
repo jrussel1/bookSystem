@@ -33,6 +33,7 @@ public class BookForSaleListActivity extends ListActivity {
 	private String bookISBN = null;
 	private String bookTitle = null;
 	private String bookAuthor = null;
+	private String bookIsbn = null;
 	
 	
 	private void setAdapter() {
@@ -101,11 +102,20 @@ public class BookForSaleListActivity extends ListActivity {
 
 		String isbn = bookObject.getBook().getIsbn();
 		
+		String firstName = bookObject.getSeller().getFirstName();
+		String lastName = bookObject.getSeller().getLastName();
+		double temp = bookObject.getPrice();
+		String priceString = Double.toString(temp);
 		String bookAuthor = bookObject.getBook().getAuthor();
 		String bookTitle = bookObject.getBook().getTitle();
-		intent.putExtra("isbn", isbn);
+		String bookIsbn = bookObject.getBook().getIsbn();
+		
+		intent.putExtra("isbn", bookIsbn);
 		intent.putExtra("bookAuthor", bookAuthor);
 		intent.putExtra("bookTitle", bookTitle);
+		intent.putExtra("sellerFirstName", firstName);
+		intent.putExtra("sellerLastName", lastName);
+		intent.putExtra("price", priceString);
 		intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
 		startActivity(intent);
 

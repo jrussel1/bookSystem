@@ -18,6 +18,10 @@ public class BookDetailActivity extends Activity {
 	private String bookISBN = null;
 	private String bookTitle = null;
 	private String bookPrice = null;
+	private String bookAuthor = null;
+	private String firstName = null;
+	private String lastName = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,9 +34,13 @@ public class BookDetailActivity extends Activity {
 		
 
 		Intent intent = getIntent();
-		bookISBN = intent.getStringExtra("ISBNkey");
-		bookTitle = intent.getStringExtra("nameKey");
-		bookPrice = intent.getStringExtra("priceKey");
+		bookISBN = intent.getStringExtra("isbn");
+		bookTitle = intent.getStringExtra("bookTitle");
+		bookPrice = intent.getStringExtra("price");
+		bookAuthor = intent.getStringExtra("bookAuthor");
+		firstName = intent.getStringExtra("sellerFirstName");
+		lastName = intent.getStringExtra("sellerLastName");
+		
 		currentUserEmail = intent.getStringExtra("CURRENT_USER_EMAIL");
 
 		TextView t = (TextView)findViewById(R.id.bookTitleTag);
@@ -58,6 +66,20 @@ public class BookDetailActivity extends Activity {
 		
 		TextView t7 = (TextView)findViewById(R.id.purchaseButton);
 		t7.setTypeface(tf2);
+		
+		TextView t8 = (TextView)findViewById(R.id.seller_detail);
+		t8.setText(firstName + "" + lastName);
+		t8.setTypeface(tf);
+		
+		TextView t9 = (TextView)findViewById(R.id.seller_detail_static);
+		t9.setTypeface(tf2);
+		
+//		TextView t10 = (TextView)findViewById(R.id.bookInfo);
+//		t10.setTypeface(tf2);
+//		
+//		TextView t11 = (TextView)findViewById(R.id.sellerInfo);
+//		t11.setTypeface(tf2);
+		
 		t7.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
