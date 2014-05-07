@@ -47,26 +47,16 @@
        android:fontFamily="sans-serif-thin" />
 
    <TextView
-       android:id="@+id/tvPrice"
+       android:id="@+id/isbn"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_alignParentRight="true"
        android:layout_below="@+id/tvName"
        android:layout_marginRight="20dp"
        android:fontFamily="sans-serif-thin"
-       android:text="Price"
+       android:text="isbn"
        android:textAppearance="?android:attr/textAppearanceMedium"
        android:textStyle="bold" />
 
-   <TextView
-       android:id="@+id/textView3"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_alignBaseline="@+id/tvPrice"
-       android:layout_alignBottom="@+id/tvPrice"
-       android:layout_toLeftOf="@+id/tvPrice"
-       android:text="$"
-       android:fontFamily="sans-serif-thin"
-       android:textColor="#167ABC"  />
 
 </RelativeLayout>
