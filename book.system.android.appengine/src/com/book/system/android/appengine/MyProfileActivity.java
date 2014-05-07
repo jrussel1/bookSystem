@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 
 import com.appspot.mac_books.bookSystem.BookSystem;
 import com.appspot.mac_books.bookSystem.model.BookForSale;
+import com.appspot.mac_books.bookSystem.model.BookForSaleCollection;
 import com.appspot.mac_books.bookSystem.model.Seller;
 import com.appspot.mac_books.bookSystem.model.Book;
 
@@ -39,6 +40,7 @@ public class MyProfileActivity extends ListActivity {
 	private String currentUserEmail = null;
 	private String currentUserFirstName = null;
 	private String currentUserLastName = null;
+	private Seller userAsSeller = null;
 	
 	public void unauthenticatedGetSellerTask(){
 		AsyncTask<String, Void, Seller> getSeller =
@@ -60,7 +62,8 @@ public class MyProfileActivity extends ListActivity {
 			protected void onPostExecute(Seller seller) {
 				if (seller!=null) {
 					Log.d("Seller Received", seller.toString());
-//TODO: Add call to get books of seller
+					userAsSeller=seller;
+					unauthenticatedGetSellerListofBooks();
 				} else {
 					Log.e("getting Seller error", "No seller returned by API");
 				}
@@ -71,15 +74,15 @@ public class MyProfileActivity extends ListActivity {
 	}
 	
 	public void unauthenticatedGetSellerListofBooks(){
-		AsyncTask<String, Void, List<Book>> getSeller =
-				new AsyncTask<String, Void, Seller> () {
+		AsyncTask<String, Void, BookForSaleCollection> getSeller =
+				new AsyncTask<String, Void, BookForSaleCollection> () {
 			@Override
-			protected Seller doInBackground(String... strings) {
+			protected BookForSaleCollection doInBackground(String... strings) {
 				// Retrieve service handle.
 				try {
-					BookSystem.Bookforsale.GetSellerByEmail getSellerCommand = service.bookforsale().getSellerByEmail(currentUserEmail);
-					Seller seller = getSellerCommand.execute();
-					return seller;
+					BookSystem.Bookforsale.GetAllBooksForSaleBySeller getBooksForSaleCommand = service.bookforsale().getAllBooksForSaleBySeller(userAsSeller.getId());
+					BookForSaleCollection books = getBooksForSaleCommand.execute();
+					return books;
 				} catch (IOException e) {
 					Log.e("BookSystem call", "Exception during API call", e);
 				}
@@ -87,12 +90,12 @@ public class MyProfileActivity extends ListActivity {
 			}
 
 			@Override
-			protected void onPostExecute(Seller seller) {
-				if (seller!=null) {
-					Log.d("Seller Received", seller.toString());
-//TODO: Add call to get books of seller
+			protected void onPostExecute(BookForSaleCollection books) {
+				if (books!=null) {
+					Log.d("GetAllBooks", books.toString());
+					
 				} else {
-					Log.e("getting Seller error", "No seller returned by API");
+					Log.e("GetAllBooks Error", "No books for sale returned by API");
 				}
 			}
 		};
