@@ -36,7 +36,7 @@ public class SearchActivity extends ListActivity {
 		
 		HashMap<String, ArrayList<BookForSale>> foundBooks = new HashMap<String, ArrayList<BookForSale>>();
 		ArrayList<BookForSale> foundBookList = new ArrayList<BookForSale>();
-		//TODO:FIX THIS 
+		
 		for (Entry<String, ArrayList<BookForSale>> entry: saleshelf.entrySet()){
 			if (entry.getValue().get(0).getBook().getIsbn().toLowerCase().indexOf(query)>-1 ||
 					entry.getValue().get(0).getBook().getTitle().toLowerCase().indexOf(query)>-1 ||
@@ -73,7 +73,6 @@ public class SearchActivity extends ListActivity {
 
 
 		Intent intent = new Intent(SearchActivity.this, BookForSaleListActivity.class);
-		//		intent.putExtra("key", book);
 
 		String isbn = bookObject.getBook().getIsbn();
 		
