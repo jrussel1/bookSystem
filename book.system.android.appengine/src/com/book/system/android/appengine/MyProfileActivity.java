@@ -97,6 +97,7 @@ public class MyProfileActivity extends ListActivity {
 				if (books!=null) {
 					Log.d("GetAllBooks", books.toString());
 					usersBooks= new ArrayList<BookForSale>(books.getItems());
+					setAdapter();
 				} else {
 					Log.e("GetAllBooks Error", "No books for sale returned by API");
 				}
@@ -107,14 +108,8 @@ public class MyProfileActivity extends ListActivity {
 	}
 	
 	private void setAdapter() {
-		ArrayList<BookForSale> aList = new ArrayList<BookForSale>();
-		for(Entry<String, ArrayList<BookForSale>> entry:saleshelf.entrySet()){
-			aList.add(entry.getValue().get(0));
-		}
-		Log.i(LOG_TAG,aList.toString());
-		Log.i(LOG_TAG,String.valueOf(aList.size()));
 
-		BookAdapter adapter = new BookAdapter(MyProfileActivity.this, aList);
+		BookAdapter adapter = new BookAdapter(MyProfileActivity.this, usersBooks);
 		// Attach the adapter to a ListView
 		ListView list = (ListView)findViewById(R.id.mybooklist);
 		list.setAdapter(adapter);
