@@ -124,10 +124,9 @@ public class BookListActivity extends ListActivity {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						////							saleshelf.put(entry.getKey(), new ArrayList<String>(entry.getValue()));
 					}
 
-					//						shelf.putAll(saleshelf);
+					BookData.getInstance().setData(saleshelf);
 					setAdapter();
 
 				} else {
@@ -235,16 +234,16 @@ public class BookListActivity extends ListActivity {
 		String a = bookObject.getBook().getTitle();
 
 
-		Intent intent = new Intent(BookListActivity.this, BookDetailActivity.class);
+		Intent intent = new Intent(BookListActivity.this, BookForSaleListActivity.class);
 		//		intent.putExtra("key", book);
 
 		String isbn = bookObject.getBook().getIsbn();
-		Double price1 = (bookObject.getPrice());
-		String price = Double.toString(price1);
-		String bookName = bookObject.getBook().getTitle();
-		intent.putExtra("ISBNkey", isbn);
-		intent.putExtra("priceKey", price);
-		intent.putExtra("nameKey", bookName);
+		
+		String bookAuthor = bookObject.getBook().getAuthor();
+		String bookTitle = bookObject.getBook().getTitle();
+		intent.putExtra("isbn", isbn);
+		intent.putExtra("bookAuthor", bookAuthor);
+		intent.putExtra("bookTitle", bookTitle);
 		intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
 		startActivity(intent);
 
