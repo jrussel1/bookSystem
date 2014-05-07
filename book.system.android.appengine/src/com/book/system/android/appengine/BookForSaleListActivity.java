@@ -37,7 +37,7 @@ public class BookForSaleListActivity extends ListActivity {
 	
 	private void setAdapter() {
 		
-		BookAdapter adapter = new BookAdapter(BookForSaleListActivity.this, saleshelf.get(currentIsbn));
+		SellerAdapter adapter = new SellerAdapter(BookForSaleListActivity.this, saleshelf.get(currentIsbn));
 		// Attach the adapter to a ListView
 		ListView list = (ListView)findViewById(android.R.id.list);
 		list.setAdapter(adapter);
@@ -75,14 +75,14 @@ public class BookForSaleListActivity extends ListActivity {
 
 //TODO views got mixed up somehow, have to fix later.
 		TextView t = (TextView)findViewById(R.id.ISBNS);
-		t.setText(bookTitle);
+		t.setText(bookISBN);
 		t.setTypeface(tf2);
 		
 		TextView t2 = (TextView)findViewById(R.id.BookTitleS);
-		t2.setText(bookISBN);
+		t2.setText(bookTitle);
 		t2.setTypeface(tf2);
 		
-		TextView t3 = (TextView)findViewById(R.id.ISBNS_static);
+		TextView t3 = (TextView)findViewById(R.id.AuthorS);
 		t3.setText(bookAuthor);
 		t3.setTypeface(tf2);
 		

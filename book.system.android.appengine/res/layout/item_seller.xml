@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/Seller_item_seller"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="38dp"
+        android:layout_toRightOf="@+id/textView1"
+        android:textColor="#167ABC"
+        android:fontFamily="sans-serif-thin" 
+        android:textSize="18dp"
+        android:text="TextView" />
+    
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="18dp"
+        android:fontFamily="sans-serif-thin" 
+        android:textSize="18dp"
+        android:text="Seller:" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView3"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_toLeftOf="@+id/Seller_item_seller"
+        android:fontFamily="sans-serif-thin" 
+        android:textSize="18dp"
+        android:text="Price:" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="24dp"
+        android:text="Buy"
+        android:fontFamily="sans-serif-thin"
+        android:textColor="#167ABC"
+        android:textSize="22dp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Price_item_seller"
+        android:layout_alignBottom="@+id/Price_item_seller"
+        android:layout_alignLeft="@+id/Seller_item_seller"
+        android:fontFamily="sans-serif-thin"
+        android:text="$"
+        android:textSize="18dp"
+        android:textColor="#167ABC" />
+
+    <TextView
+        android:id="@+id/Price_item_seller"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Seller_item_seller"
+        android:layout_toRightOf="@+id/textView3"
+        android:fontFamily="sans-serif-thin"
+        android:text="TextView"
+        android:textSize="18dp"
+        android:textColor="#167ABC" />
+
+</RelativeLayout>
