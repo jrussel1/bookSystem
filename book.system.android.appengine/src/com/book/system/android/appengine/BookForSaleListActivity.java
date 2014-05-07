@@ -56,7 +56,7 @@ public class BookForSaleListActivity extends ListActivity {
 		currentBookTitle = intent.getStringExtra("bookTitle");
 		currentBookAuthor = intent.getStringExtra("bookAuthor");
 		
-		saleshelf=BookData.getInstance().getData();
+		saleshelf=BookData.getInstance().getBookData();
 		
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()

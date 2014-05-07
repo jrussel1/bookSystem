@@ -33,7 +33,7 @@ public class SearchActivity extends ListActivity {
 		Intent intent = getIntent();
 		String query = intent.getStringExtra("query").toLowerCase();
 		currentUserEmail = intent.getStringExtra("CURRENT_USER_EMAIL");
-		saleshelf = BookData.getInstance().getData();
+		saleshelf = BookData.getInstance().getBookData();
 		
 		HashMap<String, ArrayList<BookForSale>> foundBooks = new HashMap<String, ArrayList<BookForSale>>();
 		ArrayList<BookForSale> foundBookList = new ArrayList<BookForSale>();

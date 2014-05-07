@@ -129,7 +129,7 @@ public class BookListActivity extends ListActivity {
 						}
 					}
 					Log.d(LOG_TAG,saleshelf.toString());
-					BookData.getInstance().setData(saleshelf);
+					BookData.getInstance().setBookData(saleshelf);
 					setAdapter();
 
 				} else {
@@ -220,7 +220,7 @@ public class BookListActivity extends ListActivity {
 		mSearchView.setOnQueryTextListener(queryTextListener);
 
 		service = AppConstants.getApiServiceHandle(null);
-		saleshelf=BookData.getInstance().getData();
+		saleshelf=BookData.getInstance().getBookData();
 		if(saleshelf==null){
 			unauthenticatedSaleShelfTask();
 		}else{

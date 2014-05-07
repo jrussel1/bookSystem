@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"ADiYQGKhdYR9rpbhIFHih-UBYRs/-uPNz6_MSBt8sbBoYjPxB5trsNU\"",
+ "etag": "\"ADiYQGKhdYR9rpbhIFHih-UBYRs/zQEttqgoBUdFxovHyKac_mUoqcA\"",
  "discoveryVersion": "v1",
  "id": "bookSystem:v1",
  "name": "bookSystem",
@@ -111,6 +111,18 @@
     },
     "seller": {
      "$ref": "Seller"
+    }
+   }
+  },
+  "BookForSaleCollection": {
+   "id": "BookForSaleCollection",
+   "type": "object",
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "$ref": "BookForSale"
+     }
     }
    }
   },
@@ -261,6 +273,28 @@
      ],
      "response": {
       "$ref": "BookCollection"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
+    "getAllBooksForSaleBySeller": {
+     "id": "bookSystem.bookforsale.getAllBooksForSaleBySeller",
+     "path": "bookforsalecollection/{personId}",
+     "httpMethod": "GET",
+     "parameters": {
+      "personId": {
+       "type": "string",
+       "required": true,
+       "format": "int64",
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "personId"
+     ],
+     "response": {
+      "$ref": "BookForSaleCollection"
      },
      "scopes": [
       "https://www.googleapis.com/auth/userinfo.email"

@@ -53,21 +53,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "bookSystem.bookforsale.listBooksAndSellers" : {
-      "path" : "listBooksAndSellers",
-      "httpMethod" : "GET",
-      "authLevel" : "OPTIONAL_CONTINUE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
-      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.book.system.spi.BookForSaleV1.listBooksAndSellers",
-      "request" : {
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "bookSystem.bookforsale.getSellerByID" : {
       "path" : "seller/{personId}",
       "httpMethod" : "GET",
@@ -80,27 +65,6 @@
         "parameters" : {
           "personId" : {
             "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
-    "bookSystem.bookforsale.getSellerByEmail" : {
-      "path" : "seller/email",
-      "httpMethod" : "GET",
-      "authLevel" : "OPTIONAL_CONTINUE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
-      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.book.system.spi.BookForSaleV1.getSellerByEmail",
-      "request" : {
-        "parameters" : {
-          "email" : {
-            "type" : "string",
             "required" : true
           }
         },
@@ -135,35 +99,6 @@
         "body" : "empty"
       }
     },
-    "bookSystem.book.insert" : {
-      "path" : "book/{isbn}/{title}/{author}",
-      "httpMethod" : "post",
-      "authLevel" : "OPTIONAL_CONTINUE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
-      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.book.system.spi.BookForSaleV1.insertBook",
-      "request" : {
-        "parameters" : {
-          "isbn" : {
-            "type" : "string",
-            "required" : true
-          },
-          "title" : {
-            "type" : "string",
-            "required" : true
-          },
-          "author" : {
-            "type" : "string",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "bookSystem.bookforsale.list" : {
       "path" : "list",
       "httpMethod" : "GET",
@@ -194,6 +129,92 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "bookSystem.bookforsale.getBookByISBN" : {
+      "path" : "book/{ISBN}",
+      "httpMethod" : "GET",
+      "authLevel" : "OPTIONAL_CONTINUE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.book.system.spi.BookForSaleV1.getBookByISBN",
+      "request" : {
+        "parameters" : {
+          "ISBN" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "bookSystem.bookforsale.listBooksAndSellers" : {
+      "path" : "listBooksAndSellers",
+      "httpMethod" : "GET",
+      "authLevel" : "OPTIONAL_CONTINUE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.book.system.spi.BookForSaleV1.listBooksAndSellers",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "bookSystem.bookforsale.getSellerByEmail" : {
+      "path" : "seller/email",
+      "httpMethod" : "GET",
+      "authLevel" : "OPTIONAL_CONTINUE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.book.system.spi.BookForSaleV1.getSellerByEmail",
+      "request" : {
+        "parameters" : {
+          "email" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "bookSystem.book.insert" : {
+      "path" : "book/{isbn}/{title}/{author}",
+      "httpMethod" : "post",
+      "authLevel" : "OPTIONAL_CONTINUE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.book.system.spi.BookForSaleV1.insertBook",
+      "request" : {
+        "parameters" : {
+          "isbn" : {
+            "type" : "string",
+            "required" : true
+          },
+          "title" : {
+            "type" : "string",
+            "required" : true
+          },
+          "author" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "bookSystem.bookforsale.getAllSellersOfBook" : {
       "path" : "sellercollection/{ISBN}",
       "httpMethod" : "GET",
@@ -215,18 +236,39 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "bookSystem.bookforsale.getBookByISBN" : {
-      "path" : "book/{ISBN}",
+    "bookSystem.bookforsale.getAllBooksForSaleBySeller" : {
+      "path" : "bookforsalecollection/{personId}",
       "httpMethod" : "GET",
       "authLevel" : "OPTIONAL_CONTINUE",
       "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
       "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
       "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.book.system.spi.BookForSaleV1.getBookByISBN",
+      "rosyMethod" : "com.book.system.spi.BookForSaleV1.getAllBooksForSaleBySeller",
       "request" : {
         "parameters" : {
-          "ISBN" : {
-            "type" : "string",
+          "personId" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "bookSystem.bookforsale.getAllBooksBySeller" : {
+      "path" : "bookcollection/{personId}",
+      "httpMethod" : "GET",
+      "authLevel" : "OPTIONAL_CONTINUE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.book.system.spi.BookForSaleV1.getAllBooksBySeller",
+      "request" : {
+        "parameters" : {
+          "personId" : {
+            "type" : "int64",
             "required" : true
           }
         },
@@ -280,27 +322,6 @@
       "response" : {
         "body" : "autoTemplate(backendResponse)"
       }
-    },
-    "bookSystem.bookforsale.getAllBooksBySeller" : {
-      "path" : "bookcollection/{personId}",
-      "httpMethod" : "GET",
-      "authLevel" : "OPTIONAL_CONTINUE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
-      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.book.system.spi.BookForSaleV1.getAllBooksBySeller",
-      "request" : {
-        "parameters" : {
-          "personId" : {
-            "type" : "int64",
-            "required" : true
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
     }
   },
   "descriptor" : {
@@ -322,29 +343,10 @@
           "lastName" : {
             "type" : "string"
           },
-          "fLastName" : {
-            "type" : "string"
-          },
           "fFirstName" : {
             "type" : "string"
-          }
-        }
-      },
-      "JsonMap" : {
-        "id" : "JsonMap",
-        "type" : "object"
-      },
-      "Book" : {
-        "id" : "Book",
-        "type" : "object",
-        "properties" : {
-          "author" : {
-            "type" : "string"
           },
-          "title" : {
-            "type" : "string"
-          },
-          "isbn" : {
+          "fLastName" : {
             "type" : "string"
           }
         }
@@ -373,6 +375,10 @@
           }
         }
       },
+      "JsonMap" : {
+        "id" : "JsonMap",
+        "type" : "object"
+      },
       "BookForSale" : {
         "id" : "BookForSale",
         "type" : "object",
@@ -388,6 +394,21 @@
           }
         }
       },
+      "Book" : {
+        "id" : "Book",
+        "type" : "object",
+        "properties" : {
+          "author" : {
+            "type" : "string"
+          },
+          "title" : {
+            "type" : "string"
+          },
+          "isbn" : {
+            "type" : "string"
+          }
+        }
+      },
       "SellerCollection" : {
         "id" : "SellerCollection",
         "type" : "object",
@@ -396,6 +417,18 @@
             "type" : "array",
             "items" : {
               "$ref" : "Seller"
+            }
+          }
+        }
+      },
+      "BookForSaleCollection" : {
+        "id" : "BookForSaleCollection",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "BookForSale"
             }
           }
         }
@@ -419,27 +452,12 @@
           "$ref" : "Seller"
         }
       },
-      "com.book.system.spi.BookForSaleV1.listBooksAndSellers" : {
-        "response" : {
-          "$ref" : "JsonMap"
-        }
-      },
       "com.book.system.spi.BookForSaleV1.getSellerByID" : {
         "response" : {
           "$ref" : "Seller"
         }
       },
-      "com.book.system.spi.BookForSaleV1.getSellerByEmail" : {
-        "response" : {
-          "$ref" : "Seller"
-        }
-      },
       "com.book.system.spi.BookForSaleV1.deleteBookForSale" : {
-      },
-      "com.book.system.spi.BookForSaleV1.insertBook" : {
-        "response" : {
-          "$ref" : "Book"
-        }
       },
       "com.book.system.spi.BookForSaleV1.list" : {
         "response" : {
@@ -451,24 +469,44 @@
           "$ref" : "SaleShelf"
         }
       },
-      "com.book.system.spi.BookForSaleV1.getAllSellersOfBook" : {
-        "response" : {
-          "$ref" : "SellerCollection"
-        }
-      },
       "com.book.system.spi.BookForSaleV1.getBookByISBN" : {
         "response" : {
           "$ref" : "Book"
         }
       },
-      "com.book.system.spi.BookForSaleV1.insertBookForSale" : {
+      "com.book.system.spi.BookForSaleV1.listBooksAndSellers" : {
         "response" : {
-          "$ref" : "BookForSale"
+          "$ref" : "JsonMap"
+        }
+      },
+      "com.book.system.spi.BookForSaleV1.getSellerByEmail" : {
+        "response" : {
+          "$ref" : "Seller"
+        }
+      },
+      "com.book.system.spi.BookForSaleV1.insertBook" : {
+        "response" : {
+          "$ref" : "Book"
+        }
+      },
+      "com.book.system.spi.BookForSaleV1.getAllSellersOfBook" : {
+        "response" : {
+          "$ref" : "SellerCollection"
+        }
+      },
+      "com.book.system.spi.BookForSaleV1.getAllBooksForSaleBySeller" : {
+        "response" : {
+          "$ref" : "BookForSaleCollection"
         }
       },
       "com.book.system.spi.BookForSaleV1.getAllBooksBySeller" : {
         "response" : {
           "$ref" : "BookCollection"
+        }
+      },
+      "com.book.system.spi.BookForSaleV1.insertBookForSale" : {
+        "response" : {
+          "$ref" : "BookForSale"
         }
       }
     }

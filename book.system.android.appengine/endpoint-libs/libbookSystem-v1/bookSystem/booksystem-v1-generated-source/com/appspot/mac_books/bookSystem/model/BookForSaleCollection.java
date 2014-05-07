@@ -19,7 +19,7 @@
 package com.appspot.mac_books.bookSystem.model;
 
 /**
- * Model definition for SellerCollection.
+ * Model definition for BookForSaleCollection.
  *
  * <p> This is the Java data model class that specifies how to parse/serialize into the JSON that is
  * transmitted over HTTP when working with the bookSystem. For a detailed explanation see:
@@ -29,43 +29,43 @@ package com.appspot.mac_books.bookSystem.model;
  * @author Google, Inc.
  */
 @SuppressWarnings("javadoc")
-public final class SellerCollection extends com.google.api.client.json.GenericJson {
+public final class BookForSaleCollection extends com.google.api.client.json.GenericJson {
 
   /**
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private java.util.List<Seller> items;
+  private java.util.List<BookForSale> items;
 
   static {
-    // hack to force ProGuard to consider Seller used, since otherwise it would be stripped out
+    // hack to force ProGuard to consider BookForSale used, since otherwise it would be stripped out
     // see http://code.google.com/p/google-api-java-client/issues/detail?id=528
-    com.google.api.client.util.Data.nullOf(Seller.class);
+    com.google.api.client.util.Data.nullOf(BookForSale.class);
   }
 
   /**
    * @return value or {@code null} for none
    */
-  public java.util.List<Seller> getItems() {
+  public java.util.List<BookForSale> getItems() {
     return items;
   }
 
   /**
    * @param items items or {@code null} for none
    */
-  public SellerCollection setItems(java.util.List<Seller> items) {
+  public BookForSaleCollection setItems(java.util.List<BookForSale> items) {
     this.items = items;
     return this;
   }
 
   @Override
-  public SellerCollection set(String fieldName, Object value) {
-    return (SellerCollection) super.set(fieldName, value);
+  public BookForSaleCollection set(String fieldName, Object value) {
+    return (BookForSaleCollection) super.set(fieldName, value);
   }
 
   @Override
-  public SellerCollection clone() {
-    return (SellerCollection) super.clone();
+  public BookForSaleCollection clone() {
+    return (BookForSaleCollection) super.clone();
   }
 
 }

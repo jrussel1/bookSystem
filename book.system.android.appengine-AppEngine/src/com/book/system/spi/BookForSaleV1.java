@@ -545,6 +545,80 @@ public class BookForSaleV1 {
 
 		return bookList;
 	}
+	@ApiMethod(name = "bookforsale.getAllBooksForSaleBySeller", authLevel=AuthLevel.OPTIONAL_CONTINUE)
+	public List<BookForSale> getAllBooksForSaleBySeller(@Named("personId") Long personId){
+		List<BookForSale> booksForSale = new ArrayList<BookForSale>();
+		try{
+			if(conn==null){
+				log.setLevel(Level.WARNING);
+				log.warning("Creating connection...");
+				conn = DBConnection.createConnection();
+			}else{
+				log.setLevel(Level.WARNING);
+				boolean valid = conn.isValid(10);
+				log.warning("isValid():"+String.valueOf(valid));
+				if(!valid){
+					conn = DBConnection.createConnection();
+				}
+			}
+			PreparedStatement stmt = null;
+			PreparedStatement getPersonStmt = null;
+			PreparedStatement getBookStmt = null;
+			ResultSet resultSet = null;
+			try {
+				log.setLevel(Level.WARNING);
+				log.warning(conn.getMetaData().getURL());
+
+				String statement = "SELECT * FROM Book_For_Sale WHERE Seller_ID="+personId;
+				stmt = conn.prepareStatement(statement);
+
+				String getPerson = "SELECT * FROM Person WHERE Person_ID=?";
+				getPersonStmt = conn.prepareStatement(getPerson);
+				String getBook = "SELECT * FROM Book WHERE ISBN=?";
+				getBookStmt = conn.prepareStatement(getBook);
+
+				Book book = null;
+				Seller seller = null;
+				BookForSale bfs = null;
+
+				resultSet = stmt.executeQuery();
+
+				while (resultSet.next()) {
+					String ISBN = resultSet.getString("ISBN");
+					book = getBookByISBNWithoutClosing(ISBN);
+
+					seller = getSellerByIDWithoutClosing(personId);
+					Double price = resultSet.getDouble("Price");
+					bfs = new BookForSale(book,seller,price);
+
+					booksForSale.add(bfs);
+					book = null;
+					seller = null;
+					bfs = null;
+				}
+
+			} finally {
+				try{
+					if(stmt!=null)
+						stmt.close();
+					if(getPersonStmt!=null)
+						getPersonStmt.close();
+					if(getBookStmt!=null)
+						getBookStmt.close();
+					if(resultSet!=null)
+						resultSet.close();	
+				}catch (SQLException e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		return booksForSale;
+	}
 	@ApiMethod(name = "bookforsale.getAllSellersOfBook", authLevel=AuthLevel.OPTIONAL_CONTINUE)
 	public List<Seller> getAllSellersOfBook(@Named("ISBN") String ISBN){
 		String getBooksQry ="SELECT Person.* "
