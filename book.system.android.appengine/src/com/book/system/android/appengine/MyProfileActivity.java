@@ -10,6 +10,7 @@ import com.appspot.mac_books.bookSystem.BookSystem;
 import com.appspot.mac_books.bookSystem.model.BookForSale;
 import com.appspot.mac_books.bookSystem.model.Seller;
 import com.appspot.mac_books.bookSystem.model.Book;
+import com.appspot.mac_books.bookSystem.model.BookForSale;
 
 import android.app.Activity;
 import android.app.ActionBar;
@@ -71,15 +72,15 @@ public class MyProfileActivity extends ListActivity {
 	}
 	
 	public void unauthenticatedGetSellerListofBooks(){
-		AsyncTask<String, Void, List<Book>> getSeller =
-				new AsyncTask<String, Void, Seller> () {
+		AsyncTask<String, Void, List<BookForSale>> getSellersBooks =
+				new AsyncTask<String, Void, List<BookForSale>> () {
 			@Override
-			protected Seller doInBackground(String... strings) {
+			protected List<BookForSale> doInBackground(String... strings) {
 				// Retrieve service handle.
 				try {
-					BookSystem.Bookforsale.GetSellerByEmail getSellerCommand = service.bookforsale().getSellerByEmail(currentUserEmail);
-					Seller seller = getSellerCommand.execute();
-					return seller;
+					BookSystem.Bookforsale.GetAllBooksForSaleBySeller getBooks = service.bookforsale().getAllBooksForSaleBySeller(currentUserEmail);
+					List<BookForSale> sellersbooks = getBooks.execute();
+					return sellersbooks;
 				} catch (IOException e) {
 					Log.e("BookSystem call", "Exception during API call", e);
 				}
