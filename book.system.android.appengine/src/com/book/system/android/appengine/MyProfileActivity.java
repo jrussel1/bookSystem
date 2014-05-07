@@ -1,10 +1,15 @@
 package com.book.system.android.appengine;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
+import com.appspot.mac_books.bookSystem.BookSystem;
 import com.appspot.mac_books.bookSystem.model.BookForSale;
+import com.appspot.mac_books.bookSystem.model.Seller;
+import com.appspot.mac_books.bookSystem.model.Book;
 
 import android.app.Activity;
 import android.app.ActionBar;
@@ -12,6 +17,7 @@ import android.app.Fragment;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Paint;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.os.Build;
@@ -28,6 +35,70 @@ public class MyProfileActivity extends ListActivity {
 	protected Button addButton;
 	private final String LOG_TAG = "MyProfileActivity";
 	private HashMap<String, ArrayList<BookForSale>> saleshelf = null;
+	private BookSystem service = null;
+	private String currentUserEmail = null;
+	private String currentUserFirstName = null;
+	private String currentUserLastName = null;
+	
+	public void unauthenticatedGetSellerTask(){
+		AsyncTask<String, Void, Seller> getSeller =
+				new AsyncTask<String, Void, Seller> () {
+			@Override
+			protected Seller doInBackground(String... strings) {
+				// Retrieve service handle.
+				try {
+					BookSystem.Bookforsale.GetSellerByEmail getSellerCommand = service.bookforsale().getSellerByEmail(currentUserEmail);
+					Seller seller = getSellerCommand.execute();
+					return seller;
+				} catch (IOException e) {
+					Log.e("BookSystem call", "Exception during API call", e);
+				}
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(Seller seller) {
+				if (seller!=null) {
+					Log.d("Seller Received", seller.toString());
+//TODO: Add call to get books of seller
+				} else {
+					Log.e("getting Seller error", "No seller returned by API");
+				}
+			}
+		};
+
+		getSeller.execute();
+	}
+	
+	public void unauthenticatedGetSellerListofBooks(){
+		AsyncTask<String, Void, List<Book>> getSeller =
+				new AsyncTask<String, Void, Seller> () {
+			@Override
+			protected Seller doInBackground(String... strings) {
+				// Retrieve service handle.
+				try {
+					BookSystem.Bookforsale.GetSellerByEmail getSellerCommand = service.bookforsale().getSellerByEmail(currentUserEmail);
+					Seller seller = getSellerCommand.execute();
+					return seller;
+				} catch (IOException e) {
+					Log.e("BookSystem call", "Exception during API call", e);
+				}
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(Seller seller) {
+				if (seller!=null) {
+					Log.d("Seller Received", seller.toString());
+//TODO: Add call to get books of seller
+				} else {
+					Log.e("getting Seller error", "No seller returned by API");
+				}
+			}
+		};
+
+		getSeller.execute();
+	}
 	
 	private void setAdapter() {
 		ArrayList<BookForSale> aList = new ArrayList<BookForSale>();
@@ -50,6 +121,13 @@ public class MyProfileActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_profile);
 		setTitle("My Profile");
+		
+		service = AppConstants.getApiServiceHandle(null);
+		Intent intent = getIntent();
+		currentUserEmail = intent.getStringExtra("CURRENT_USER_EMAIL");
+		currentUserFirstName = intent.getStringExtra("first_name");
+		currentUserLastName = intent.getStringExtra("last_name");
+
 		
 		TextView myinfo = (TextView) findViewById(R.id.myinfo);
 		myinfo.setPaintFlags(myinfo.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
