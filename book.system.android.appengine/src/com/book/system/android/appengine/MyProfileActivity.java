@@ -150,6 +150,14 @@ public class MyProfileActivity extends ListActivity {
 //			getFragmentManager().beginTransaction()
 //					.add(R.id.container, new PlaceholderFragment()).commit();
 //		}
+		usersBooks=BookData.getInstance().getUserBookData();
+		if(usersBooks==null){
+			unauthenticatedGetSellerTask();
+		}else{
+			setAdapter();
+		}
+		
+		
 	}
 
 	@Override
