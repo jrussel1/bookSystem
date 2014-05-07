@@ -31,5 +31,17 @@
                     android:padding="10dip"
                     android:text="My Books\n"
                     android:textSize="30dip" />
+                
+                 <Button
+        			android:id="@+id/addButton"
+        			android:layout_width="100dp"
+        			android:layout_height="wrap_content"
+        			android:layout_alignParentBottom="true"
+        			android:layout_centerHorizontal="true"
+        			android:layout_marginBottom="40dp"
+        			android:background="#167ABC"
+        			android:fontFamily="roboto-light"
+        			android:text="Add"
+        			android:textColor="#FFFFFF" />
         
 </LinearLayout>
