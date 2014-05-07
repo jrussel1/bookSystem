@@ -89,6 +89,28 @@ public class BookForSaleListActivity extends ListActivity {
 		
 	}
 	
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		Object o =  this.getListAdapter().getItem(position);
+		BookForSale bookObject = (BookForSale) o;
+		String a = bookObject.getBook().getTitle();
+
+
+		Intent intent = new Intent(BookForSaleListActivity.this, BookDetailActivity.class);
+		//		intent.putExtra("key", book);
+
+		String isbn = bookObject.getBook().getIsbn();
+		
+		String bookAuthor = bookObject.getBook().getAuthor();
+		String bookTitle = bookObject.getBook().getTitle();
+		intent.putExtra("isbn", isbn);
+		intent.putExtra("bookAuthor", bookAuthor);
+		intent.putExtra("bookTitle", bookTitle);
+		intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
+		startActivity(intent);
+
+	}
+	
 	
 
 	@Override
