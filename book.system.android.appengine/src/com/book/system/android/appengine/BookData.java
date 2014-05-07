@@ -22,7 +22,7 @@ public class BookData {
 		return userBookData;
 	}
 	
-	public void setData(ArrayList<BookForSale> data) { 
+	public void setUserBookData(ArrayList<BookForSale> data) { 
 		this.userBookData = data;
 	}
 	public static BookData getInstance() {
