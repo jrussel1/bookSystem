@@ -41,5 +41,10 @@
 			<type>1</type>
 			<location>C:/Users/Phillip/Pictures/Software Images/Search_Button_2-512.png</location>
 		</link>
+		<link>
+			<name>res/drawable-hdpi/splash.png</name>
+			<type>1</type>
+			<location>C:/Users/Phillip/Downloads/bookSystemIcon2.png</location>
+		</link>
 	</linkedResources>
 </projectDescription>

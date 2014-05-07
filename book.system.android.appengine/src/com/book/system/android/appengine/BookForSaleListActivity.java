@@ -11,6 +11,7 @@ import com.appspot.mac_books.bookSystem.model.SaleShelf;
 import android.app.Fragment;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class BookForSaleListActivity extends ListActivity {
 	private String currentUserEmail = null;
@@ -28,16 +30,19 @@ public class BookForSaleListActivity extends ListActivity {
 	private String currentBookAuthor =null;
 	HashMap<String,ArrayList<BookForSale>> saleshelf = null;
 	
+	private String bookISBN = null;
+	private String bookTitle = null;
+	private String bookAuthor = null;
+	private String bookIsbn = null;
+	
 	
 	private void setAdapter() {
 		
-		BookAdapter adapter = new BookAdapter(BookForSaleListActivity.this, saleshelf.get(currentIsbn));
+		SellerAdapter adapter = new SellerAdapter(BookForSaleListActivity.this, saleshelf.get(currentIsbn));
 		// Attach the adapter to a ListView
 		ListView list = (ListView)findViewById(android.R.id.list);
 		list.setAdapter(adapter);
 		setListAdapter(adapter);
-
-		
 	}
 
 	@Override
@@ -59,6 +64,61 @@ public class BookForSaleListActivity extends ListActivity {
 		}
 		
 		setAdapter();
+		
+		bookISBN = saleshelf.get(currentIsbn).get(0).getBook().getIsbn().toString();
+		bookTitle = saleshelf.get(currentIsbn).get(0).getBook().getTitle().toString();
+		bookAuthor = saleshelf.get(currentIsbn).get(0).getBook().getAuthor().toString();
+		
+		Typeface tf = Typeface.createFromAsset(getAssets(),
+		        "fonts/Roboto-Thin.ttf");
+		Typeface tf2 = Typeface.createFromAsset(getAssets(),
+		        "fonts/Roboto-Light.ttf");
+
+//TODO views got mixed up somehow, have to fix later.
+		TextView t = (TextView)findViewById(R.id.ISBNS);
+		t.setText(bookISBN);
+		t.setTypeface(tf2);
+		
+		TextView t2 = (TextView)findViewById(R.id.BookTitleS);
+		t2.setText(bookTitle);
+		t2.setTypeface(tf2);
+		
+		TextView t3 = (TextView)findViewById(R.id.AuthorS);
+		t3.setText(bookAuthor);
+		t3.setTypeface(tf2);
+		
+		
+	}
+	
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		Object o =  this.getListAdapter().getItem(position);
+		BookForSale bookObject = (BookForSale) o;
+		String a = bookObject.getBook().getTitle();
+
+
+		Intent intent = new Intent(BookForSaleListActivity.this, BookDetailActivity.class);
+		//		intent.putExtra("key", book);
+
+		String isbn = bookObject.getBook().getIsbn();
+		
+		String firstName = bookObject.getSeller().getFirstName();
+		String lastName = bookObject.getSeller().getLastName();
+		double temp = bookObject.getPrice();
+		String priceString = Double.toString(temp);
+		String bookAuthor = bookObject.getBook().getAuthor();
+		String bookTitle = bookObject.getBook().getTitle();
+		String bookIsbn = bookObject.getBook().getIsbn();
+		
+		intent.putExtra("isbn", bookIsbn);
+		intent.putExtra("bookAuthor", bookAuthor);
+		intent.putExtra("bookTitle", bookTitle);
+		intent.putExtra("sellerFirstName", firstName);
+		intent.putExtra("sellerLastName", lastName);
+		intent.putExtra("price", priceString);
+		intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
+		startActivity(intent);
+
 	}
 	
 	

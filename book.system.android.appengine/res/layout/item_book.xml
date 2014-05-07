@@ -38,7 +38,7 @@
        android:fontFamily="sans-serif-thin"  />
 
    <TextView
-       android:id="@+id/textView2"
+       android:id="@+id/Price_item_seller"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_alignBottom="@+id/tvHome"
@@ -47,12 +47,17 @@
        android:fontFamily="sans-serif-thin" />
 
    <TextView
-       android:id="@+id/textView3"
+       android:id="@+id/isbn"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:layout_below="@+id/tvName"
+       android:layout_alignBottom="@+id/tvHome"
+       android:layout_alignParentRight="true"
+       android:layout_marginRight="26dp"
+       android:alpha="0.5"
        android:fontFamily="sans-serif-thin"
-       android:text="$"
-       android:textColor="#167ABC" />
+       android:text="isbn"
+       android:textAppearance="?android:attr/textAppearanceMedium"
+       android:textSize="12dp"
+       android:textStyle="bold" />
 
 </RelativeLayout>
