@@ -50,18 +50,17 @@ public class BookListActivity extends ListActivity {
 	protected List<BookForSale> tempList;
 	private BookSystem service = null;
 	private HashMap<String, ArrayList<BookForSale>> saleshelf = null;
-	private String currentUserEmail = null;
 	private final String LOG_TAG = "BookListActivity";
-	String currentUserFirstName = null;
-	String currentUserLastName = null;
+	private String currentUserEmail = null;
+	private String currentUserFirstName = null;
+	private String currentUserLastName = null;
 	ArrayList<String> isbnList = null;
+	
 	public void unauthenticatedSaleShelfTask(){
 		AsyncTask<Integer, Void, GenericJson> getShelf =
 				new AsyncTask<Integer, Void, GenericJson> () {
 			@Override
 			protected GenericJson doInBackground(Integer... integers) {
-				// Retrieve service handle.
-
 				try {
 					BookSystem.Bookforsale.ListBooksAndSellers getListCommand = service.bookforsale().listBooksAndSellers();
 					AbstractMap<String, Object> shelf = getListCommand.execute();
@@ -115,9 +114,9 @@ public class BookListActivity extends ListActivity {
 								//										Log.d(LOG_TAG,jObject.getJSONArray(key).get(i).toString());
 								
 								saleshelf.put(key, bfs);
-								bfs=null;
+								
 							}
-
+							bfs=null;
 
 							
 						} catch (JSONException e) {
@@ -129,7 +128,7 @@ public class BookListActivity extends ListActivity {
 							e.printStackTrace();
 						}
 					}
-
+					Log.d(LOG_TAG,saleshelf.toString());
 					BookData.getInstance().setData(saleshelf);
 					setAdapter();
 

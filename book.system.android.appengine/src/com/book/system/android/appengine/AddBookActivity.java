@@ -24,16 +24,20 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.appspot.mac_books.bookSystem.model.Book;
 
 public class AddBookActivity extends Activity {
-//test Alex
+
 	protected EditText mISBN;
 	protected EditText mBookTitle;
 	protected EditText mPrice;
 	protected Button mAddButton;
 	protected EditText mAuthor;
 	private BookSystem service = null;
+	private String currentUserEmail = null;
+	private String currentUserFirstName = null;
+	private String currentUserLastName = null;
 
 	public void unauthenticatedAddBookForSaleTask(){
 		AsyncTask<String, Void, BookForSale> addBookForSale =
@@ -42,14 +46,24 @@ public class AddBookActivity extends Activity {
 			protected BookForSale doInBackground(String... strings) {
 				// Retrieve service handle.
 				String ISBN = mISBN.getText().toString();
-				String BookTitle = mBookTitle.getText().toString();
-				String Author = mAuthor.getText().toString();
-				String email = "hliu1@macalester.edu";
-				String FirstName = "Hongshan";
-				String LastName = "Liu";
+				String bookTitle = mBookTitle.getText().toString();
+				String author = mAuthor.getText().toString();
+				String firstName = null;
+				String lastName = null;
+				if(currentUserFirstName==null){
+					firstName = "Unknown";
+				}else{
+					firstName = currentUserFirstName;
+				}
+				if(currentUserLastName==null){
+					lastName = "Unknown";
+				}else{
+					lastName = currentUserLastName;
+				}
+				
 				Double Price = Double.valueOf(mPrice.getText().toString());
 				try {
-					BookSystem.Bookforsale.Insert insertBookCommand = service.bookforsale().insert(ISBN,BookTitle,Author,email,FirstName, LastName,Price);
+					BookSystem.Bookforsale.Insert insertBookCommand = service.bookforsale().insert(ISBN,bookTitle,author,currentUserEmail,firstName, lastName,Price);
 					BookForSale bookforsale = insertBookCommand.execute();
 					return bookforsale;
 				} catch (IOException e) {
@@ -63,8 +77,7 @@ public class AddBookActivity extends Activity {
 				if (bookforsale!=null) {
 					try {
 						Log.d("BookForSale Insert", bookforsale.toPrettyString());
-//TODO: change the destination to be My Profile
-						Intent intent = new Intent(AddBookActivity.this,BookListActivity.class);
+						Intent intent = new Intent(AddBookActivity.this,MyProfileActivity.class);
 						startActivity(intent);
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -84,6 +97,12 @@ public class AddBookActivity extends Activity {
 		setContentView(R.layout.activity_add_book);
 		
 		service = AppConstants.getApiServiceHandle(null);
+		
+		Intent intent = getIntent();
+		currentUserEmail = intent.getStringExtra("CURRENT_USER_EMAIL");
+		currentUserFirstName = intent.getStringExtra("first_name");
+		currentUserLastName = intent.getStringExtra("last_name");
+		
 		
 		Typeface tf = Typeface.createFromAsset(getAssets(),
 		        "fonts/Roboto-Thin.ttf");
