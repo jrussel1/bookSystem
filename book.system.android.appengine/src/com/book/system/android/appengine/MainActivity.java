@@ -27,19 +27,6 @@ public class MainActivity extends Activity {
             }
         }, SPLASH_DISPLAY_LENGTH);
     }
-//	protected void onCreate(Bundle savedInstanceState) {
-//		super.onCreate(savedInstanceState);
-//		setContentView(R.layout.activity_main);
-//		
-//
-//		
-////		Intent intent = new Intent(MainActivity.this, BookListActivity.class);
-//		Intent intent = new Intent(MainActivity.this, BookListActivity.class);
-//		
-//		
-//
-//		startActivity(intent);
-//	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
