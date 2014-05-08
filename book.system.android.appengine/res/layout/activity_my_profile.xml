@@ -33,7 +33,7 @@
                     android:textSize="30dip" />
                 
                 <ListView
-                    android:id="@+id/mybooklist"
+                    android:id="@android:id/list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="5dp"

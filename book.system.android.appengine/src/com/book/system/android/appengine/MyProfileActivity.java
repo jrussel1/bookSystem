@@ -111,7 +111,7 @@ public class MyProfileActivity extends ListActivity {
 	private void setAdapter() {
 		BookAdapter adapter = new BookAdapter(MyProfileActivity.this, usersBooks);
 		// Attach the adapter to a ListView
-		ListView list = (ListView)findViewById(R.id.mybooklist);
+		ListView list = (ListView)findViewById(android.R.id.list);
 		list.setAdapter(adapter);
 		setListAdapter(adapter);
 	}
@@ -147,10 +147,10 @@ public class MyProfileActivity extends ListActivity {
 		});
 		
 
-//		if (savedInstanceState == null) {
-//			getFragmentManager().beginTransaction()
-//					.add(R.id.container, new PlaceholderFragment()).commit();
-//		}
+		if (savedInstanceState == null) {
+			getFragmentManager().beginTransaction()
+					.add(R.id.container, new PlaceholderFragment()).commit();
+		}
 		usersBooks=BookData.getInstance().getUserBookData();
 		if(usersBooks==null){
 			unauthenticatedGetSellerTask();
