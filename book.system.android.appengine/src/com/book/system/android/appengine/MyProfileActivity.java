@@ -197,5 +197,25 @@ public class MyProfileActivity extends ListActivity {
 			return rootView;
 		}
 	}
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		Object o =  this.getListAdapter().getItem(position);
+		BookForSale bookObject = (BookForSale) o;
 
+		Intent intent = new Intent(MyProfileActivity.this, EditingActivity.class);
+
+		String isbn = bookObject.getBook().getIsbn();
+		String bookAuthor = bookObject.getBook().getAuthor();
+		String bookTitle = bookObject.getBook().getTitle();
+		
+		intent.putExtra("isbn", isbn);
+		intent.putExtra("bookAuthor", bookAuthor);
+		intent.putExtra("bookTitle", bookTitle);
+		intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
+		intent.putExtra("first_name", currentUserFirstName);
+		intent.putExtra("last_name", currentUserLastName);
+		
+		startActivity(intent);
+
+	}
 }

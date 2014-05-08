@@ -71,6 +71,10 @@
             android:name="com.book.system.android.appengine.BookForSaleListActivity"
             android:label="@string/title_activity_book_for_sale_list" >
         </activity>
+        <activity
+            android:name="com.book.system.android.appengine.EditingActivity"
+            android:label="@string/title_activity_editing" >
+        </activity>
     </application>
 
 </manifest>
