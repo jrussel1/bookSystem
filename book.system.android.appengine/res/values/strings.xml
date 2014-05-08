@@ -47,5 +47,6 @@
     <string name="edit_book_isbn">Edit Book ISBN</string>
     <string name="your_details">Your Details</string>
     <string name="edit_book_price">Edit Book Price</string>
+    <string name="search_add">Search &amp; Add</string>
 
 </resources>

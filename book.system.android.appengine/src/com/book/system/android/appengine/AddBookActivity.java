@@ -2,6 +2,8 @@ package com.book.system.android.appengine;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -59,18 +61,19 @@ public class AddBookActivity extends Activity {
 	private int currentItem=0;
 	private String selectedBookTitle = null;
 	private String selectedAuthor = null;
-
+	private String selectedISBN = null;
+	
 	public void unauthenticatedAddBookForSaleTask(){
 		AsyncTask<String, Void, BookForSale> addBookForSale =
 				new AsyncTask<String, Void, BookForSale> () {
 			@Override
 			protected BookForSale doInBackground(String... strings) {
 				// Retrieve service handle.
-				String ISBN = mISBN.getText().toString();
+//				String ISBN = mISBN.getText().toString();
 				//				String bookTitle = mBookTitle.getText().toString();
 				//				String author = mAuthor.getText().toString();
 				String price = mPrice.getText().toString();
-				ISBN = ISBN.trim();
+//				ISBN = ISBN.trim();
 				//				bookTitle = bookTitle.trim();
 				price = price.trim();
 				//				author = author.trim();
@@ -91,7 +94,7 @@ public class AddBookActivity extends Activity {
 				}
 
 				try {
-					BookSystem.Bookforsale.Insert insertBookCommand = service.bookforsale().insert(ISBN,selectedBookTitle,selectedAuthor,currentUserEmail,firstName, lastName,priceNum);
+					BookSystem.Bookforsale.Insert insertBookCommand = service.bookforsale().insert(selectedISBN,selectedBookTitle,selectedAuthor,currentUserEmail,firstName, lastName,priceNum);
 					BookForSale bookforsale = insertBookCommand.execute();
 					return bookforsale;
 				} catch (IOException e) {
@@ -142,23 +145,23 @@ public class AddBookActivity extends Activity {
 
 		mISBN = (EditText)findViewById(R.id.EditText_ISBN);
 		mISBN.setTypeface(tf2);
-		//		mBookTitle = (EditText)findViewById(R.id.EditText_BookTitle);
-		//		mBookTitle.setTypeface(tf2);
+		mBookTitle = (EditText)findViewById(R.id.EditText_BookTitle);
+		mBookTitle.setTypeface(tf2);
 		mPrice = (EditText)findViewById(R.id.EditText_Price);
 		mPrice.setTypeface(tf2);
-		//		mAuthor = (EditText)findViewById(R.id.EditText_Author);
-		//		mAuthor.setTypeface(tf2);
+		mAuthor = (EditText)findViewById(R.id.EditText_Author);
+		mAuthor.setTypeface(tf2);
 		mAddButton = (Button)findViewById(R.id.button_AddBook);
 		mAddButton.setTypeface(tf2);
 
 		TextView t = (TextView)findViewById(R.id.ISBN_static1);
 		t.setTypeface(tf2);
-		//		TextView t1 = (TextView)findViewById(R.id.BookTitle_static);
-		//		t1.setTypeface(tf2);
+		TextView t1 = (TextView)findViewById(R.id.BookTitle_static);
+		t1.setTypeface(tf2);
 		TextView t2 = (TextView)findViewById(R.id.price_static);
 		t2.setTypeface(tf2);
-		//		TextView t3 = (TextView)findViewById(R.id.Author_static);
-		//		t3.setTypeface(tf2);
+		TextView t3 = (TextView)findViewById(R.id.Author_static);
+		t3.setTypeface(tf2);
 
 
 
@@ -174,19 +177,19 @@ public class AddBookActivity extends Activity {
 				// TODO Auto-generated method stub
 				boolean validated = true;
 				String ISBN = mISBN.getText().toString();
-				//				String bookTitle = mBookTitle.getText().toString();
+				String bookTitle = mBookTitle.getText().toString();
 				String price = mPrice.getText().toString();
-				//				String author = mAuthor.getText().toString();
+				String author = mAuthor.getText().toString();
 
 				ISBN = ISBN.trim();
-				//				bookTitle = bookTitle.trim();
+				bookTitle = bookTitle.trim();
 				price = price.trim();
-				//				author = author.trim();
+				author = author.trim();
 
-				if(ISBN.length()==0){
-					mISBN.setError( "ISBN is required!" );
-					validated = false;
-				}
+				//				if(ISBN.length()==0){
+				//					mISBN.setError( "ISBN is required!" );
+				//					validated = false;
+				//				}
 				//				if(bookTitle.length()==0){
 				//					mBookTitle.setError( "The book's title is required!" );
 				//					validated = false;
@@ -200,15 +203,32 @@ public class AddBookActivity extends Activity {
 				//					validated = false;
 				//				}
 				//				
-
+				if(ISBN.length()==0 && author.length()==0 && bookTitle.length()==0){
+					mISBN.setError( "At least one search field is required!" );
+					mAuthor.setError( "At least one search field is required!" );
+					mBookTitle.setError( "At least one search field is required!" );
+					validated = false;
+				}
 
 				Log.d(LOG_TAG, "Form is validated: "+String.valueOf(validated));
 				if(validated){
-					new RequestTask().execute("https://www.googleapis.com/books/v1/volumes?q=isbn:"+ISBN);
+					try{
+					String qry = "https://www.googleapis.com/books/v1/volumes?q=";
+					if(ISBN.length()>0)
+						qry+="isbn:"+URLEncoder.encode(ISBN, "UTF-8");
+					if(author.length()>0)
+						qry+="+inauthor:"+URLEncoder.encode(author, "UTF-8");
+					if(bookTitle.length()>0)
+						qry+="+intitle:"+URLEncoder.encode(bookTitle, "UTF-8");
+					Log.d(LOG_TAG,qry);
+					new RequestTask().execute(qry);
 					//Test isbn 030795479X
 					//					new RequestTask().execute("https://www.googleapis.com/books/v1/volumes?q=isbn:"+ISBN+"&key="+AppConstants.SIMPLE_ACCESS_API_KEY);
 					//					new RequestTask().execute("http://isbndb.com/api/v2/json/"+AppConstants.ISBN_DB_KEY+"/book/"+ISBN);
 					//					unauthenticatedAddBookForSaleTask();
+					}catch(UnsupportedEncodingException e){
+						e.printStackTrace();
+					}
 				}else{
 
 					alertBuilder.setMessage("Please fix errors first!");
@@ -309,17 +329,19 @@ public class AddBookActivity extends Activity {
 				int totalItems = jObject.getInt("totalItems");
 				if(totalItems>0){
 					returnedItems = jObject.getJSONArray("items");
+					String subtitle = null;
 					//JSONArray isbns = jObject.getJSONArray("industryIdentifiers");
 					JSONObject volume = returnedItems.getJSONObject(currentItem).getJSONObject("volumeInfo");
 					selectedBookTitle= volume.getString("title");
-					String subtitle = volume.getString("subtitle");
-					if(subtitle!=null&&subtitle.length()>0)
-						selectedBookTitle+=": "+subtitle;
+					if(volume.has("subtitle"))
+						subtitle = volume.getString("subtitle");
+						if(subtitle!=null&&subtitle.length()>0)
+							selectedBookTitle+=": "+subtitle;
 					selectedAuthor = volume.getJSONArray("authors").getString(0);
 					String alertMessage = "Title: "+selectedBookTitle+"\nAuthor: "+selectedAuthor;
-					
+					selectedISBN = returnedItems.getJSONObject(0).getJSONObject("volumeInfo").getJSONArray("industryIdentifiers").getJSONObject(0).getString("identifier");
 					alertBuilder.setTitle("Is this your book???");
-					if(totalItems>1){
+					if(totalItems==1){
 						alertBuilder.setMessage(alertMessage);
 						alertBuilder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,int which) {            	
@@ -336,21 +358,35 @@ public class AddBookActivity extends Activity {
 						});
 
 					}else{
-						CharSequence[] items = new CharSequence[totalItems];
-						for(int i = 0; i<totalItems;i++){
+						Log.d(LOG_TAG,returnedItems.toString());
+						int num = 0;
+						if(totalItems>5)
+							num=5;
+						else
+							num=totalItems;
+						CharSequence[] items = new CharSequence[num];
+						for(int i = 0; i<num;i++){
 							items[i]=getMessage(i);
 						}
 						alertBuilder.setItems(items, new DialogInterface.OnClickListener() {
-				            public void onClick(DialogInterface dialog, int item) {
-				                try{
-				                selectedBookTitle = returnedItems.getJSONObject(item).getJSONObject("volumeInfo").getString("title");
-				                selectedAuthor = returnedItems.getJSONObject(item).getJSONObject("volumeInfo").getJSONArray("authors").getString(0);
-				                unauthenticatedAddBookForSaleTask();
-				                }catch(JSONException e) {
-				    				e.printStackTrace();
-				    			}
-				            }
-				        });
+							public void onClick(DialogInterface dialog, int item) {
+								try{
+									selectedISBN = returnedItems.getJSONObject(item).getJSONObject("volumeInfo").getJSONArray("industryIdentifiers").getJSONObject(0).getString("identifier");
+									selectedBookTitle = returnedItems.getJSONObject(item).getJSONObject("volumeInfo").getString("title");
+									selectedAuthor = returnedItems.getJSONObject(item).getJSONObject("volumeInfo").getJSONArray("authors").getString(0);
+									unauthenticatedAddBookForSaleTask();
+								}catch(JSONException e) {
+									e.printStackTrace();
+								}
+							}
+						});
+						alertBuilder.setNegativeButton("Search Again", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+								// User pressed Cancel button. Write Logic Here
+								Toast.makeText(getApplicationContext(), "User cancelled book lookup", Toast.LENGTH_SHORT).show();
+								dialog.cancel();
+							}
+						});
 					}
 					AlertDialog dialog = alertBuilder.create();
 					dialog.show();
@@ -365,21 +401,25 @@ public class AddBookActivity extends Activity {
 
 		}
 
-				private String getMessage(int i){
-					try{
-					JSONObject volume = returnedItems.getJSONObject(i).getJSONObject("volumeInfo");
-					String title = volume.getString("title");
-					String subtitle = volume.getString("subtitle");
+		private String getMessage(int i){
+			try{
+				JSONObject volume = returnedItems.getJSONObject(i).getJSONObject("volumeInfo");
+				String title = volume.getString("title");
+				String subtitle = null;
+				if(volume.has("subtitle"))
+					subtitle = volume.getString("subtitle");
 					if(subtitle!=null&&subtitle.length()>0)
 						title+=": "+subtitle;
-					String author = volume.getJSONArray("authors").getString(0);
-					String alertMessage = "Title: "+title+"\nAuthor: "+author;
-					return alertMessage;
-					}catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						return null;
-					}
-				}
+				String author = null;
+				if(volume.has("authors"))
+					author=volume.getJSONArray("authors").getString(0);
+				String alertMessage = "Title: "+title+"\nAuthor: "+author;
+				return alertMessage;
+			}catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
+		}
 	}
 }

@@ -4,11 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.book.system.android.appengine.AddBookActivity"
-    tools:ignore="MergeRootFrame">
-  
+    tools:ignore="MergeRootFrame" >
 
-      
-     
     <TextView
         android:id="@+id/ISBN_static1"
         android:layout_width="wrap_content"
@@ -16,10 +13,10 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
+        android:fontFamily="roboto-light"
         android:text="ISBN"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:fontFamily="roboto-light"
-        android:textColor="#6A6A6A"  />
+        android:textColor="#6A6A6A" />
 
     <EditText
         android:id="@+id/EditText_ISBN"
@@ -29,9 +26,10 @@
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:inputType="text"
-        android:textColor="#167ABC">
-                <requestFocus />
-        </EditText>
+        android:textColor="#167ABC" >
+
+        <requestFocus />
+    </EditText>
 
     <EditText
         android:id="@+id/EditText_Price"
@@ -41,20 +39,31 @@
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:inputType="number"
-        android:textColor="#167ABC" >
-    </EditText>
+        android:textColor="#167ABC" />
+
+    <TextView
+        android:id="@+id/BookTitle_static"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/EditText_ISBN"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:fontFamily="roboto-light"
+        android:text="Book Title"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#6A6A6A" />
 
     <TextView
         android:id="@+id/price_static"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/ISBN_static1"
-        android:layout_below="@+id/EditText_ISBN"
+        android:layout_below="@+id/EditText_BookTitle"
         android:layout_marginTop="25dp"
+        android:fontFamily="roboto-light"
         android:text="Price"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:fontFamily="roboto-light"
-        android:textColor="#6A6A6A"  />
+        android:textColor="#6A6A6A" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -68,7 +77,6 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4.45" >
-
         </LinearLayout>
     </LinearLayout>
 
@@ -76,12 +84,44 @@
         android:id="@+id/button_AddBook"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/EditText_Author"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:layout_below="@+id/EditText_Price"
         android:background="#167ABC"
         android:fontFamily="roboto-light"
-        android:text="Add"
+        android:text="@string/search_add"
         android:textColor="#FFFFFF" />
+
+    <EditText
+        android:id="@+id/EditText_Author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Author_static"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:ems="10" />
+
+    <TextView
+        android:id="@+id/Author_static"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/EditText_Price"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:fontFamily="roboto-light"
+        android:text="Author"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#6A6A6A" />
+
+    <EditText
+        android:id="@+id/EditText_BookTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/BookTitle_static"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="text"
+        android:textColor="#167ABC" />
 
 </RelativeLayout>
