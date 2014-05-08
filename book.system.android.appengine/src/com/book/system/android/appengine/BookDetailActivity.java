@@ -21,7 +21,8 @@ public class BookDetailActivity extends Activity {
 	private String bookAuthor = null;
 	private String firstName = null;
 	private String lastName = null;
-	
+	private String sellerEmail = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -40,6 +41,7 @@ public class BookDetailActivity extends Activity {
 		bookAuthor = intent.getStringExtra("bookAuthor");
 		firstName = intent.getStringExtra("sellerFirstName");
 		lastName = intent.getStringExtra("sellerLastName");
+		sellerEmail = intent.getStringExtra("sellerEmaile");
 		
 		currentUserEmail = intent.getStringExtra("CURRENT_USER_EMAIL");
 
@@ -84,7 +86,7 @@ public class BookDetailActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Send to method all information necessary for email
-				sendEmail("jesser@comcast.net",currentUserEmail,bookTitle,"TEST AUTHOR",bookISBN,bookPrice);
+				sendEmail();
 
 			}
 		});
@@ -129,8 +131,7 @@ public class BookDetailActivity extends Activity {
 	}
 
 	//Adapter from http://stackoverflow.com/a/2197841
-	private void sendEmail(String sellerEmail, String currentUserEmail, 
-			String bookTitle, String bookAuthor, String bookISBN, String bookPrice ){
+	private void sendEmail(){
 		Intent i = new Intent(Intent.ACTION_SEND);
 		String emailBody = "Hi!"
 							+ "\n\nI saw you posted the following book on Mac Books and would like buy it!"

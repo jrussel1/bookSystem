@@ -40,5 +40,12 @@
     <string name="title_activity_font_manager">FontManagerActivity</string>
     <string name="title_activity_book_for_sale_list">BookForSaleListActivity</string>
     <string name="title_activity_editing">EditingActivity</string>
+    <string name="book_details">Book Details</string>
+    <string name="book_author_detail">Book Author:</string>
+    <string name="edit_book_title">Edit Book Title</string>
+    <string name="edit_book_author">Edit Book Author</string>
+    <string name="edit_book_isbn">Edit Book ISBN</string>
+    <string name="your_details">Your Details</string>
+    <string name="edit_book_price">Edit Book Price</string>
 
 </resources>

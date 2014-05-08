@@ -104,6 +104,7 @@ public class BookForSaleListActivity extends ListActivity {
 		
 		String firstName = bookObject.getSeller().getFirstName();
 		String lastName = bookObject.getSeller().getLastName();
+		String sellerEmail = bookObject.getSeller().getEmail();
 		double temp = bookObject.getPrice();
 		String priceString = Double.toString(temp);
 		String bookAuthor = bookObject.getBook().getAuthor();
@@ -115,6 +116,7 @@ public class BookForSaleListActivity extends ListActivity {
 		intent.putExtra("bookTitle", bookTitle);
 		intent.putExtra("sellerFirstName", firstName);
 		intent.putExtra("sellerLastName", lastName);
+		intent.putExtra("sellerEmail", sellerEmail);
 		intent.putExtra("price", priceString);
 		intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
 		startActivity(intent);

@@ -29,7 +29,9 @@
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:inputType="text"
-        android:textColor="#167ABC" />
+        android:textColor="#167ABC">
+                <requestFocus />
+        </EditText>
 
 	
     <EditText
@@ -41,8 +43,6 @@
         android:ems="10"
         android:inputType="number"
         android:textColor="#167ABC" >
-
-        <requestFocus />
     </EditText>
 
     <TextView
@@ -89,9 +89,9 @@
         android:id="@+id/button_AddBook"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/EditText_Author"
         android:background="#167ABC"
         android:fontFamily="roboto-light"
         android:text="Add"

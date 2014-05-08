@@ -48,22 +48,29 @@ public class AddBookActivity extends Activity {
 				String ISBN = mISBN.getText().toString();
 				String bookTitle = mBookTitle.getText().toString();
 				String author = mAuthor.getText().toString();
+				String price = mPrice.getText().toString();
+				ISBN = ISBN.trim();
+				bookTitle = bookTitle.trim();
+				price = price.trim();
+				author = author.trim();
 				String firstName = null;
 				String lastName = null;
-				if(currentUserFirstName==null){
+				
+				Double priceNum = Double.valueOf(price);
+
+				if(currentUserFirstName==null || currentUserFirstName.length()<1){
 					firstName = "Unknown";
 				}else{
 					firstName = currentUserFirstName;
 				}
-				if(currentUserLastName==null){
+				if(currentUserLastName==null || currentUserFirstName.length()<1){
 					lastName = "Unknown";
 				}else{
 					lastName = currentUserLastName;
 				}
 				
-				Double Price = Double.valueOf(mPrice.getText().toString());
 				try {
-					BookSystem.Bookforsale.Insert insertBookCommand = service.bookforsale().insert(ISBN,bookTitle,author,currentUserEmail,firstName, lastName,Price);
+					BookSystem.Bookforsale.Insert insertBookCommand = service.bookforsale().insert(ISBN,bookTitle,author,currentUserEmail,firstName, lastName,priceNum);
 					BookForSale bookforsale = insertBookCommand.execute();
 					return bookforsale;
 				} catch (IOException e) {
@@ -144,6 +151,7 @@ public class AddBookActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				boolean validated = true;
 				String ISBN = mISBN.getText().toString();
 				String bookTitle = mBookTitle.getText().toString();
 				String price = mPrice.getText().toString();
@@ -154,16 +162,42 @@ public class AddBookActivity extends Activity {
 				price = price.trim();
 				author = author.trim();
 				
+				if(ISBN.length()!=13){
+					mISBN.setError( "ISBN is required and must be all 13 characters long! No hyphens!" );
+					validated = false;
+				}
+				if(bookTitle.length()==0){
+					mBookTitle.setError( "The book's title is required!" );
+					validated = false;
+				}
+				if(price.length()>0 && Double.valueOf(price)<1.0){
+					mPrice.setError( "The price must be greater than $1!" );
+					validated = false;
+				}
+				if(author.length()==0){
+					mAuthor.setError( "The book's  author is required!" );
+					validated = false;
+				}
 				
-				AlertDialog.Builder builder = new AlertDialog.Builder(AddBookActivity.this);
-				builder.setMessage("ISBN:  " + ISBN + "   BookTitle:" + bookTitle + "    Price:" + price + "     Author:" + author);
-				builder.setTitle("test");
-				builder.setPositiveButton(android.R.string.ok, null);
+//				AlertDialog.Builder builder = new AlertDialog.Builder(AddBookActivity.this);
+//				builder.setMessage("ISBN:  " + ISBN + "   BookTitle:" + bookTitle + "    Price:" + price + "     Author:" + author);
+//				builder.setTitle("test");
+//				builder.setPositiveButton(android.R.string.ok, null);
 				
-				AlertDialog dialog = builder.create();
-				dialog.show();
-				
-				unauthenticatedAddBookForSaleTask();
+//				AlertDialog dialog = builder.create();
+//				dialog.show();
+				Log.d("Form is validated: ",String.valueOf(validated));
+				if(validated){
+					unauthenticatedAddBookForSaleTask();
+				}else{
+					AlertDialog.Builder builder = new AlertDialog.Builder(AddBookActivity.this);
+					builder.setMessage("Please fix errors first!");
+					builder.setTitle("Book cannot be submitted!!!");
+					builder.setPositiveButton(android.R.string.ok, null);
+					AlertDialog dialog = builder.create();
+					dialog.show();
+				}
+					
 				
 				
 			}
