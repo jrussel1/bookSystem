@@ -170,12 +170,12 @@ public class AddBookActivity extends Activity {
 					mBookTitle.setError( "The book's title is required!" );
 					validated = false;
 				}
-				if(price.length()>0 && Double.valueOf(price)<1.0){
-					mPrice.setError( "The price must be greater than $1!" );
+				if(price.length()<1 || (price.length()>0 && Double.valueOf(price)<1.0)){
+					mPrice.setError( "The price is required and it must be greater than $1!" );
 					validated = false;
 				}
 				if(author.length()==0){
-					mAuthor.setError( "The book's  author is required!" );
+					mAuthor.setError( "The book's author is required!" );
 					validated = false;
 				}
 				
