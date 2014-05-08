@@ -30,6 +30,10 @@ public class BookData {
 		return holder;
 	}
 	public void addNewBookForSale(BookForSale bfs){
+		if(userBookData==null){
+			userBookData=new ArrayList<BookForSale>();
+		}
+	
 		userBookData.add(bfs);
 		String isbn = bfs.getBook().getIsbn();
 		if(bookData.get(isbn)!=null){

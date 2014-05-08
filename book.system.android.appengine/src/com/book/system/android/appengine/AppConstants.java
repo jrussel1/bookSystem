@@ -23,6 +23,14 @@ import javax.annotation.Nullable;
  */
 public class AppConstants {
 	/**
+	 * Your IsbnDb.com API key. See user account at http://isbndb.com/
+	 *
+	 * @see <a href="https://developers.google.com/console">https://developers.google.com/console</a>
+	 */
+	public static final String ISBN_DB_KEY = "G3DC62O1";
+	
+	public static final String SIMPLE_ACCESS_API_KEY = "AIzaSyDGiF-uMJxMDeESjYBq4mrBPFYGKiK6YCg";
+	/**
 	 * Your WEB CLIENT ID from the API Access screen of the Developer Console for your project. This
 	 * is NOT the Android client id from that screen.
 	 *
