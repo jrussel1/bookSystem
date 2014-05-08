@@ -1,6 +1,7 @@
 package com.book.system.android.appengine;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import com.appspot.mac_books.bookSystem.model.BookForSale;
@@ -27,6 +28,15 @@ public class BookData {
 	}
 	public static BookData getInstance() {
 		return holder;
+	}
+	public void addNewBookForSale(BookForSale bfs){
+		userBookData.add(bfs);
+		String isbn = bfs.getBook().getIsbn();
+		if(bookData.get(isbn)!=null){
+			bookData.get(isbn).add(bfs);
+		}else{
+			bookData.put(isbn, new ArrayList<BookForSale>(Arrays.asList(bfs)));
+		}
 	}
 
 }

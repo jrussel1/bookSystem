@@ -77,6 +77,7 @@ public class AddBookActivity extends Activity {
 				if (bookforsale!=null) {
 					try {
 						Log.d("BookForSale Insert", bookforsale.toPrettyString());
+						BookData.getInstance().addNewBookForSale(bookforsale);
 						Intent intent = new Intent(AddBookActivity.this,MyProfileActivity.class);
 						startActivity(intent);
 					} catch (IOException e) {

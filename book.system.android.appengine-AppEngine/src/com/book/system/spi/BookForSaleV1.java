@@ -569,7 +569,7 @@ public class BookForSaleV1 {
 				log.setLevel(Level.WARNING);
 				log.warning(conn.getMetaData().getURL());
 
-				String statement = "SELECT * FROM Book_For_Sale WHERE Seller_ID="+personId;
+				String statement = "SELECT * FROM Book_For_Sale WHERE Person_ID="+personId;
 				stmt = conn.prepareStatement(statement);
 
 				String getPerson = "SELECT * FROM Person WHERE Person_ID=?";
