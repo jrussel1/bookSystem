@@ -136,6 +136,17 @@ public class MyProfileActivity extends ListActivity {
 		TextView mybooks = (TextView) findViewById(R.id.mybooks);
 		mybooks.setPaintFlags(myinfo.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 		
+
+
+ 		 TextView textview1=(TextView) findViewById(R.id.username);
+
+		 textview1.setText(currentUserFirstName+currentUserLastName);
+
+		 TextView textview2=(TextView) findViewById(R.id.email);
+
+		 textview2.setText(currentUserEmail);
+
+	
 		addButton = (Button) findViewById(R.id.addButton);
 		addButton.setOnClickListener(new View.OnClickListener() {
 			@Override

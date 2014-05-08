@@ -11,9 +11,9 @@
                 <TextView
                     android:id="@+id/myinfo"
                     android:layout_width="170dp"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:padding="10dip"
-                    android:text="My Info\n"
+                    android:text="My Info"
                     android:textSize="30dip" />
 
                 <LinearLayout
@@ -28,7 +28,7 @@
                         android:textSize="18dip" />
 
                     <EditText
-                        android:id="@+id/editText1"
+                        android:id="@+id/username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
@@ -51,7 +51,7 @@
                         android:textSize="18dip" />
 
                     <EditText
-                        android:id="@+id/EditText01"
+                        android:id="@+id/email"
                         android:layout_width="200dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
