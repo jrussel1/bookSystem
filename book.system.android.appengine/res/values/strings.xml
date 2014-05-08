@@ -48,5 +48,12 @@
     <string name="your_details">Your Details</string>
     <string name="edit_book_price">Edit Book Price</string>
     <string name="search_add">Search &amp; Add</string>
+    <string name="search_isbn">Search by ISBN</string>
+    <string name="search_title">Search by Title</string>
+    <string name="author">Author</string>
+    <string name="search_author">Search By Author</string>
+    <string name="your_price">Set your price</string>
+    <string name="search_for_book">Search for your book</string>
+    <string name="set_price">Set Price</string>
 
 </resources>

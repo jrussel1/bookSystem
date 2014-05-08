@@ -6,122 +6,166 @@
     tools:context="com.book.system.android.appengine.AddBookActivity"
     tools:ignore="MergeRootFrame" >
 
-    <TextView
-        android:id="@+id/ISBN_static1"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/book_isbn_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:fontFamily="roboto-light"
-        android:text="ISBN"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#6A6A6A" />
+        android:paddingLeft="@dimen/activity_horizontal_margin" >
 
-    <EditText
-        android:id="@+id/EditText_ISBN"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/book_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="roboto-light"
+            android:text="@string/search_for_book"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#6A6A6A" />
+
+        <TextView
+            android:id="@+id/ISBN_static1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:fontFamily="roboto-light"
+            android:text="@string/info1"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#6A6A6A" />
+
+        <EditText
+            android:id="@+id/EditText_ISBN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ISBN_static1"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="@string/search_isbn"
+            android:inputType="text"
+            android:textColor="#167ABC" >
+
+            <requestFocus />
+        </EditText>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/book_title_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ISBN_static1"
+        android:layout_below="@+id/book_isbn_layout"
         android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="text"
-        android:textColor="#167ABC" >
+        android:paddingLeft="@dimen/activity_horizontal_margin" >
 
-        <requestFocus />
-    </EditText>
+        <TextView
+            android:id="@+id/BookTitle_static"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:fontFamily="roboto-light"
+            android:text="@string/info2"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#6A6A6A" />
 
-    <EditText
-        android:id="@+id/EditText_Price"
-        android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/EditText_BookTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/BookTitle_static"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="@string/search_title"
+            android:inputType="text"
+            android:textColor="#167ABC" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/book_author_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/price_static"
+        android:layout_below="@+id/book_title_layout"
         android:layout_centerHorizontal="true"
-        android:ems="10"
-        android:inputType="number"
-        android:textColor="#167ABC" />
+        android:paddingLeft="@dimen/activity_horizontal_margin" >
 
-    <TextView
-        android:id="@+id/BookTitle_static"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/Author_static"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:fontFamily="roboto-light"
+            android:text="@string/author"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#6A6A6A" />
+
+        <EditText
+            android:id="@+id/EditText_Author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Author_static"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="@string/search_author" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/book_price_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/EditText_ISBN"
+        android:layout_below="@+id/book_author_layout"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:fontFamily="roboto-light"
-        android:text="Book Title"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#6A6A6A" />
+        android:layout_marginTop="5dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin" >
 
-    <TextView
-        android:id="@+id/price_static"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ISBN_static1"
-        android:layout_below="@+id/EditText_BookTitle"
-        android:layout_marginTop="25dp"
-        android:fontFamily="roboto-light"
-        android:text="Price"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#6A6A6A" />
+        <TextView
+            android:id="@+id/price_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:fontFamily="roboto-light"
+            android:text="@string/your_price"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#6A6A6A" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button_AddBook"
-        android:layout_alignTop="@+id/TextEdit_Price"
-        android:layout_weight="0.5" >
+        <TextView
+            android:id="@+id/price_static"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:fontFamily="roboto-light"
+            android:text="@string/info3"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#6A6A6A" />
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4.45" >
-        </LinearLayout>
-    </LinearLayout>
+        <EditText
+            android:id="@+id/EditText_Price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/price_static"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:hint="@string/set_price"
+            android:inputType="number"
+            android:textColor="#167ABC" />
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/button_AddBook"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/EditText_Author"
+        android:layout_below="@+id/book_price_layout"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:background="#167ABC"
         android:fontFamily="roboto-light"
         android:text="@string/search_add"
         android:textColor="#FFFFFF" />
-
-    <EditText
-        android:id="@+id/EditText_Author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Author_static"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:ems="10" />
-
-    <TextView
-        android:id="@+id/Author_static"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/EditText_Price"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:fontFamily="roboto-light"
-        android:text="Author"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#6A6A6A" />
-
-    <EditText
-        android:id="@+id/EditText_BookTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/BookTitle_static"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="text"
-        android:textColor="#167ABC" />
 
 </RelativeLayout>
