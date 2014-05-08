@@ -67,13 +67,13 @@ public class AddBookActivity extends Activity {
 			protected BookForSale doInBackground(String... strings) {
 				// Retrieve service handle.
 				String ISBN = mISBN.getText().toString();
-//				String bookTitle = mBookTitle.getText().toString();
-//				String author = mAuthor.getText().toString();
+				//				String bookTitle = mBookTitle.getText().toString();
+				//				String author = mAuthor.getText().toString();
 				String price = mPrice.getText().toString();
 				ISBN = ISBN.trim();
-//				bookTitle = bookTitle.trim();
+				//				bookTitle = bookTitle.trim();
 				price = price.trim();
-//				author = author.trim();
+				//				author = author.trim();
 				String firstName = null;
 				String lastName = null;
 
@@ -205,11 +205,12 @@ public class AddBookActivity extends Activity {
 				Log.d(LOG_TAG, "Form is validated: "+String.valueOf(validated));
 				if(validated){
 					new RequestTask().execute("https://www.googleapis.com/books/v1/volumes?q=isbn:"+ISBN);
+					//Test isbn 030795479X
 					//					new RequestTask().execute("https://www.googleapis.com/books/v1/volumes?q=isbn:"+ISBN+"&key="+AppConstants.SIMPLE_ACCESS_API_KEY);
 					//					new RequestTask().execute("http://isbndb.com/api/v2/json/"+AppConstants.ISBN_DB_KEY+"/book/"+ISBN);
 					//					unauthenticatedAddBookForSaleTask();
 				}else{
-					
+
 					alertBuilder.setMessage("Please fix errors first!");
 					alertBuilder.setTitle("Book cannot be submitted!!!");
 					alertBuilder.setPositiveButton(android.R.string.ok, null);
@@ -316,61 +317,69 @@ public class AddBookActivity extends Activity {
 						selectedBookTitle+=": "+subtitle;
 					selectedAuthor = volume.getJSONArray("authors").getString(0);
 					String alertMessage = "Title: "+selectedBookTitle+"\nAuthor: "+selectedAuthor;
-					alertBuilder.setMessage(alertMessage);
-					alertBuilder.setTitle("Is this your book???");
 					
-					alertBuilder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-			            public void onClick(DialogInterface dialog,int which) {            	
-			            	unauthenticatedAddBookForSaleTask();
-			            Toast.makeText(getApplicationContext(), "User accepted book as correct", Toast.LENGTH_SHORT).show();
-			            }
-			        });
-//					alertBuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-					alertBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-	                    public void onClick(DialogInterface dialog, int which) {
-	                    // User pressed Cancel button. Write Logic Here
-	                    Toast.makeText(getApplicationContext(), "User cancelled book lookup", Toast.LENGTH_SHORT).show();
-	                    dialog.cancel();
-	                    }
-	                });
-					//TODO: Allow app to keep checking other items
-//					if(totalItems>1){
-//						alertBuilder.setNegativeButton("Try again", new DialogInterface.OnClickListener() {
-//							public void onClick(DialogInterface dialog, int which) {
-//							
-//								Toast.makeText(getApplicationContext(), "User looks for another option", Toast.LENGTH_SHORT).show();
-//								dialog.cancel();
-//							}
-//						});
-//					}
+					alertBuilder.setTitle("Is this your book???");
+					if(totalItems>1){
+						alertBuilder.setMessage(alertMessage);
+						alertBuilder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,int which) {            	
+								unauthenticatedAddBookForSaleTask();
+								Toast.makeText(getApplicationContext(), "User accepted book as correct", Toast.LENGTH_SHORT).show();
+							}
+						});
+						alertBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int which) {
+								// User pressed Cancel button. Write Logic Here
+								Toast.makeText(getApplicationContext(), "User cancelled book lookup", Toast.LENGTH_SHORT).show();
+								dialog.cancel();
+							}
+						});
+
+					}else{
+						CharSequence[] items = new CharSequence[totalItems];
+						for(int i = 0; i<totalItems;i++){
+							items[i]=getMessage(i);
+						}
+						alertBuilder.setItems(items, new DialogInterface.OnClickListener() {
+				            public void onClick(DialogInterface dialog, int item) {
+				                try{
+				                selectedBookTitle = returnedItems.getJSONObject(item).getJSONObject("volumeInfo").getString("title");
+				                selectedAuthor = returnedItems.getJSONObject(item).getJSONObject("volumeInfo").getJSONArray("authors").getString(0);
+				                unauthenticatedAddBookForSaleTask();
+				                }catch(JSONException e) {
+				    				e.printStackTrace();
+				    			}
+				            }
+				        });
+					}
 					AlertDialog dialog = alertBuilder.create();
 					dialog.show();
 				}
-				
+
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-			 
+
 		}
-		
-//		private String getMessage(){
-//			try{
-//			JSONObject volume = returnedItems.getJSONObject(currentItem).getJSONObject("volumeInfo");
-//			String title = volume.getString("title");
-//			String subtitle = volume.getString("subtitle");
-//			if(subtitle!=null&&subtitle.length()>0)
-//				title+=": "+subtitle;
-//			String author = volume.getJSONArray("authors").getString(0);
-//			String alertMessage = "Title: "+title+"\nAuthor: "+author;
-//			return alertMessage;
-//			}catch (JSONException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//				return null;
-//			}
-//		}
+
+				private String getMessage(int i){
+					try{
+					JSONObject volume = returnedItems.getJSONObject(i).getJSONObject("volumeInfo");
+					String title = volume.getString("title");
+					String subtitle = volume.getString("subtitle");
+					if(subtitle!=null&&subtitle.length()>0)
+						title+=": "+subtitle;
+					String author = volume.getJSONArray("authors").getString(0);
+					String alertMessage = "Title: "+title+"\nAuthor: "+author;
+					return alertMessage;
+					}catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						return null;
+					}
+				}
 	}
 }
