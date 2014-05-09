@@ -36,6 +36,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -178,9 +179,15 @@ public class AddBookActivity extends Activity {
 
 
 		mAddButton.setOnClickListener(new View.OnClickListener() {
+			private void hideSoftKeyboard(Activity activity) {
 
+		        InputMethodManager inputMethodManager = (InputMethodManager)  activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+		        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+		    }
 			@Override
 			public void onClick(View v) {
+				hideSoftKeyboard(AddBookActivity.this);
+				
 				startIndex=0;
 
 				boolean validated = true;
@@ -292,7 +299,7 @@ public class AddBookActivity extends Activity {
 					container, false);
 			return rootView;
 		}
-
+		
 	}
 	class RequestTask extends AsyncTask<String, String, String>{
 
@@ -335,7 +342,10 @@ public class AddBookActivity extends Activity {
 				JSONObject jObject = new JSONObject(result);
 				Log.d(LOG_TAG,jObject.toString());
 				totalItems = jObject.getInt("totalItems");
-				if(totalItems>0){
+				if(totalItems==0){
+					Toast.makeText(getApplicationContext(), "No results!!", Toast.LENGTH_SHORT).show();
+				}
+				else if(totalItems>0){
 					returnedItems = jObject.getJSONArray("items");
 					totalItemsReturned=returnedItems.length();
 					String subtitle = null;
