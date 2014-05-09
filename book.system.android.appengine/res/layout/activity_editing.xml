@@ -12,7 +12,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:drawableLeft="@drawable/expanded_indicators"
             android:gravity="center_vertical"
             android:onClick="toggle_contents"
             android:text="@string/book_details"
@@ -31,25 +30,22 @@
                 android:layoutDirection="ltr" >
 
                 <TextView
-                    android:id="@+id/book_info_titleDetail"
+                    android:id="@+id/book_info_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="@string/display1"
                     android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/book_title_edit"
+                <TextView
+                    android:id="@+id/book_title_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10sp"
-                    android:ems="10"
-                    android:hint="@string/edit_book_title" >
-
-                    <requestFocus />
-                </EditText>
+                   	 />
+                
             </RelativeLayout>
 
             <RelativeLayout
@@ -60,23 +56,20 @@
                 android:layoutDirection="ltr" >
 
                 <TextView
-                    android:id="@+id/book_info_authorDetail"
+                    android:id="@+id/book_info_author"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="@string/book_author_detail"
                     android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/book_author_edit"
+                <TextView
+                    android:id="@+id/book_author_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="10sp"
-                    android:ems="10"
-                    android:hint="@string/edit_book_author" >
-                </EditText>
+                    android:layout_marginRight="10sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -87,23 +80,20 @@
                 android:layoutDirection="ltr" >
 
                 <TextView
-                    android:id="@+id/book_info_isbnDetail"
+                    android:id="@+id/book_info_isbn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="@string/display2"
                     android:textSize="18sp" />
 
-                <EditText
-                    android:id="@+id/book_isbn_edit"
+                <TextView
+                    android:id="@+id/book_isbn_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="10sp"
-                    android:ems="10"
-                    android:hint="@string/edit_book_isbn" >
-                </EditText>
+                    android:layout_marginRight="10sp"/>
             </RelativeLayout>
 
             <RelativeLayout

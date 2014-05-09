@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.os.Build;
@@ -51,31 +53,39 @@ public class EditingActivity extends Activity {
 		currentUserLastName = intent.getStringExtra("last_name");
 		currentUserEmail = intent.getStringExtra("CURRENT_USER_EMAIL");
 
-		Log.d(LOG_TAG,intent.getExtras().toString());
-		bookInfoTitle = (TextView) findViewById(R.id.book_info_title);
-		Drawable[] d = bookInfoTitle.getCompoundDrawables();
-		d[0].setBounds(0, 0, (int)(d[0].getIntrinsicWidth()*0.5), 
-                (int)(d[0].getIntrinsicHeight()*0.5));
-		ScaleDrawable scaler = new ScaleDrawable(d[0],0, 0.5f, 0.5f);
-		bookInfoTitle.setCompoundDrawables(scaler.getDrawable(), null, null, null);
-		bookDetails = (RelativeLayout) findViewById(R.id.book_details_collapse);
+		TextView bookTitleView = (TextView) findViewById(R.id.book_title_detail);
+		bookTitleView.setText(bookTitle);
+		TextView bookAuthorView = (TextView) findViewById(R.id.book_author_detail);
+		bookAuthorView.setText(bookAuthor);
+		TextView bookIsbnView = (TextView) findViewById(R.id.book_isbn_detail);
+		bookIsbnView.setText(bookISBN);
+		EditText priceView = (EditText) findViewById(R.id.book_price_edit);
+		priceView.setText(bookPrice);
+//		Log.d(LOG_TAG,intent.getExtras().toString());
+//		bookInfoTitle = (TextView) findViewById(R.id.book_info_title);
+//		Drawable[] d = bookInfoTitle.getCompoundDrawables();
+//		d[0].setBounds(0, 0, (int)(d[0].getIntrinsicWidth()*0.5), 
+//                (int)(d[0].getIntrinsicHeight()*0.5));
+//		ScaleDrawable scaler = new ScaleDrawable(d[0],0, 0.5f, 0.5f);
+//		bookInfoTitle.setCompoundDrawables(scaler.getDrawable(), null, null, null);
+//		bookDetails = (RelativeLayout) findViewById(R.id.book_details_collapse);
 		// defaulting to hidden
 //		bookDetails.setVisibility(View.GONE);
 	}
-	public void toggle_contents(View v){
-		if(v.getId()==bookInfoTitle.getId()){
-			if(bookDetails.isShown()){
-				Fx.slide_up(this, bookDetails);
-				bookDetails.setVisibility(View.GONE);
-				bookInfoTitle.setActivated(false);
-			}
-			else{
-				bookDetails.setVisibility(View.VISIBLE);
-				Fx.slide_down(this, bookDetails);
-				bookInfoTitle.setActivated(true);
-			}
-		}
-	}
+//	public void toggle_contents(View v){
+//		if(v.getId()==bookInfoTitle.getId()){
+//			if(bookDetails.isShown()){
+//				Fx.slide_up(this, bookDetails);
+//				bookDetails.setVisibility(View.GONE);
+//				bookInfoTitle.setActivated(false);
+//			}
+//			else{
+//				bookDetails.setVisibility(View.VISIBLE);
+//				Fx.slide_down(this, bookDetails);
+//				bookInfoTitle.setActivated(true);
+//			}
+//		}
+//	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
