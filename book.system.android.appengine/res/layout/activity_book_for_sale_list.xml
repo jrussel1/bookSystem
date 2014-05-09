@@ -17,6 +17,49 @@
     </ListView>
 
     <TextView
+        android:id="@+id/AuthorS_static"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ISBNS_static"
+        android:layout_below="@+id/ISBNS_static"
+        android:layout_marginTop="32dp"
+        android:text="Author:"
+        android:textColor="#6A6A6A" />
+
+    <TextView
+        android:id="@+id/AuthorS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/AuthorS_static"
+        android:layout_alignBottom="@+id/AuthorS_static"
+        android:layout_alignLeft="@+id/ISBNS"
+        android:layout_alignRight="@+id/view1"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#167ABC"
+        android:textSize="24dp" />
+
+    <TextView
+        android:id="@+id/ISBNS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/ISBNS_static"
+        android:layout_alignBottom="@+id/ISBNS_static"
+        android:layout_alignLeft="@+id/BookTitleS"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#167ABC"
+        android:textSize="24dp" />
+
+    <TextView
+        android:id="@+id/BookTitleS"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/BookTitleS_static"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#167ABC"
+        android:textSize="24dp" />
+
+    <TextView
         android:id="@+id/BookTitleS_static"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,97 +70,15 @@
         android:text="Title:"
         android:textColor="#6A6A6A" />
 
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/AuthorS"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="33dp"
-        android:background="#167ABC" />
-    
-
-    <TextView
-        android:id="@+id/BookTitleS"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/ISBNS_static"
-        android:layout_below="@+id/BookTitleS_static"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#167ABC"
-        android:textSize="24dp"
-        android:text = "test"  />
-
     <TextView
         android:id="@+id/ISBNS_static"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/BookTitleS_static"
         android:layout_below="@+id/BookTitleS"
+        android:layout_marginTop="20dp"
         android:text="ISBN:"
         android:textColor="#6A6A6A" />
-
-    <TextView
-        android:id="@+id/AuthorS"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/AuthorS_static"
-        android:layout_below="@+id/AuthorS_static"
-        android:text="test"/>
-
-    <TextView
-        android:id="@+id/ISBNS"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/AuthorS_static"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/ISBNS_static"
-        android:layout_toRightOf="@+id/AuthorS_static"
->>>>>>> 9bf50eead350bc70b9684b1f6e5cfcf796e85395
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#167ABC"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/ISBNS"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:layout_alignLeft="@+id/ISBNS_static"
-        android:layout_below="@+id/ISBNS_static"
-        android:text="test"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#167ABC"
-        android:textSize="24dp" />
-=======
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="28dp"
-        android:text="@string/sale_book_title"
-        android:textColor="#6A6A6A"
-        android:textSize="24sp" />
->>>>>>> 9bf50eead350bc70b9684b1f6e5cfcf796e85395
-
-    <TextView
-        android:id="@+id/AuthorS_static"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-<<<<<<< HEAD
-        android:layout_alignLeft="@+id/ISBNS"
-        android:layout_below="@+id/ISBNS"
-        android:text="Author:"
-        android:textColor="#6A6A6A" />
-
-=======
-        android:layout_alignLeft="@+id/BookTitleS_static"
-        android:layout_below="@+id/BookTitleS"
-        android:layout_marginTop="20dp"
-        android:text="@string/sale_book_isbn"
-        android:textColor="#6A6A6A"
-        android:textSize="24sp" />
 
     <View
         android:layout_width="fill_parent"
@@ -129,15 +90,4 @@
         android:layout_marginTop="33dp"
         android:background="#167ABC" />
 
-    <TextView
-        android:id="@+id/BookTitleS"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/BookTitleS_static"
-        android:layout_toRightOf="@+id/AuthorS_static"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#167ABC"
-        android:textSize="24sp" />
-
->>>>>>> 9bf50eead350bc70b9684b1f6e5cfcf796e85395
 </RelativeLayout>
