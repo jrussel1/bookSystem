@@ -30,6 +30,13 @@
 			android:textSize="20dp"
              />
 
+		<View
+        android:id="@+id/view1"
+        android:layout_width="3dp"
+        android:layout_height="10dp"
+        android:layout_centerVertical="true"
+        android:alpha="1"
+        android:background="#FFFFFF" />
 
         <Button
             android:id="@+id/myProfileButton"
