@@ -140,7 +140,7 @@ public class MyProfileActivity extends ListActivity {
 
  		 TextView textview1=(TextView) findViewById(R.id.username);
 
-		 textview1.setText(currentUserFirstName+""+currentUserLastName);
+		 textview1.setText(currentUserFirstName+" "+currentUserLastName);
 
 		 TextView textview2=(TextView) findViewById(R.id.email);
 
