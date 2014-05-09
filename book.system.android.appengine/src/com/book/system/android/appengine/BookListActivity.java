@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import android.app.Fragment;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -46,11 +47,19 @@ public class BookListActivity extends ListActivity {
 	private String currentUserEmail = null;
 	private String currentUserFirstName = null;
 	private String currentUserLastName = null;
-	ArrayList<String> isbnList = null;
+	private ArrayList<String> isbnList = null;
+	private ProgressDialog progressDialog = null;
 	
 	public void unauthenticatedSaleShelfTask(){
 		AsyncTask<Integer, Void, GenericJson> getShelf =
 				new AsyncTask<Integer, Void, GenericJson> () {
+			@Override
+			protected void onPreExecute(){
+				progressDialog = new ProgressDialog( BookListActivity.this );
+				progressDialog.setTitle("Please wait...");
+				progressDialog.setMessage("Loading...");
+				progressDialog.show();
+			}
 			@Override
 			protected GenericJson doInBackground(Integer... integers) {
 				try {
@@ -123,9 +132,11 @@ public class BookListActivity extends ListActivity {
 					Log.d(LOG_TAG,saleshelf.toString());
 					BookData.getInstance().setBookData(saleshelf);
 					setAdapter();
-
+					progressDialog.cancel();
 				} else {
 					Log.e("SaleShelf error", "No shelf were returned by the API.");
+					progressDialog.setMessage("Error!");
+					progressDialog.cancel();
 				}
 			}
 		};
@@ -262,6 +273,9 @@ public class BookListActivity extends ListActivity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			return true;
+		}else if(id == R.id.refresh){
+			unauthenticatedSaleShelfTask();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
