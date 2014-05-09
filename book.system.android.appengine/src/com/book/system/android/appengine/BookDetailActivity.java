@@ -41,7 +41,7 @@ public class BookDetailActivity extends Activity {
 		bookAuthor = intent.getStringExtra("bookAuthor");
 		firstName = intent.getStringExtra("sellerFirstName");
 		lastName = intent.getStringExtra("sellerLastName");
-		sellerEmail = intent.getStringExtra("sellerEmaile");
+		sellerEmail = intent.getStringExtra("sellerEmail");
 		
 		currentUserEmail = intent.getStringExtra("CURRENT_USER_EMAIL");
 
