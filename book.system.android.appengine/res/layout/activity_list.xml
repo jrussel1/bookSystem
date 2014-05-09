@@ -67,16 +67,10 @@
         <SearchView
             android:id="@+id/search_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="false" >
         </SearchView>
 		        
-		<View
-        android:id="@+id/view1"
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:layout_centerVertical="true"
-        android:alpha="1"
-        android:background="#167ABC" />
 
     </LinearLayout>
 

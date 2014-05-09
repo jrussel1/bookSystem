@@ -6,16 +6,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
-
-
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.ListActivity;
 import android.content.Intent;
@@ -28,19 +23,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.appspot.mac_books.bookSystem.BookSystem;
 import com.appspot.mac_books.bookSystem.model.Book;
 import com.appspot.mac_books.bookSystem.model.BookForSale;
-import com.appspot.mac_books.bookSystem.model.JsonMap;
-import com.appspot.mac_books.bookSystem.model.SaleShelf;
 import com.appspot.mac_books.bookSystem.model.Seller;
 import com.google.api.client.json.GenericJson;
-import com.google.gson.Gson;
 
 public class BookListActivity extends ListActivity {
 
@@ -163,6 +155,7 @@ public class BookListActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list);
 		setTitle("");
+		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 		Intent intent = getIntent();
 		currentUserEmail = intent.getStringExtra("CURRENT_USER_EMAIL");
@@ -197,6 +190,7 @@ public class BookListActivity extends ListActivity {
 
 		mSearchView = (SearchView) findViewById(R.id.search_view);
 		mSearchView.setQueryHint("Search by ISBN, Title, or Author");
+		mSearchView.clearFocus();
 		String a = mSearchView.getQuery().toString();
 		SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
 
