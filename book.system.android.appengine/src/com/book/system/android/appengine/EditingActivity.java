@@ -1,5 +1,10 @@
 package com.book.system.android.appengine;
 
+import java.io.IOException;
+
+import com.appspot.mac_books.bookSystem.BookSystem;
+import com.appspot.mac_books.bookSystem.model.Seller;
+
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -8,6 +13,7 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -152,5 +158,34 @@ public class EditingActivity extends Activity {
 			return rootView;
 		}
 	}
-
+//	public void unauthenticatedDeleteBookForSaleTask(){
+//		AsyncTask<String, Void, Void> getSeller =
+//				new AsyncTask<String, Void, Void> () {
+//			@Override
+//			protected Void doInBackground(String... strings) {
+//				// Retrieve service handle.
+//				try {
+//					BookSystem.Bookforsale.GetSellerByEmail getSellerCommand = service.bookforsale().getSellerByEmail(currentUserEmail);
+//					Seller seller = getSellerCommand.execute();
+//					return seller;
+//				} catch (IOException e) {
+//					Log.e("BookSystem call", "Exception during API call", e);
+//				}
+//				return null;
+//			}
+//
+//			@Override
+//			protected void onPostExecute(Seller seller) {
+//				if (seller!=null) {
+//					Log.d("Seller Received", seller.toString());
+//					userAsSeller=seller;
+//					unauthenticatedGetSellerListofBooks();
+//				} else {
+//					Log.e("getting Seller error", "No seller returned by API");
+//				}
+//			}
+//		};
+//
+//		getSeller.execute();
+//	}
 }

@@ -18,7 +18,7 @@
     <string name="title_activity_listing">ListingActivity</string>
     <string name="title_activity_book_detail">Book Details</string>
     <string name="title_activity_listing_activity">Book List</string>
-    <string name="title_activity_list">Book List</string>
+    <string name="title_activity_list">Mac Books</string>
     <string name="title_activity_google_plus_login">Google Sign In</string>
     <string name="title_activity_add_book">Add A Book</string>
     <string name="title_activity_my_profile">My Profile</string>
