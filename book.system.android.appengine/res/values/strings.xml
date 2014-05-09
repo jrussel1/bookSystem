@@ -39,7 +39,7 @@
     <string name="title_activity_menu">MenuActivity</string>
     <string name="title_activity_font_manager">FontManagerActivity</string>
     <string name="title_activity_book_for_sale_list">Book Details</string>
-    <string name="title_activity_editing">EditingActivity</string>
+    <string name="title_activity_editing">Manage Book Details</string>
     <string name="book_details">Book Details</string>
     <string name="book_author_detail">Book Author:</string>
     <string name="edit_book_title">Edit Book Title</string>
