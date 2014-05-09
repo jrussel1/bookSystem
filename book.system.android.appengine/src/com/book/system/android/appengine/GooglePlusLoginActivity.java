@@ -444,7 +444,7 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 	            } else{
 	                //Closes the connection.
 	                response.getEntity().getContent().close();
-	                throw new IOException(statusLine.getReasonPhrase());
+//	                throw new IOException(statusLine.getReasonPhrase());
 	            }
 	        } catch (ClientProtocolException e) {
 	            //TODO Handle problems..
@@ -454,30 +454,40 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 	        	e.printStackTrace();
 	        	Log.e(LOG_TAG,e.getLocalizedMessage());
 	        }
-	        Log.d(LOG_TAG,responseString);
+//	        Log.d(LOG_TAG,responseString);
 	        return responseString;
 	    }
 
 	    @Override
 	    protected void onPostExecute(String result) {
 	        super.onPostExecute(result);
-	        Log.d(LOG_TAG,result);
-	        try {
-				JSONObject jObject = new JSONObject(result);
-				
-				Intent intent = new Intent(GooglePlusLoginActivity.this,BookListActivity.class);
-				intent.putExtra("CURRENT_USER_EMAIL", mEmailAccount);
-				if(jObject.has("name")){
-					intent.putExtra("last_name", jObject.getJSONObject("name").getString("familyName"));
-					intent.putExtra("first_name", jObject.getJSONObject("name").getString("givenName"));
-				}else{
-					Log.e(LOG_TAG,"No name");
+//	        Log.d(LOG_TAG,result);
+	        
+	        Intent intent = new Intent(GooglePlusLoginActivity.this,BookListActivity.class);
+			intent.putExtra("CURRENT_USER_EMAIL", mEmailAccount);
+			
+	        if (result != null) {
+	        	
+	        	try {
+					JSONObject jObject = new JSONObject(result);
+					
+					
+					if(jObject.has("name")){
+						intent.putExtra("last_name", jObject.getJSONObject("name").getString("familyName"));
+						intent.putExtra("first_name", jObject.getJSONObject("name").getString("givenName"));
+					}else{
+						Log.e(LOG_TAG,"No name");
+					}
+					startActivity(intent);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				startActivity(intent);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	        	
+	        } else {
+	        	startActivity(intent);
+	        }
+	        
 	        
 	        
 	    }
