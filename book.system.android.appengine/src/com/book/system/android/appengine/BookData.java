@@ -43,15 +43,32 @@ public class BookData {
 		}
 	}
 	public void removeBookForSale(String email,String isbn){
+		BookForSale doomedBook=null;
 		for(BookForSale bfs : userBookData){
 			if(bfs.getBook().getIsbn().equals(isbn))
-				userBookData.remove(bfs);
+				doomedBook=bfs;
 		}
-		
+		userBookData.remove(doomedBook);
 		if(bookData.get(isbn)!=null){
 			for(BookForSale bfs : bookData.get(isbn)){
 				if(bfs.getBook().getIsbn().equals(isbn) && bfs.getSeller().getEmail().equals(email))
-					bookData.get(isbn).remove(bfs);
+					doomedBook=bfs;
+			}
+			bookData.get(isbn).remove(doomedBook);
+		}
+	}
+	public void updateBookForSale(String email,String isbn,Double price){
+		for(int i = 0; i<userBookData.size(); i++){
+			if(userBookData.get(i).getBook().getIsbn().equals(isbn)){
+				userBookData.get(i).setPrice(price);
+			}
+		}
+		if(bookData.get(isbn)!=null){
+			for(int i = 0; i<bookData.get(isbn).size(); i++){
+				if(bookData.get(isbn).get(i).getBook().getIsbn().equals(isbn) 
+						&& bookData.get(isbn).get(i).getSeller().getEmail().equals(email)){
+					bookData.get(isbn).get(i).setPrice(price);
+				}
 			}
 		}
 	}

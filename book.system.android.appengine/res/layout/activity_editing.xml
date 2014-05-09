@@ -119,7 +119,7 @@
                 android:layout_marginRight="10sp"
                 android:ems="10"
                 android:enabled="false"
-                android:inputType="number" >
+                android:inputType="numberDecimal" >
             </EditText>
         </RelativeLayout>
     </RelativeLayout>

@@ -19,7 +19,7 @@
 package com.appspot.mac_books.bookSystem.model;
 
 /**
- * Model definition for Book.
+ * Model definition for IntegerResponse.
  *
  * <p> This is the Java data model class that specifies how to parse/serialize into the JSON that is
  * transmitted over HTTP when working with the bookSystem. For a detailed explanation see:
@@ -29,79 +29,37 @@ package com.appspot.mac_books.bookSystem.model;
  * @author Google, Inc.
  */
 @SuppressWarnings("javadoc")
-public final class Book extends com.google.api.client.json.GenericJson {
+public final class IntegerResponse extends com.google.api.client.json.GenericJson {
 
   /**
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private java.lang.String author;
-
-  /**
-   * The value may be {@code null}.
-   */
-  @com.google.api.client.util.Key
-  private java.lang.String isbn;
-
-  /**
-   * The value may be {@code null}.
-   */
-  @com.google.api.client.util.Key
-  private java.lang.String title;
+  private java.lang.Integer numRows;
 
   /**
    * @return value or {@code null} for none
    */
-  public java.lang.String getAuthor() {
-    return author;
+  public java.lang.Integer getNumRows() {
+    return numRows;
   }
 
   /**
-   * @param author author or {@code null} for none
+   * @param numRows numRows or {@code null} for none
    */
-  public Book setAuthor(java.lang.String author) {
-    this.author = author;
-    return this;
-  }
-
-  /**
-   * @return value or {@code null} for none
-   */
-  public java.lang.String getIsbn() {
-    return isbn;
-  }
-
-  /**
-   * @param isbn isbn or {@code null} for none
-   */
-  public Book setIsbn(java.lang.String isbn) {
-    this.isbn = isbn;
-    return this;
-  }
-
-  /**
-   * @return value or {@code null} for none
-   */
-  public java.lang.String getTitle() {
-    return title;
-  }
-
-  /**
-   * @param title title or {@code null} for none
-   */
-  public Book setTitle(java.lang.String title) {
-    this.title = title;
+  public IntegerResponse setNumRows(java.lang.Integer numRows) {
+    this.numRows = numRows;
     return this;
   }
 
   @Override
-  public Book set(String fieldName, Object value) {
-    return (Book) super.set(fieldName, value);
+  public IntegerResponse set(String fieldName, Object value) {
+    return (IntegerResponse) super.set(fieldName, value);
   }
 
   @Override
-  public Book clone() {
-    return (Book) super.clone();
+  public IntegerResponse clone() {
+    return (IntegerResponse) super.clone();
   }
 
 }

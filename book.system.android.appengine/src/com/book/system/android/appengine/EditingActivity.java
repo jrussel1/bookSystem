@@ -3,6 +3,7 @@ package com.book.system.android.appengine;
 import java.io.IOException;
 
 import com.appspot.mac_books.bookSystem.BookSystem;
+import com.appspot.mac_books.bookSystem.model.IntegerResponse;
 import com.appspot.mac_books.bookSystem.model.Seller;
 
 import android.app.Activity;
@@ -83,10 +84,13 @@ public class EditingActivity extends Activity {
 		submitButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				findViewById(R.id.book_price_edit).setEnabled(false);
+				EditText priceView = (EditText) findViewById(R.id.book_price_edit);
+				bookPrice = priceView.getText().toString();
+				priceView.setEnabled(false);
 				findViewById(R.id.button_edit_price).setVisibility(View.VISIBLE);
 				v.setVisibility(View.GONE);
-				//TODO: Call update method
+				
+				unauthenticatedUpdateBookForSaleTask();
 			}
 		});
 		Button deleteButton = (Button) findViewById(R.id.delete_book_listing);
@@ -184,11 +188,50 @@ public class EditingActivity extends Activity {
 				BookData.getInstance().removeBookForSale(currentUserEmail,bookISBN);
 				
 				Intent intent = new Intent(EditingActivity.this,MyProfileActivity.class);	
+				intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
+				intent.putExtra("last_name", currentUserLastName);
+				intent.putExtra("first_name", currentUserFirstName);
 				startActivity(intent);
 				
 			}
 		};
 
 		deleteBookForSale.execute();
+	}
+	public void unauthenticatedUpdateBookForSaleTask(){
+		AsyncTask<String, Void, IntegerResponse> updateBookForSale =
+				new AsyncTask<String, Void, IntegerResponse> () {
+			@Override
+			protected IntegerResponse doInBackground(String... strings) {
+				IntegerResponse intR=null;
+				
+				try {
+					BookSystem.Bookforsale.UpdatePrice updateCommand = service.bookforsale().updatePrice(currentUserEmail,bookISBN,Double.valueOf(bookPrice));
+					intR=updateCommand.execute();
+
+				} catch (IOException e) {
+					Log.e("BookSystem call", "Exception during API call", e);
+				}
+				return intR;
+			}
+
+			@Override
+			protected void onPostExecute(IntegerResponse rowsAffected) {
+				if (rowsAffected!=null) {
+					try {
+						Log.d("BookForSale Update", rowsAffected.toPrettyString());
+						BookData.getInstance().updateBookForSale(currentUserEmail,bookISBN,Double.valueOf(bookPrice));
+						
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				} else {
+					Log.e("BookForSale Update Error", "No books for sale were affected by the API.");
+				}
+				
+			}
+		};
+
+		updateBookForSale.execute();
 	}
 }
