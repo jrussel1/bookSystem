@@ -42,5 +42,18 @@ public class BookData {
 			bookData.put(isbn, new ArrayList<BookForSale>(Arrays.asList(bfs)));
 		}
 	}
+	public void removeBookForSale(String email,String isbn){
+		for(BookForSale bfs : userBookData){
+			if(bfs.getBook().getIsbn().equals(isbn))
+				userBookData.remove(bfs);
+		}
+		
+		if(bookData.get(isbn)!=null){
+			for(BookForSale bfs : bookData.get(isbn)){
+				if(bfs.getBook().getIsbn().equals(isbn) && bfs.getSeller().getEmail().equals(email))
+					bookData.get(isbn).remove(bfs);
+			}
+		}
+	}
 
 }
