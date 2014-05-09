@@ -62,6 +62,10 @@
     <string name="name_display">Name:</string>
     <string name="email_display"> E-mail:</string>
     <string name="my_book_list">My Book List</string>
+    <string name="sale_book_title">Title:</string>
+    <string name="sale_book_isbn">ISBN:</string>
+    <string name="sale_book_author">Author:</string>
+    
 
 
 </resources>
