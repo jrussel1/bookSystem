@@ -98,6 +98,7 @@ public class MyProfileActivity extends ListActivity {
 					Log.d("GetAllBooks", books.toString());
 					usersBooks= new ArrayList<BookForSale>(books.getItems());
 					BookData.getInstance().setUserBookData(usersBooks);
+					BookData.getInstance().setUserDataCollected(true);
 					setAdapter();
 				} else {
 					Log.e("GetAllBooks Error", "No books for sale returned by API");
@@ -163,7 +164,7 @@ public class MyProfileActivity extends ListActivity {
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 		usersBooks=BookData.getInstance().getUserBookData();
-		if(usersBooks==null){
+		if(usersBooks==null || !BookData.getInstance().isUserDataCollected()){
 			unauthenticatedGetSellerTask();
 		}else{
 			setAdapter();

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item 
-        android:id="@+id/about_icon"
+        android:id="@+id/refresh"
         android:icon="@drawable/ic_action_about"
-        android:title="About"
-        android:showAsAction="always"
+        android:title="@string/refresh"
+        android:showAsAction="always|withText"
         />
 
 </menu>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Book System</string>
+    <string name="app_name">Mac Books</string>
     <string name="hello_world">Hello world!</string>
     <string name="toast_no_google_account_selected">No Google Account Selected</string>
     <string name="toast_exception_checking_authorization">Exception checking authorization</string>
@@ -65,6 +65,7 @@
     <string name="sale_book_title">Title:</string>
     <string name="sale_book_isbn">ISBN:</string>
     <string name="sale_book_author">Author:</string>
+    <string name="refresh">Refresh</string>
     
 
 

@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"ADiYQGKhdYR9rpbhIFHih-UBYRs/zQEttqgoBUdFxovHyKac_mUoqcA\"",
+ "etag": "\"ADiYQGKhdYR9rpbhIFHih-UBYRs/6PX-JifWIV6rOqQy869eTK5kHZo\"",
  "discoveryVersion": "v1",
  "id": "bookSystem:v1",
  "name": "bookSystem",
@@ -121,6 +121,16 @@
      "items": {
       "$ref": "BookForSale"
      }
+    }
+   }
+  },
+  "IntegerResponse": {
+   "id": "IntegerResponse",
+   "type": "object",
+   "properties": {
+    "numRows": {
+     "type": "integer",
+     "format": "int32"
     }
    }
   },
@@ -430,6 +440,35 @@
    "allowGet": true,
    "returns": {
     "$ref": "JsonMap"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "bookSystem.bookforsale.updatePrice": {
+   "id": "bookSystem.bookforsale.updatePrice",
+   "parameters": {
+    "email": {
+     "type": "string",
+     "required": true
+    },
+    "isbn": {
+     "type": "string",
+     "required": true
+    },
+    "price": {
+     "type": "number",
+     "required": true,
+     "format": "double"
+    }
+   },
+   "parameterOrder": [
+    "email",
+    "isbn",
+    "price"
+   ],
+   "returns": {
+    "$ref": "IntegerResponse"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"

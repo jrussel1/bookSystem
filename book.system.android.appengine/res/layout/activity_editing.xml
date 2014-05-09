@@ -119,7 +119,7 @@
                 android:layout_marginRight="10sp"
                 android:ems="10"
                 android:enabled="false"
-                android:inputType="number" >
+                android:inputType="numberDecimal" >
             </EditText>
         </RelativeLayout>
     </RelativeLayout>
@@ -236,6 +236,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/button_edit_price"
         android:layout_alignTop="@+id/button_edit_price"
+        android:layout_alignRight="@+id/book_details_collapse"
         android:layout_below="@+id/book_details_collapse"
         android:layout_marginTop="50dp"
         android:background="#167ABC"

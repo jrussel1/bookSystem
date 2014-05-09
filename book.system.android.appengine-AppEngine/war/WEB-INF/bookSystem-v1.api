@@ -24,6 +24,35 @@
     "maxAge" : 0
   },
   "methods" : {
+    "bookSystem.bookforsale.updatePrice" : {
+      "path" : "integerresponse/{email}/{isbn}/{price}",
+      "httpMethod" : "PUT",
+      "authLevel" : "OPTIONAL_CONTINUE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com" ],
+      "clientIds" : [ "615375088497-cecfir0egouhcem4qc36u20ioegi2eps.apps.googleusercontent.com", "615375088497-nm2mhjnecblkm224f41600k26omtemqb.apps.googleusercontent.com", "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.book.system.spi.BookForSaleV1.updatePrice",
+      "request" : {
+        "parameters" : {
+          "email" : {
+            "type" : "string",
+            "required" : true
+          },
+          "isbn" : {
+            "type" : "string",
+            "required" : true
+          },
+          "price" : {
+            "type" : "double",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "bookSystem.seller.insert" : {
       "path" : "seller/{email}/{first_name}/{last_name}",
       "httpMethod" : "post",
@@ -326,6 +355,15 @@
   },
   "descriptor" : {
     "schemas" : {
+      "IntegerResponse" : {
+        "id" : "IntegerResponse",
+        "type" : "object",
+        "properties" : {
+          "numRows" : {
+            "type" : "integer"
+          }
+        }
+      },
       "Seller" : {
         "id" : "Seller",
         "type" : "object",
@@ -343,10 +381,10 @@
           "lastName" : {
             "type" : "string"
           },
-          "fFirstName" : {
+          "fLastName" : {
             "type" : "string"
           },
-          "fLastName" : {
+          "fFirstName" : {
             "type" : "string"
           }
         }
@@ -447,6 +485,11 @@
       }
     },
     "methods" : {
+      "com.book.system.spi.BookForSaleV1.updatePrice" : {
+        "response" : {
+          "$ref" : "IntegerResponse"
+        }
+      },
       "com.book.system.spi.BookForSaleV1.insertSeller" : {
         "response" : {
           "$ref" : "Seller"

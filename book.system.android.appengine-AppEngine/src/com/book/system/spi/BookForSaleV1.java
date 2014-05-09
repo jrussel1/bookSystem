@@ -32,6 +32,7 @@ import javax.inject.Named;
 
 import com.book.system.model.Book;
 import com.book.system.model.BookForSale;
+import com.book.system.model.IntegerResponse;
 import com.book.system.model.SaleShelf;
 import com.book.system.model.Seller;
 import com.google.api.server.spi.SystemService;
@@ -1105,5 +1106,55 @@ public class BookForSaleV1 {
 					e.printStackTrace();
 				}
 		}
+	}
+	@ApiMethod(name = "bookforsale.updatePrice", authLevel=AuthLevel.OPTIONAL_CONTINUE)
+	public IntegerResponse updatePrice(@Named("email") String email, @Named("isbn") String isbn, @Named("price") Double price){
+		
+		Seller seller = null;
+		PreparedStatement updateBFSStmt = null;
+		IntegerResponse rowsAffected = new IntegerResponse();
+		try{
+			if(conn==null){
+				log.setLevel(Level.WARNING);
+				log.warning("Creating connection...");
+				conn = DBConnection.createConnection();
+			}else{
+				log.setLevel(Level.WARNING);
+				boolean valid = conn.isValid(10);
+				log.warning("isValid():"+String.valueOf(valid));
+				if(!valid){
+					conn = DBConnection.createConnection();
+					conn = DBConnection.createConnection();
+				}
+			}
+			String updateBFS = "UPDATE `book-system`.`Book_For_Sale` SET `Price` = ? WHERE `ISBN`= ? AND `Person_ID`= ?";
+
+			seller = getSellerByEmailWithoutClosing(email);
+
+			updateBFSStmt = conn.prepareStatement(updateBFS);
+			updateBFSStmt.setDouble(1, price);
+			updateBFSStmt.setString(2, isbn);
+			updateBFSStmt.setLong(3, seller.getId());
+			Integer i = updateBFSStmt.executeUpdate();
+			rowsAffected.setNumRows(i);
+			log.setLevel(Level.WARNING);
+			log.warning(rowsAffected.toString());
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			if(updateBFSStmt!=null)
+				try {
+					updateBFSStmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			if(conn!=null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		return rowsAffected;
 	}
 }

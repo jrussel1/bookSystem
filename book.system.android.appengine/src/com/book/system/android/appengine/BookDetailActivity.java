@@ -41,7 +41,7 @@ public class BookDetailActivity extends Activity {
 		bookAuthor = intent.getStringExtra("bookAuthor");
 		firstName = intent.getStringExtra("sellerFirstName");
 		lastName = intent.getStringExtra("sellerLastName");
-		sellerEmail = intent.getStringExtra("sellerEmaile");
+		sellerEmail = intent.getStringExtra("sellerEmail");
 		
 		currentUserEmail = intent.getStringExtra("CURRENT_USER_EMAIL");
 
@@ -70,7 +70,7 @@ public class BookDetailActivity extends Activity {
 		t7.setTypeface(tf2);
 		
 		TextView t8 = (TextView)findViewById(R.id.seller_detail);
-		t8.setText(firstName + "" + lastName);
+		t8.setText(firstName + " " + lastName);
 		t8.setTypeface(tf);
 		
 		TextView t9 = (TextView)findViewById(R.id.seller_detail_static);

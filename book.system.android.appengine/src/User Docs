@@ -1,0 +1,21 @@
+1. Mac Books Introduction
+
+This app provides a book trade system to Macalester students. The user can get a book at a lower price very quickly without having to wait for
+a book to be shipped. The user can login into the system by using the google account and search for the book wanted, and get the seller information
+so that they can contact each other. 
+
+2. Procedures
+2.1 You have to have a google account set up on your device to login into our system. To search for a book, click on the search bar on the main page.
+You can put in the book ISBN number, the book title or the author name to search for the book. After the available books show up on the screen,
+click on the book field for detailed information. If you decides to buy a book, click 'Buy' and send an e-mail to the seller to notify the seller 
+that you want this book.
+
+2.2 If you want to sell a book, click on the 'Sell Book' button, and you can input the book information including ISBN, the book title and the author name.
+Then you can set the price of the book. It has to be at least 2 dollars. Click 'Search and Add', your book information will be stored in our database and 
+show in the book list on the main page. 
+
+2.3 Click on the 'My Profile' button, and it will show your personal information, including your name and e-mail address. At the bottom My Book List shows 
+the books that you have input to sell. If you decide not to sell a book any more, click 'Delete Listing', and your book will be removed from our database.
+Or if you decide to change the price, you can reset the price by clicking 'Edit Price'.
+
+
