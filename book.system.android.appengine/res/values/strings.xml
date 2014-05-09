@@ -55,5 +55,10 @@
     <string name="your_price">Set your price</string>
     <string name="search_for_book">Search for your book</string>
     <string name="set_price">Set Price</string>
+    <string name="my_info">My Info</string>
+    <string name="name_display">Name:</string>
+    <string name="email_display"> E-mail:</string>
+    <string name="my_book_list">My Book List</string>
+   
 
 </resources>
