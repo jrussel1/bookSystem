@@ -151,7 +151,7 @@
             android:layout_centerHorizontal="true"
             android:ems="10"
             android:hint="@string/set_price"
-            android:inputType="number"
+            android:inputType="number|numberDecimal"
             android:textColor="#167ABC" />
 
     </RelativeLayout>

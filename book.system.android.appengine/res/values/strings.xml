@@ -55,5 +55,8 @@
     <string name="your_price">Set your price</string>
     <string name="search_for_book">Search for your book</string>
     <string name="set_price">Set Price</string>
+    <string name="edit_price">Edit Price</string>
+    <string name="submit_edits">Submit</string>
+    <string name="delete_listing">Delete Listing</string>
 
 </resources>

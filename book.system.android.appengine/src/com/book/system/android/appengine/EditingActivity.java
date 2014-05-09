@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -60,8 +61,37 @@ public class EditingActivity extends Activity {
 		TextView bookIsbnView = (TextView) findViewById(R.id.book_isbn_detail);
 		bookIsbnView.setText(bookISBN);
 		EditText priceView = (EditText) findViewById(R.id.book_price_edit);
-		priceView.setText(bookPrice);
+		priceView.setText(bookPrice, TextView.BufferType.EDITABLE);
+		Button editButton = (Button) findViewById(R.id.button_edit_price);
+		editButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				findViewById(R.id.book_price_edit).setEnabled(true);
+				findViewById(R.id.button_submit_edit).setVisibility(View.VISIBLE);
+				v.setVisibility(View.GONE);
+			}
+		});
+		Button submitButton = (Button) findViewById(R.id.button_submit_edit);
+		submitButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				findViewById(R.id.book_price_edit).setEnabled(false);
+				findViewById(R.id.button_edit_price).setVisibility(View.VISIBLE);
+				v.setVisibility(View.GONE);
+				//TODO: Call update method
+			}
+		});
+		Button deleteButton = (Button) findViewById(R.id.delete_book_listing);
+		deleteButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//TODO: Call delete method
+			}
+		});
+		
 //		Log.d(LOG_TAG,intent.getExtras().toString());
+		
+		
 //		bookInfoTitle = (TextView) findViewById(R.id.book_info_title);
 //		Drawable[] d = bookInfoTitle.getCompoundDrawables();
 //		d[0].setBounds(0, 0, (int)(d[0].getIntrinsicWidth()*0.5), 
