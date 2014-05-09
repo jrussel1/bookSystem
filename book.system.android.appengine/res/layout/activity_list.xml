@@ -22,18 +22,16 @@
             android:layout_width="10dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:text="Sell Book"
+            android:background="#167ABC"
+            android:fontFamily="sans-serif-thin"
+            android:text="@string/sell_book"
             android:textColor="#FFFFFF"
-			android:fontFamily="sans-serif-thin" 
-			android:background="#167ABC"
-			android:textSize="20dp"
-             />
+            android:textSize="20sp" />
 
 		<View
         android:id="@+id/view1"
         android:layout_width="3dp"
         android:layout_height="10dp"
-        android:layout_centerVertical="true"
         android:alpha="1"
         android:background="#FFFFFF" />
 
@@ -47,7 +45,7 @@
             android:textColor="#FFFFFF"
             android:fontFamily="sans-serif-thin"
             android:background="#4595C9"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,10 +54,9 @@
         android:orientation="vertical"  >
 
 		<View
-        android:id="@+id/view1"
+        android:id="@+id/view2"
         android:layout_width="fill_parent"
         android:layout_height="5dp"
-        android:layout_centerVertical="true"
         android:alpha="0"
         android:background="#167ABC" />
         		
