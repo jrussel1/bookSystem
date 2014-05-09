@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/ISBN_static"
         android:layout_centerHorizontal="true"
-        android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#167ABC"
         android:textSize="24dp" />
@@ -25,10 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/price_static"
         android:layout_centerHorizontal="true"
-        android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="#167ABC"
-        android:textSize="24dp" />
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/bookTitleTag"
@@ -36,9 +34,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/ISBN_static"
         android:layout_below="@+id/bookTitle_Static"
-        android:text="helloWorld"
         android:textColor="#167ABC"
-        android:textSize="24dp" />
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/bookTitle_Static"
@@ -49,7 +46,7 @@
         android:layout_marginTop="25dp"
         android:text="Book Title:"
         android:textColor="#6A6A6A"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/purchaseButton"

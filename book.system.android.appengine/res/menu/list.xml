@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.book.system.android.appengine.ListActivity" >
+    tools:context="com.book.system.android.appengine.BookListActivity" >
 
     <item
         android:id="@+id/action_settings"
