@@ -32,7 +32,8 @@ public class SearchActivity extends ListActivity {
 		
 		Intent intent = getIntent();
 		String query = intent.getStringExtra("query").toLowerCase();
-		currentUserEmail = intent.getStringExtra("CURRENT_USER_EMAIL");
+		
+		currentUserEmail = BookData.getInstance().getCurrentUserEmail();
 		saleshelf = BookData.getInstance().getBookData();
 		
 		HashMap<String, ArrayList<BookForSale>> foundBooks = new HashMap<String, ArrayList<BookForSale>>();
@@ -82,7 +83,6 @@ public class SearchActivity extends ListActivity {
 		intent.putExtra("isbn", isbn);
 		intent.putExtra("bookAuthor", bookAuthor);
 		intent.putExtra("bookTitle", bookTitle);
-		intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
 		startActivity(intent);
 	}
 
@@ -101,6 +101,10 @@ public class SearchActivity extends ListActivity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			return true;
+		}else if (id == R.id.home) {
+			Intent intent = new Intent(SearchActivity.this,BookListActivity.class);
+			startActivity(intent);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

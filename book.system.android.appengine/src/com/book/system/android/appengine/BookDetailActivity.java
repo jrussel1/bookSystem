@@ -43,8 +43,8 @@ public class BookDetailActivity extends Activity {
 		lastName = intent.getStringExtra("sellerLastName");
 		sellerEmail = intent.getStringExtra("sellerEmail");
 		
-		currentUserEmail = intent.getStringExtra("CURRENT_USER_EMAIL");
-
+		currentUserEmail = BookData.getInstance().getCurrentUserEmail();
+		
 		TextView t = (TextView)findViewById(R.id.bookTitleTag);
 		t.setText(bookTitle);
 		t.setTypeface(tf);
@@ -108,6 +108,10 @@ public class BookDetailActivity extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			return true;
+		}else if (id == R.id.home) {
+			Intent intent = new Intent(BookDetailActivity.this,BookListActivity.class);
+			startActivity(intent);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

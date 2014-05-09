@@ -25,9 +25,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="106dp"
+                android:layout_marginTop="130dp"
                 android:background="#167ABC"
                 android:fontFamily="sans-serif-thin"
+                android:padding="10dp"
                 android:text="@string/sign_in"
                 android:textColor="#FFFFFF"
                 android:textSize="30sp" />

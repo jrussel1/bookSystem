@@ -51,7 +51,8 @@ public class BookForSaleListActivity extends ListActivity {
 		setContentView(R.layout.activity_book_for_sale_list);
 		
 		Intent intent = getIntent();
-		currentUserEmail = intent.getStringExtra("CURRENT_USER_EMAIL");
+		currentUserEmail = BookData.getInstance().getCurrentUserEmail();
+		
 		currentIsbn = intent.getStringExtra("isbn");
 		currentBookTitle = intent.getStringExtra("bookTitle");
 		currentBookAuthor = intent.getStringExtra("bookAuthor");
@@ -118,7 +119,6 @@ public class BookForSaleListActivity extends ListActivity {
 		intent.putExtra("sellerLastName", lastName);
 		intent.putExtra("sellerEmail", sellerEmail);
 		intent.putExtra("price", priceString);
-		intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
 		startActivity(intent);
 
 	}
@@ -140,6 +140,10 @@ public class BookForSaleListActivity extends ListActivity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			return true;
+		}else if (id == R.id.home) {
+			Intent intent = new Intent(BookForSaleListActivity.this,BookListActivity.class);
+			startActivity(intent);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

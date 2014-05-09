@@ -12,6 +12,9 @@ public class BookData {
 	private ArrayList<BookForSale> userBookData;
 	private static final BookData holder = new BookData();
 	private boolean userDataCollected = false;
+	private String currentUserEmail = null;
+	private String currentUserFirstName = null;
+	private String currentUserLastName = null;
 
 	public HashMap<String, ArrayList<BookForSale>> getBookData() {
 		return bookData;
@@ -80,6 +83,30 @@ public class BookData {
 				}
 			}
 		}
+	}
+
+	public String getCurrentUserEmail() {
+		return currentUserEmail;
+	}
+
+	public void setCurrentUserEmail(String currentUserEmail) {
+		this.currentUserEmail = currentUserEmail;
+	}
+
+	public String getCurrentUserFirstName() {
+		return currentUserFirstName;
+	}
+
+	public void setCurrentUserFirstName(String currentUserFirstName) {
+		this.currentUserFirstName = currentUserFirstName;
+	}
+
+	public String getCurrentUserLastName() {
+		return currentUserLastName;
+	}
+
+	public void setCurrentUserLastName(String currentUserLastName) {
+		this.currentUserLastName = currentUserLastName;
 	}
 
 }

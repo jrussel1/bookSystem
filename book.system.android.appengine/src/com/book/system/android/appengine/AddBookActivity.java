@@ -115,9 +115,6 @@ public class AddBookActivity extends Activity {
 						Log.d("BookForSale Insert", bookforsale.toPrettyString());
 						BookData.getInstance().addNewBookForSale(bookforsale);
 						Intent intent = new Intent(AddBookActivity.this,MyProfileActivity.class);
-						intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
-						intent.putExtra("last_name", currentUserLastName);
-						intent.putExtra("first_name", currentUserFirstName);
 						startActivity(intent);
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -138,10 +135,10 @@ public class AddBookActivity extends Activity {
 
 		service = AppConstants.getApiServiceHandle(null);
 		alertBuilder = new AlertDialog.Builder(AddBookActivity.this);
-		Intent intent = getIntent();
-		currentUserEmail = intent.getStringExtra("CURRENT_USER_EMAIL");
-		currentUserFirstName = intent.getStringExtra("first_name");
-		currentUserLastName = intent.getStringExtra("last_name");
+
+		currentUserEmail = BookData.getInstance().getCurrentUserEmail();
+		currentUserFirstName = BookData.getInstance().getCurrentUserFirstName();
+		currentUserLastName = BookData.getInstance().getCurrentUserLastName();
 
 
 		Typeface tf = Typeface.createFromAsset(getAssets(),
@@ -279,6 +276,10 @@ public class AddBookActivity extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			return true;
+		}else if (id == R.id.home) {
+			Intent intent = new Intent(AddBookActivity.this,BookListActivity.class);
+			startActivity(intent);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

@@ -64,9 +64,10 @@ public class EditingActivity extends Activity {
 		bookPrice = intent.getStringExtra("price");
 		bookAuthor = intent.getStringExtra("bookAuthor");
 
-		currentUserFirstName = intent.getStringExtra("first_name");
-		currentUserLastName = intent.getStringExtra("last_name");
-		currentUserEmail = intent.getStringExtra("CURRENT_USER_EMAIL");
+		currentUserEmail = BookData.getInstance().getCurrentUserEmail();
+		currentUserFirstName = BookData.getInstance().getCurrentUserFirstName();
+		currentUserLastName = BookData.getInstance().getCurrentUserLastName();
+
 
 		TextView bookTitleView = (TextView) findViewById(R.id.book_title_detail);
 		bookTitleView.setText(bookTitle);
@@ -166,6 +167,10 @@ public class EditingActivity extends Activity {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
+		}else if (id == R.id.home) {
+			Intent intent = new Intent(EditingActivity.this,BookListActivity.class);
+			startActivity(intent);
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -210,9 +215,6 @@ public class EditingActivity extends Activity {
 				BookData.getInstance().removeBookForSale(currentUserEmail,bookISBN);
 				
 				Intent intent = new Intent(EditingActivity.this,MyProfileActivity.class);	
-				intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
-				intent.putExtra("last_name", currentUserLastName);
-				intent.putExtra("first_name", currentUserFirstName);
 				startActivity(intent);
 				
 			}

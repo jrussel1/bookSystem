@@ -169,19 +169,30 @@ public class BookListActivity extends ListActivity {
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
 		Intent intent = getIntent();
-		currentUserEmail = intent.getStringExtra("CURRENT_USER_EMAIL");
-		currentUserFirstName = intent.getStringExtra("first_name");
-		currentUserLastName = intent.getStringExtra("last_name");
-
+		if(intent.hasExtra("CURRENT_USER_EMAIL")){
+			currentUserEmail = intent.getStringExtra("CURRENT_USER_EMAIL");
+			currentUserFirstName = intent.getStringExtra("first_name");
+			currentUserLastName = intent.getStringExtra("last_name");
+			Log.d(LOG_TAG, currentUserEmail);
+			BookData.getInstance().setCurrentUserEmail(currentUserEmail);
+			Log.d(LOG_TAG, BookData.getInstance().getCurrentUserEmail());
+			if(currentUserFirstName!=null)
+				BookData.getInstance().setCurrentUserFirstName(currentUserFirstName);
+			if(currentUserLastName!=null)
+				BookData.getInstance().setCurrentUserLastName(currentUserLastName);
+		}else{
+			currentUserEmail = BookData.getInstance().getCurrentUserEmail();
+			currentUserFirstName = BookData.getInstance().getCurrentUserFirstName();
+			currentUserLastName = BookData.getInstance().getCurrentUserLastName();
+		}
+		
+		
 		mAddBookTextView = (TextView) findViewById(R.id.sellBookButton);
 		mAddBookTextView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(BookListActivity.this, AddBookActivity.class);
-				intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
-				intent.putExtra("last_name", currentUserLastName);
-				intent.putExtra("first_name", currentUserFirstName);
 				startActivity(intent);
 			}
 		});
@@ -191,9 +202,6 @@ public class BookListActivity extends ListActivity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(BookListActivity.this, MyProfileActivity.class);
-				intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
-				intent.putExtra("last_name", currentUserLastName);
-				intent.putExtra("first_name", currentUserFirstName);
 				startActivity(intent);
 
 			}
@@ -251,7 +259,7 @@ public class BookListActivity extends ListActivity {
 		intent.putExtra("isbn", isbn);
 		intent.putExtra("bookAuthor", bookAuthor);
 		intent.putExtra("bookTitle", bookTitle);
-		intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
+
 		startActivity(intent);
 
 	}

@@ -18,6 +18,7 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.AsyncTask;
@@ -44,10 +45,18 @@ public class MyProfileActivity extends ListActivity {
 	private String currentUserLastName = null;
 	private Seller userAsSeller = null;
 	private ArrayList<BookForSale> usersBooks = null;
-	
+	private ProgressDialog progressDialog = null;
+
 	public void unauthenticatedGetSellerTask(){
 		AsyncTask<String, Void, Seller> getSeller =
 				new AsyncTask<String, Void, Seller> () {
+			@Override
+			protected void onPreExecute(){
+				progressDialog = new ProgressDialog( MyProfileActivity.this );
+				progressDialog.setTitle("Please wait...");
+				progressDialog.setMessage("Loading...");
+				progressDialog.show();
+			}
 			@Override
 			protected Seller doInBackground(String... strings) {
 				// Retrieve service handle.
@@ -100,8 +109,11 @@ public class MyProfileActivity extends ListActivity {
 					BookData.getInstance().setUserBookData(usersBooks);
 					BookData.getInstance().setUserDataCollected(true);
 					setAdapter();
+					progressDialog.cancel();
 				} else {
 					Log.e("GetAllBooks Error", "No books for sale returned by API");
+					progressDialog.setMessage("Error!");
+					progressDialog.cancel();
 				}
 			}
 		};
@@ -125,11 +137,12 @@ public class MyProfileActivity extends ListActivity {
 		setTitle("My Profile");
 		
 		service = AppConstants.getApiServiceHandle(null);
-		Intent intent = getIntent();
-		currentUserEmail = intent.getStringExtra("CURRENT_USER_EMAIL");
-		currentUserFirstName = intent.getStringExtra("first_name");
-		currentUserLastName = intent.getStringExtra("last_name");
+		
+		currentUserEmail = BookData.getInstance().getCurrentUserEmail();
+		currentUserFirstName = BookData.getInstance().getCurrentUserFirstName();
+		currentUserLastName = BookData.getInstance().getCurrentUserLastName();
 
+		Log.d(LOG_TAG, currentUserEmail);
 		
 		TextView myinfo = (TextView) findViewById(R.id.myinfo);
 		myinfo.setPaintFlags(myinfo.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
@@ -189,6 +202,10 @@ public class MyProfileActivity extends ListActivity {
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
+		}else if (id == R.id.home) {
+			Intent intent = new Intent(MyProfileActivity.this,BookListActivity.class);
+			startActivity(intent);
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -223,9 +240,6 @@ public class MyProfileActivity extends ListActivity {
 		intent.putExtra("isbn", isbn);
 		intent.putExtra("bookAuthor", bookAuthor);
 		intent.putExtra("bookTitle", bookTitle);
-		intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
-		intent.putExtra("first_name", currentUserFirstName);
-		intent.putExtra("last_name", currentUserLastName);
 		intent.putExtra("price", String.valueOf(price));
 		startActivity(intent);
 
