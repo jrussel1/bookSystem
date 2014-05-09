@@ -32,7 +32,9 @@ public class EditingActivity extends Activity {
 	private String currentUserEmail = null;
 	private String currentUserFirstName = null;
 	private String currentUserLastName = null;
-
+	
+	private BookSystem service = null;
+	
 	private String bookISBN = null;
 	private String bookTitle = null;
 	private String bookPrice = null;
@@ -49,7 +51,7 @@ public class EditingActivity extends Activity {
 		Typeface tf2 = Typeface.createFromAsset(getAssets(),
 				"fonts/Roboto-Light.ttf");
 
-
+		service = AppConstants.getApiServiceHandle(null);
 		Intent intent = getIntent();
 		bookISBN = intent.getStringExtra("isbn");
 		bookTitle = intent.getStringExtra("bookTitle");
@@ -91,7 +93,7 @@ public class EditingActivity extends Activity {
 		deleteButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//TODO: Call delete method
+				unauthenticatedDeleteBookForSaleTask();
 			}
 		});
 		
@@ -158,34 +160,35 @@ public class EditingActivity extends Activity {
 			return rootView;
 		}
 	}
-//	public void unauthenticatedDeleteBookForSaleTask(){
-//		AsyncTask<String, Void, Void> getSeller =
-//				new AsyncTask<String, Void, Void> () {
-//			@Override
-//			protected Void doInBackground(String... strings) {
-//				// Retrieve service handle.
-//				try {
-//					BookSystem.Bookforsale.GetSellerByEmail getSellerCommand = service.bookforsale().getSellerByEmail(currentUserEmail);
-//					Seller seller = getSellerCommand.execute();
-//					return seller;
-//				} catch (IOException e) {
-//					Log.e("BookSystem call", "Exception during API call", e);
-//				}
-//				return null;
-//			}
-//
-//			@Override
-//			protected void onPostExecute(Seller seller) {
-//				if (seller!=null) {
-//					Log.d("Seller Received", seller.toString());
-//					userAsSeller=seller;
-//					unauthenticatedGetSellerListofBooks();
-//				} else {
-//					Log.e("getting Seller error", "No seller returned by API");
-//				}
-//			}
-//		};
-//
-//		getSeller.execute();
-//	}
+	public void unauthenticatedDeleteBookForSaleTask(){
+		AsyncTask<String, Void, Void> deleteBookForSale =
+				new AsyncTask<String, Void, Void> () {
+			@Override
+			protected Void doInBackground(String... strings) {
+				// Retrieve service handle.
+				try {
+					BookSystem.Bookforsale.Delete deleteCommand = service.bookforsale().delete(currentUserEmail,bookISBN);
+					deleteCommand.execute();
+
+				} catch (IOException e) {
+					Log.e("BookSystem call", "Exception during API call", e);
+				}
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(Void unused) {
+				//Do Something
+				Log.d(LOG_TAG, "Deleted (but not exactly verified)");
+				
+				BookData.getInstance().removeBookForSale(currentUserEmail,bookISBN);
+				
+				Intent intent = new Intent(EditingActivity.this,MyProfileActivity.class);	
+				startActivity(intent);
+				
+			}
+		};
+
+		deleteBookForSale.execute();
+	}
 }
