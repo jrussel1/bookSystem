@@ -28,12 +28,12 @@ public class MainActivity extends Activity {
         }, SPLASH_DISPLAY_LENGTH);
     }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		MenuInflater mif = getMenuInflater();
-		mif.inflate(R.menu.main_activity_action, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
+//	@Override
+//	public boolean onCreateOptionsMenu(Menu menu) {
+//		// Inflate the menu; this adds items to the action bar if it is present.
+//		MenuInflater mif = getMenuInflater();
+//		mif.inflate(R.menu.main_activity_action, menu);
+//		return super.onCreateOptionsMenu(menu);
+//	}
 
 }

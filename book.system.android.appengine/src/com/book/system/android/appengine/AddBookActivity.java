@@ -149,7 +149,7 @@ public class AddBookActivity extends Activity {
 		Typeface tf2 = Typeface.createFromAsset(getAssets(),
 				"fonts/Roboto-Light.ttf");
 
-		setTitle("Sell Book");
+		setTitle("Mac Books - Sell Book");
 
 		mISBN = (EditText)findViewById(R.id.EditText_ISBN);
 		mISBN.setTypeface(tf2);

@@ -63,7 +63,7 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		setTitle("Mac Books - Sign In");
 		setContentView(R.layout.activity_google_plus_login);
 		findViewById(R.id.sign_in_button).setOnClickListener(this);
 
