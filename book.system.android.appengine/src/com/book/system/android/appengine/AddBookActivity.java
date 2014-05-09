@@ -56,24 +56,28 @@ public class AddBookActivity extends Activity {
 	private String currentUserEmail = null;
 	private String currentUserFirstName = null;
 	private String currentUserLastName = null;
-	AlertDialog.Builder alertBuilder = null;
+	private AlertDialog.Builder alertBuilder = null;
 	private JSONArray returnedItems = null;
 	private int currentItem=0;
 	private String selectedBookTitle = null;
 	private String selectedAuthor = null;
 	private String selectedISBN = null;
-	
+	private final int PAGE_SIZE = 5;
+	private int totalItems = -1;
+	private int startIndex = 0;
+	private int totalItemsReturned = -1;
+
 	public void unauthenticatedAddBookForSaleTask(){
 		AsyncTask<String, Void, BookForSale> addBookForSale =
 				new AsyncTask<String, Void, BookForSale> () {
 			@Override
 			protected BookForSale doInBackground(String... strings) {
 				// Retrieve service handle.
-//				String ISBN = mISBN.getText().toString();
+				//				String ISBN = mISBN.getText().toString();
 				//				String bookTitle = mBookTitle.getText().toString();
 				//				String author = mAuthor.getText().toString();
 				String price = mPrice.getText().toString();
-//				ISBN = ISBN.trim();
+				//				ISBN = ISBN.trim();
 				//				bookTitle = bookTitle.trim();
 				price = price.trim();
 				//				author = author.trim();
@@ -177,13 +181,14 @@ public class AddBookActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				startIndex=0;
+
 				boolean validated = true;
 				String ISBN = mISBN.getText().toString();
 				String bookTitle = mBookTitle.getText().toString();
 				String price = mPrice.getText().toString();
 				String author = mAuthor.getText().toString();
-
+				
 				ISBN = ISBN.trim();
 				bookTitle = bookTitle.trim();
 				price = price.trim();
@@ -216,19 +221,19 @@ public class AddBookActivity extends Activity {
 				Log.d(LOG_TAG, "Form is validated: "+String.valueOf(validated));
 				if(validated){
 					try{
-					String qry = "https://www.googleapis.com/books/v1/volumes?q=";
-					if(ISBN.length()>0)
-						qry+="isbn:"+URLEncoder.encode(ISBN, "UTF-8");
-					if(author.length()>0)
-						qry+="+inauthor:"+URLEncoder.encode(author, "UTF-8");
-					if(bookTitle.length()>0)
-						qry+="+intitle:"+URLEncoder.encode(bookTitle, "UTF-8");
-					Log.d(LOG_TAG,qry);
-					new RequestTask().execute(qry);
-					//Test isbn 030795479X
-					//					new RequestTask().execute("https://www.googleapis.com/books/v1/volumes?q=isbn:"+ISBN+"&key="+AppConstants.SIMPLE_ACCESS_API_KEY);
-					//					new RequestTask().execute("http://isbndb.com/api/v2/json/"+AppConstants.ISBN_DB_KEY+"/book/"+ISBN);
-					//					unauthenticatedAddBookForSaleTask();
+						String qry = "https://www.googleapis.com/books/v1/volumes?q=";
+						if(ISBN.length()>0)
+							qry+="isbn:"+URLEncoder.encode(ISBN, "UTF-8");
+						if(author.length()>0)
+							qry+="+inauthor:"+URLEncoder.encode(author, "UTF-8");
+						if(bookTitle.length()>0)
+							qry+="+intitle:"+URLEncoder.encode(bookTitle, "UTF-8");
+						Log.d(LOG_TAG,qry);
+						new RequestTask().execute(qry);
+						//Test isbn 030795479X
+						//					new RequestTask().execute("https://www.googleapis.com/books/v1/volumes?q=isbn:"+ISBN+"&key="+AppConstants.SIMPLE_ACCESS_API_KEY);
+						//					new RequestTask().execute("http://isbndb.com/api/v2/json/"+AppConstants.ISBN_DB_KEY+"/book/"+ISBN);
+						//					unauthenticatedAddBookForSaleTask();
 					}catch(UnsupportedEncodingException e){
 						e.printStackTrace();
 					}
@@ -329,17 +334,18 @@ public class AddBookActivity extends Activity {
 			try {
 				JSONObject jObject = new JSONObject(result);
 				Log.d(LOG_TAG,jObject.toString());
-				int totalItems = jObject.getInt("totalItems");
+				totalItems = jObject.getInt("totalItems");
 				if(totalItems>0){
 					returnedItems = jObject.getJSONArray("items");
+					totalItemsReturned=returnedItems.length();
 					String subtitle = null;
 					//JSONArray isbns = jObject.getJSONArray("industryIdentifiers");
 					JSONObject volume = returnedItems.getJSONObject(currentItem).getJSONObject("volumeInfo");
 					selectedBookTitle= volume.getString("title");
 					if(volume.has("subtitle"))
 						subtitle = volume.getString("subtitle");
-						if(subtitle!=null&&subtitle.length()>0)
-							selectedBookTitle+=": "+subtitle;
+					if(subtitle!=null&&subtitle.length()>0)
+						selectedBookTitle+=": "+subtitle;
 					selectedAuthor = volume.getJSONArray("authors").getString(0);
 					String alertMessage = "Title: "+selectedBookTitle+"\nAuthor: "+selectedAuthor;
 					selectedISBN = returnedItems.getJSONObject(0).getJSONObject("volumeInfo").getJSONArray("industryIdentifiers").getJSONObject(0).getString("identifier");
@@ -359,40 +365,12 @@ public class AddBookActivity extends Activity {
 								dialog.cancel();
 							}
 						});
-
+						AlertDialog dialog = alertBuilder.create();
+						dialog.show();
 					}else{
-						Log.d(LOG_TAG,returnedItems.toString());
-						int num = 0;
-						if(totalItems>5)
-							num=5;
-						else
-							num=totalItems;
-						CharSequence[] items = new CharSequence[num];
-						for(int i = 0; i<num;i++){
-							items[i]=getMessage(i);
-						}
-						alertBuilder.setItems(items, new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int item) {
-								try{
-									selectedISBN = returnedItems.getJSONObject(item).getJSONObject("volumeInfo").getJSONArray("industryIdentifiers").getJSONObject(0).getString("identifier");
-									selectedBookTitle = returnedItems.getJSONObject(item).getJSONObject("volumeInfo").getString("title");
-									selectedAuthor = returnedItems.getJSONObject(item).getJSONObject("volumeInfo").getJSONArray("authors").getString(0);
-									unauthenticatedAddBookForSaleTask();
-								}catch(JSONException e) {
-									e.printStackTrace();
-								}
-							}
-						});
-						alertBuilder.setNegativeButton("Search Again", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {
-								// User pressed Cancel button. Write Logic Here
-								Toast.makeText(getApplicationContext(), "User cancelled book lookup", Toast.LENGTH_SHORT).show();
-								dialog.cancel();
-							}
-						});
+						makePagingDialog();
 					}
-					AlertDialog dialog = alertBuilder.create();
-					dialog.show();
+
 				}
 
 
@@ -403,21 +381,80 @@ public class AddBookActivity extends Activity {
 
 
 		}
+		private void makePagingDialog(){
+			int num = 0;
+			int limit=0;
+			if(totalItemsReturned>PAGE_SIZE)
+				num=PAGE_SIZE;
+			else
+				num=totalItemsReturned;
+			
+			if(startIndex+num>totalItemsReturned)
+				limit=totalItemsReturned;
+			else
+				limit=startIndex+num;
 
+			CharSequence[] items = new CharSequence[num];
+			for(int i = startIndex; i<limit;i++){
+				items[i-startIndex]=getMessage(i);
+			}
+			alertBuilder.setItems(items, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int item) {
+					try{
+						selectedISBN = returnedItems.getJSONObject(item).getJSONObject("volumeInfo").getJSONArray("industryIdentifiers").getJSONObject(0).getString("identifier");
+						selectedBookTitle = returnedItems.getJSONObject(item).getJSONObject("volumeInfo").getString("title");
+						selectedAuthor = returnedItems.getJSONObject(item).getJSONObject("volumeInfo").getJSONArray("authors").getString(0);
+						unauthenticatedAddBookForSaleTask();
+					}catch(JSONException e) {
+						e.printStackTrace();
+					}
+				}
+			});
+			//NOTE: Google apparently returns 10 results by default, paging more than 10 results will require making another call to the api
+			if(startIndex+PAGE_SIZE<totalItemsReturned){
+				alertBuilder.setNegativeButton("Show next "+PAGE_SIZE+" results", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+						startIndex+=PAGE_SIZE;
+						alertBuilder = new AlertDialog.Builder(AddBookActivity.this);
+						alertBuilder.setTitle("Is this your book???");
+						makePagingDialog();
+					}
+				});
+			}
+			alertBuilder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+
+					Toast.makeText(getApplicationContext(), "User cancelled book lookup", Toast.LENGTH_SHORT).show();
+					dialog.cancel();
+				}
+			});
+			AlertDialog dialog = alertBuilder.create();
+			dialog.show();
+		}
 		private String getMessage(int i){
 			try{
-				JSONObject volume = returnedItems.getJSONObject(i).getJSONObject("volumeInfo");
-				String title = volume.getString("title");
-				String subtitle = null;
-				if(volume.has("subtitle"))
-					subtitle = volume.getString("subtitle");
+				if(returnedItems.getJSONObject(i)!=null){
+					JSONObject volume = null;
+					if(returnedItems.getJSONObject(i).has("volumeInfo"))
+						volume=returnedItems.getJSONObject(i).getJSONObject("volumeInfo");
+					String title = null;
+					if(volume.has("title"))
+						title=volume.getString("title");
+					String subtitle = null;
+					if(volume.has("subtitle"))
+						subtitle = volume.getString("subtitle");
 					if(subtitle!=null&&subtitle.length()>0)
 						title+=": "+subtitle;
-				String author = null;
-				if(volume.has("authors"))
-					author=volume.getJSONArray("authors").getString(0);
-				String alertMessage = "Title: "+title+"\nAuthor: "+author;
-				return alertMessage;
+					String author = null;
+					if(volume.has("authors"))
+						author=volume.getJSONArray("authors").getString(0);
+					String alertMessage = "Title: "+title+"\nAuthor: "+author;
+					return alertMessage;
+				}else{
+					return "";
+				}
+
 			}catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

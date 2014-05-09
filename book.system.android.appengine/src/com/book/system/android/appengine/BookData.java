@@ -11,6 +11,7 @@ public class BookData {
 	private HashMap<String, ArrayList<BookForSale>> bookData;
 	private ArrayList<BookForSale> userBookData;
 	private static final BookData holder = new BookData();
+	private boolean userDataCollected = false;
 
 	public HashMap<String, ArrayList<BookForSale>> getBookData() {
 		return bookData;
@@ -26,6 +27,14 @@ public class BookData {
 	public void setUserBookData(ArrayList<BookForSale> data) { 
 		this.userBookData = data;
 	}
+	public boolean isUserDataCollected() {
+		return userDataCollected;
+	}
+
+	public void setUserDataCollected(boolean userDataCollected) {
+		this.userDataCollected = userDataCollected;
+	}
+
 	public static BookData getInstance() {
 		return holder;
 	}

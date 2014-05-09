@@ -8,7 +8,9 @@ import com.appspot.mac_books.bookSystem.model.Seller;
 
 import android.app.Activity;
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.Typeface;
@@ -26,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.os.Build;
 
 public class EditingActivity extends Activity {
@@ -42,6 +45,8 @@ public class EditingActivity extends Activity {
 	private String bookAuthor = null;
 	private RelativeLayout bookDetails = null;
 	private TextView bookInfoTitle = null;
+	private AlertDialog.Builder alertBuilder = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,7 +56,7 @@ public class EditingActivity extends Activity {
 				"fonts/Roboto-Thin.ttf");
 		Typeface tf2 = Typeface.createFromAsset(getAssets(),
 				"fonts/Roboto-Light.ttf");
-
+		alertBuilder = new AlertDialog.Builder(EditingActivity.this);
 		service = AppConstants.getApiServiceHandle(null);
 		Intent intent = getIntent();
 		bookISBN = intent.getStringExtra("isbn");
@@ -97,7 +102,24 @@ public class EditingActivity extends Activity {
 		deleteButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				unauthenticatedDeleteBookForSaleTask();
+				alertBuilder.setMessage("Are you sure you want to delete this post?");
+				alertBuilder.setTitle("Delete?");
+				alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int which) {            	
+						unauthenticatedDeleteBookForSaleTask();
+						Toast.makeText(getApplicationContext(), "Deleting book listing", Toast.LENGTH_SHORT).show();
+					}
+				});
+				alertBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						// User pressed Cancel button. Write Logic Here
+						Toast.makeText(getApplicationContext(), "Delete cancelled", Toast.LENGTH_SHORT).show();
+						dialog.cancel();
+					}
+				});
+				AlertDialog dialog = alertBuilder.create();
+				dialog.show();
+				
 			}
 		});
 		
