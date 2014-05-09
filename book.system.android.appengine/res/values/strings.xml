@@ -18,8 +18,8 @@
     <string name="title_activity_listing">ListingActivity</string>
     <string name="title_activity_book_detail">Book Details</string>
     <string name="title_activity_listing_activity">Book List</string>
-    <string name="title_activity_list">Book List</string>
-    <string name="title_activity_google_plus_login">GooglePlusLoginActivity</string>
+    <string name="title_activity_list">Mac Books</string>
+    <string name="title_activity_google_plus_login">Google Sign In</string>
     <string name="title_activity_add_book">Add A Book</string>
     <string name="title_activity_my_profile">My Profile</string>
     <string name="sell_book">Sell Book</string>
@@ -38,7 +38,7 @@
     <string name="title_activity_search">SearchActivity</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="title_activity_font_manager">FontManagerActivity</string>
-    <string name="title_activity_book_for_sale_list">BookForSaleListActivity</string>
+    <string name="title_activity_book_for_sale_list">Book Details</string>
     <string name="title_activity_editing">EditingActivity</string>
     <string name="book_details">Book Details</string>
     <string name="book_author_detail">Book Author:</string>
@@ -55,5 +55,13 @@
     <string name="your_price">Set your price</string>
     <string name="search_for_book">Search for your book</string>
     <string name="set_price">Set Price</string>
+    <string name="edit_price">Edit Price</string>
+    <string name="submit_edits">Submit</string>
+    <string name="delete_listing">Delete Listing</string>
+    <string name="my_info">My Info</string>
+    <string name="name_display">Name:</string>
+    <string name="email_display"> E-mail:</string>
+    <string name="my_book_list">My Book List</string>
+
 
 </resources>

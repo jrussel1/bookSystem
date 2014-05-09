@@ -13,8 +13,8 @@
                     android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:padding="10dip"
-                    android:text="My Info"
-                    android:textSize="30dip" />
+                    android:text="@string/my_info"
+                    android:textSize="30sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -24,15 +24,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="15dip"
-                        android:text="Name:"
-                        android:textSize="18dip" />
+                        android:text="@string/name_display"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ems="10"
-                        android:textSize="18dip" />
+                        android:textSize="18sp" />
 
                 </LinearLayout>
                     android:layout_width="match_parent"
@@ -47,8 +47,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="15dip"
-                        android:text="E-mail:"
-                        android:textSize="18dip" />
+                        android:text="@string/email_display"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/email"
@@ -56,7 +56,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:ems="10"
-                        android:textSize="18dip" >
+                        android:textSize="18sp" >
 
 
                     </TextView>
@@ -68,8 +68,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="68dp"
                     android:padding="10dip"
-                    android:text="My Books\n"
-                    android:textSize="30dip" />
+                    android:text="@string/my_book_list"
+                    android:textSize="30sp" />
                 
                 <ListView
                     android:id="@android:id/list"

@@ -454,7 +454,9 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 	        	e.printStackTrace();
 	        	Log.e(LOG_TAG,e.getLocalizedMessage());
 	        }
+
 //	        Log.d(LOG_TAG,responseString);
+
 	        return responseString;
 	    }
 

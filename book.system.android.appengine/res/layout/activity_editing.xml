@@ -7,125 +7,125 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.book.system.android.appengine.EditingActivity" >
-        <TextView
-            android:id="@+id/book_info_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:gravity="center_vertical"
-            android:onClick="toggle_contents"
-            android:text="@string/book_details"
-            android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/book_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:gravity="center_vertical"
+        android:onClick="toggle_contents"
+        android:text="@string/book_details"
+        android:textSize="24sp" />
+
+    <RelativeLayout
+        android:id="@+id/book_details_collapse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/book_header" >
 
         <RelativeLayout
-            android:id="@+id/book_details_collapse"
+            android:id="@+id/book_title_fields"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/book_info_title" >
+            android:layoutDirection="ltr" >
 
-            <RelativeLayout
-                android:id="@+id/book_title_fields"
+            <TextView
+                android:id="@+id/book_info_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layoutDirection="ltr" >
+                android:layout_centerVertical="true"
+                android:text="@string/display1"
+                android:textSize="18sp" />
 
-                <TextView
-                    android:id="@+id/book_info_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/display1"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/book_title_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10sp"
-                   	 />
-                
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/book_author_fields"
+            <TextView
+                android:id="@+id/book_title_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/book_title_fields"
-                android:layoutDirection="ltr" >
-
-                <TextView
-                    android:id="@+id/book_info_author"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/book_author_detail"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/book_author_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/book_isbn_fields"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/book_author_fields"
-                android:layoutDirection="ltr" >
-
-                <TextView
-                    android:id="@+id/book_info_isbn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/display2"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/book_isbn_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10sp"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/book_price_fields"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/book_isbn_fields"
-                android:layoutDirection="ltr" >
-
-                <TextView
-                    android:id="@+id/book_info_priceDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/display3"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/book_price_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10sp"
-                    android:ems="10"
-                    android:hint="@string/edit_book_price"
-                    android:inputType="number" >
-                </EditText>
-            </RelativeLayout>
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10sp" />
         </RelativeLayout>
 
-    <!-- <RelativeLayout
+        <RelativeLayout
+            android:id="@+id/book_author_fields"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/book_title_fields"
+            android:layoutDirection="ltr" >
+
+            <TextView
+                android:id="@+id/book_info_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/book_author_detail"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/book_author_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/book_isbn_fields"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/book_author_fields"
+            android:layoutDirection="ltr" >
+
+            <TextView
+                android:id="@+id/book_info_isbn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/display2"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/book_isbn_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/book_price_fields"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/book_isbn_fields"
+            android:layoutDirection="ltr" >
+
+            <TextView
+                android:id="@+id/book_info_priceDetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/display3"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/book_price_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10sp"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="number" >
+            </EditText>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <!--
+    <RelativeLayout
         android:id="@+id/seller_info_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" 
@@ -227,18 +227,43 @@
                 </EditText>
             </RelativeLayout>
         </RelativeLayout>
-    </RelativeLayout> -->
+    </RelativeLayout>
+    -->
 
-        <Button
-            android:id="@+id/button_AddBook"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/book_details_collapse"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="50dp"
-            android:background="#167ABC"
-            android:fontFamily="roboto-light"
-            android:text="@string/addText"
-            android:textColor="#FFFFFF" />
+    <Button
+        android:id="@+id/button_submit_edit"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button_edit_price"
+        android:layout_alignTop="@+id/button_edit_price"
+        android:layout_below="@+id/book_details_collapse"
+        android:layout_marginTop="50dp"
+        android:background="#167ABC"
+        android:fontFamily="roboto-light"
+        android:text="@string/submit_edits"
+        android:textColor="#FFFFFF"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/button_edit_price"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/book_details_collapse"
+        android:layout_centerVertical="true"
+        android:background="#167ABC"
+        android:fontFamily="roboto-light"
+        android:text="@string/edit_price"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/delete_book_listing"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/book_details_collapse"
+        android:layout_centerVertical="true"
+        android:background="#167ABC"
+        android:fontFamily="roboto-light"
+        android:text="@string/delete_listing"
+        android:textColor="#FFFFFF" />
 
 </RelativeLayout>

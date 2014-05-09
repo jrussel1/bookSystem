@@ -1,5 +1,10 @@
 package com.book.system.android.appengine;
 
+import java.io.IOException;
+
+import com.appspot.mac_books.bookSystem.BookSystem;
+import com.appspot.mac_books.bookSystem.model.Seller;
+
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -8,6 +13,7 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -60,8 +67,37 @@ public class EditingActivity extends Activity {
 		TextView bookIsbnView = (TextView) findViewById(R.id.book_isbn_detail);
 		bookIsbnView.setText(bookISBN);
 		EditText priceView = (EditText) findViewById(R.id.book_price_edit);
-		priceView.setText(bookPrice);
+		priceView.setText(bookPrice, TextView.BufferType.EDITABLE);
+		Button editButton = (Button) findViewById(R.id.button_edit_price);
+		editButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				findViewById(R.id.book_price_edit).setEnabled(true);
+				findViewById(R.id.button_submit_edit).setVisibility(View.VISIBLE);
+				v.setVisibility(View.GONE);
+			}
+		});
+		Button submitButton = (Button) findViewById(R.id.button_submit_edit);
+		submitButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				findViewById(R.id.book_price_edit).setEnabled(false);
+				findViewById(R.id.button_edit_price).setVisibility(View.VISIBLE);
+				v.setVisibility(View.GONE);
+				//TODO: Call update method
+			}
+		});
+		Button deleteButton = (Button) findViewById(R.id.delete_book_listing);
+		deleteButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//TODO: Call delete method
+			}
+		});
+		
 //		Log.d(LOG_TAG,intent.getExtras().toString());
+		
+		
 //		bookInfoTitle = (TextView) findViewById(R.id.book_info_title);
 //		Drawable[] d = bookInfoTitle.getCompoundDrawables();
 //		d[0].setBounds(0, 0, (int)(d[0].getIntrinsicWidth()*0.5), 
@@ -122,5 +158,34 @@ public class EditingActivity extends Activity {
 			return rootView;
 		}
 	}
-
+//	public void unauthenticatedDeleteBookForSaleTask(){
+//		AsyncTask<String, Void, Void> getSeller =
+//				new AsyncTask<String, Void, Void> () {
+//			@Override
+//			protected Void doInBackground(String... strings) {
+//				// Retrieve service handle.
+//				try {
+//					BookSystem.Bookforsale.GetSellerByEmail getSellerCommand = service.bookforsale().getSellerByEmail(currentUserEmail);
+//					Seller seller = getSellerCommand.execute();
+//					return seller;
+//				} catch (IOException e) {
+//					Log.e("BookSystem call", "Exception during API call", e);
+//				}
+//				return null;
+//			}
+//
+//			@Override
+//			protected void onPostExecute(Seller seller) {
+//				if (seller!=null) {
+//					Log.d("Seller Received", seller.toString());
+//					userAsSeller=seller;
+//					unauthenticatedGetSellerListofBooks();
+//				} else {
+//					Log.e("getting Seller error", "No seller returned by API");
+//				}
+//			}
+//		};
+//
+//		getSeller.execute();
+//	}
 }
