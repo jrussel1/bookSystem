@@ -110,6 +110,9 @@ public class AddBookActivity extends Activity {
 						Log.d("BookForSale Insert", bookforsale.toPrettyString());
 						BookData.getInstance().addNewBookForSale(bookforsale);
 						Intent intent = new Intent(AddBookActivity.this,MyProfileActivity.class);
+						intent.putExtra("CURRENT_USER_EMAIL", currentUserEmail);
+						intent.putExtra("last_name", currentUserLastName);
+						intent.putExtra("first_name", currentUserFirstName);
 						startActivity(intent);
 					} catch (IOException e) {
 						e.printStackTrace();
