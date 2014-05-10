@@ -17,6 +17,27 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="15dip"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="20dp"
+                android:text="Welcome to MacBooks!"
+                android:textStyle="bold|italic"
+                android:textSize="40sp" />
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="15dip"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="100dp"
+                android:text="An app for connecting buyers and sellers of used books"
+                android:textStyle="bold|italic"
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/sign_in_button"
@@ -25,7 +46,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="134dp"
                 android:background="#167ABC"
                 android:fontFamily="sans-serif-thin"
                 android:padding="10dp"

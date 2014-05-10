@@ -75,7 +75,14 @@ public class MyProfileActivity extends ListActivity {
 				if (seller!=null) {
 					Log.d("Seller Received", seller.toString());
 					userAsSeller=seller;
-					unauthenticatedGetSellerListofBooks();
+					currentUserFirstName=userAsSeller.getFirstName();
+					currentUserLastName=userAsSeller.getLastName();
+					BookData.getInstance().setCurrentUserFirstName(currentUserFirstName);
+					BookData.getInstance().setCurrentUserLastName(currentUserLastName);
+					TextView textview1=(TextView) findViewById(R.id.username);
+					 textview1.setText(currentUserFirstName+" "+currentUserLastName);
+
+					 unauthenticatedGetSellerListofBooks();
 				} else {
 					Log.e("getting Seller error", "No seller returned by API");
 				}
@@ -85,6 +92,8 @@ public class MyProfileActivity extends ListActivity {
 		getSeller.execute();
 	}
 	
+	
+	//Gets the books that the seller has
 	public void unauthenticatedGetSellerListofBooks(){
 		AsyncTask<String, Void, BookForSaleCollection> getSeller =
 				new AsyncTask<String, Void, BookForSaleCollection> () {
@@ -103,18 +112,27 @@ public class MyProfileActivity extends ListActivity {
 			}
 			@Override
 			protected void onPostExecute(BookForSaleCollection books) {
-				if (books!=null) {
-					Log.d("GetAllBooks", books.toString());
-					usersBooks= new ArrayList<BookForSale>(books.getItems());
-					BookData.getInstance().setUserBookData(usersBooks);
-					BookData.getInstance().setUserDataCollected(true);
-					setAdapter();
-					progressDialog.cancel();
-				} else {
-					Log.e("GetAllBooks Error", "No books for sale returned by API");
-					progressDialog.setMessage("Error!");
+				
+				try {
+					if (books!=null) {
+						Log.d("GetAllBooks", books.toString());
+						usersBooks= new ArrayList<BookForSale>(books.getItems());
+						BookData.getInstance().setUserBookData(usersBooks);
+						BookData.getInstance().setUserDataCollected(true);
+						setAdapter();
+						progressDialog.cancel();
+					} else {
+						Log.e("GetAllBooks Error", "No books for sale returned by API");
+						progressDialog.setMessage("Error!");
+						progressDialog.cancel();
+					}
+					
+				} catch (NullPointerException e) {
+					Log.e("no books returned","eception during api call",e);
+					progressDialog.setMessage("No Books!");
 					progressDialog.cancel();
 				}
+				
 			}
 		};
 
@@ -152,12 +170,8 @@ public class MyProfileActivity extends ListActivity {
 		
 
 
- 		 TextView textview1=(TextView) findViewById(R.id.username);
-
-		 textview1.setText(currentUserFirstName+" "+currentUserLastName);
-
+ 		 
 		 TextView textview2=(TextView) findViewById(R.id.email);
-
 		 textview2.setText(currentUserEmail);
 
 	
