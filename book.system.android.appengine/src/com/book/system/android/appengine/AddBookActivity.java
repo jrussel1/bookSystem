@@ -359,7 +359,11 @@ public class AddBookActivity extends Activity {
 						selectedBookTitle+=": "+subtitle;
 					selectedAuthor = volume.getJSONArray("authors").getString(0);
 					String alertMessage = "Title: "+selectedBookTitle+"\nAuthor: "+selectedAuthor;
-					selectedISBN = returnedItems.getJSONObject(0).getJSONObject("volumeInfo").getJSONArray("industryIdentifiers").getJSONObject(0).getString("identifier");
+					JSONArray isbns = returnedItems.getJSONObject(0).getJSONObject("volumeInfo").getJSONArray("industryIdentifiers");
+					for(int i = 0; i<isbns.length();i++){
+						if(isbns.getJSONObject(i).getString("type").equals("ISBN_13"))
+							selectedISBN =isbns.getJSONObject(i).getString("identifier");
+					}
 					alertBuilder.setTitle("Is this your book???");
 					if(totalItems==1){
 						alertBuilder.setMessage(alertMessage);
