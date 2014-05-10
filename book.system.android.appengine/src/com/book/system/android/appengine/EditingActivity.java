@@ -36,9 +36,9 @@ public class EditingActivity extends Activity {
 	private String currentUserEmail = null;
 	private String currentUserFirstName = null;
 	private String currentUserLastName = null;
-	
+
 	private BookSystem service = null;
-	
+
 	private String bookISBN = null;
 	private String bookTitle = null;
 	private String bookPrice = null;
@@ -46,7 +46,7 @@ public class EditingActivity extends Activity {
 	private RelativeLayout bookDetails = null;
 	private TextView bookInfoTitle = null;
 	private AlertDialog.Builder alertBuilder = null;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -125,11 +125,18 @@ public class EditingActivity extends Activity {
 			public void onClick(View v) {
 				EditText priceView = (EditText) findViewById(R.id.book_price_edit);
 				bookPrice = priceView.getText().toString();
-				priceView.setEnabled(false);
-				findViewById(R.id.button_edit_price).setVisibility(View.VISIBLE);
-				v.setVisibility(View.GONE);
-				
-				unauthenticatedUpdateBookForSaleTask();
+				boolean validated = true;
+				if(bookPrice.length()<1 || (bookPrice.length()>0 && Double.valueOf(bookPrice)<1.0)){
+					priceView.setError( "The price is required and it must be greater than $1!" );
+					validated = false;
+				}
+				if(validated){
+					priceView.setEnabled(false);
+					findViewById(R.id.button_edit_price).setVisibility(View.VISIBLE);
+					v.setVisibility(View.GONE);
+
+					unauthenticatedUpdateBookForSaleTask();
+				}
 			}
 		});
 		Button deleteButton = (Button) findViewById(R.id.delete_book_listing);
@@ -153,37 +160,37 @@ public class EditingActivity extends Activity {
 				});
 				AlertDialog dialog = alertBuilder.create();
 				dialog.show();
-				
+
 			}
 		});
-		
-//		Log.d(LOG_TAG,intent.getExtras().toString());
-		
-		
-//		bookInfoTitle = (TextView) findViewById(R.id.book_info_title);
-//		Drawable[] d = bookInfoTitle.getCompoundDrawables();
-//		d[0].setBounds(0, 0, (int)(d[0].getIntrinsicWidth()*0.5), 
-//                (int)(d[0].getIntrinsicHeight()*0.5));
-//		ScaleDrawable scaler = new ScaleDrawable(d[0],0, 0.5f, 0.5f);
-//		bookInfoTitle.setCompoundDrawables(scaler.getDrawable(), null, null, null);
-//		bookDetails = (RelativeLayout) findViewById(R.id.book_details_collapse);
+
+		//		Log.d(LOG_TAG,intent.getExtras().toString());
+
+
+		//		bookInfoTitle = (TextView) findViewById(R.id.book_info_title);
+		//		Drawable[] d = bookInfoTitle.getCompoundDrawables();
+		//		d[0].setBounds(0, 0, (int)(d[0].getIntrinsicWidth()*0.5), 
+		//                (int)(d[0].getIntrinsicHeight()*0.5));
+		//		ScaleDrawable scaler = new ScaleDrawable(d[0],0, 0.5f, 0.5f);
+		//		bookInfoTitle.setCompoundDrawables(scaler.getDrawable(), null, null, null);
+		//		bookDetails = (RelativeLayout) findViewById(R.id.book_details_collapse);
 		// defaulting to hidden
-//		bookDetails.setVisibility(View.GONE);
+		//		bookDetails.setVisibility(View.GONE);
 	}
-//	public void toggle_contents(View v){
-//		if(v.getId()==bookInfoTitle.getId()){
-//			if(bookDetails.isShown()){
-//				Fx.slide_up(this, bookDetails);
-//				bookDetails.setVisibility(View.GONE);
-//				bookInfoTitle.setActivated(false);
-//			}
-//			else{
-//				bookDetails.setVisibility(View.VISIBLE);
-//				Fx.slide_down(this, bookDetails);
-//				bookInfoTitle.setActivated(true);
-//			}
-//		}
-//	}
+	//	public void toggle_contents(View v){
+	//		if(v.getId()==bookInfoTitle.getId()){
+	//			if(bookDetails.isShown()){
+	//				Fx.slide_up(this, bookDetails);
+	//				bookDetails.setVisibility(View.GONE);
+	//				bookInfoTitle.setActivated(false);
+	//			}
+	//			else{
+	//				bookDetails.setVisibility(View.VISIBLE);
+	//				Fx.slide_down(this, bookDetails);
+	//				bookInfoTitle.setActivated(true);
+	//			}
+	//		}
+	//	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -244,12 +251,12 @@ public class EditingActivity extends Activity {
 			protected void onPostExecute(Void unused) {
 				//Do Something
 				Log.d(LOG_TAG, "Deleted (but not exactly verified)");
-				
+
 				BookData.getInstance().removeBookForSale(currentUserEmail,bookISBN);
-				
+
 				Intent intent = new Intent(EditingActivity.this,MyProfileActivity.class);	
 				startActivity(intent);
-				
+
 			}
 		};
 
@@ -261,7 +268,7 @@ public class EditingActivity extends Activity {
 			@Override
 			protected IntegerResponse doInBackground(String... strings) {
 				IntegerResponse intR=null;
-				
+
 				try {
 					BookSystem.Bookforsale.UpdatePrice updateCommand = service.bookforsale().updatePrice(currentUserEmail,bookISBN,Double.valueOf(bookPrice));
 					intR=updateCommand.execute();
@@ -278,14 +285,14 @@ public class EditingActivity extends Activity {
 					try {
 						Log.d("BookForSale Update", rowsAffected.toPrettyString());
 						BookData.getInstance().updateBookForSale(currentUserEmail,bookISBN,Double.valueOf(bookPrice));
-						
+
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 				} else {
 					Log.e("BookForSale Update Error", "No books for sale were affected by the API.");
 				}
-				
+
 			}
 		};
 
