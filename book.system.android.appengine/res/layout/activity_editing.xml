@@ -24,17 +24,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/book_header" >
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/book_title_fields"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layoutDirection="ltr" >
+            android:layoutDirection="ltr"
+            android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/book_info_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
                 android:text="@string/display1"
                 android:textSize="18sp" />
 
@@ -42,10 +42,8 @@
                 android:id="@+id/book_title_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
                 android:layout_marginRight="10sp" />
-        </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/book_author_fields"
@@ -227,7 +225,7 @@
                 </EditText>
             </RelativeLayout>
         </RelativeLayout>
-    </RelativeLayout>
+    </RelativeLayout>
     -->
 
     <Button
@@ -235,8 +233,8 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/button_edit_price"
-        android:layout_alignTop="@+id/button_edit_price"
         android:layout_alignRight="@+id/book_details_collapse"
+        android:layout_alignTop="@+id/button_edit_price"
         android:layout_below="@+id/book_details_collapse"
         android:layout_marginTop="50dp"
         android:background="#167ABC"
