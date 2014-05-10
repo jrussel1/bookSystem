@@ -1,59 +1,95 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.book.system.android.appengine.GooglePlusLoginActivity"
     tools:ignore="MergeRootFrame" >
 
-        <!-- <com.google.android.gms.common.SignInButton
+    <!--
+        <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" >
 
-        </com.google.android.gms.common.SignInButton> -->
+        </com.google.android.gms.common.SignInButton>
+    -->
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-            
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <Button
+            android:id="@+id/sign_in_button"
+            style="@style/AppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="115dp"
+            android:background="#167ABC"
+            android:fontFamily="sans-serif-thin"
+            android:padding="10dp"
+            android:text="@string/sign_in"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="88dp"
+            android:orientation="vertical" >
+
             <TextView
+                android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="15dip"
-                android:layout_centerHorizontal="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="20dp"
-                android:text="Welcome to MacBooks!"
-                android:textStyle="bold|italic"
-                android:textSize="40sp" />
-            
+                android:paddingLeft="50dp"
+                android:text="TextView" />
+
             <TextView
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="15dip"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="100dp"
-                android:text="An app for connecting buyers and sellers of used books"
-                android:textStyle="bold|italic"
-                android:textSize="20sp" />
+                android:paddingLeft="50dp"
+                android:text="TextView" />
 
-            <Button
-                android:id="@+id/sign_in_button"
-                style="@style/AppTheme"
+            <TextView
+                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="180dp"
-                android:background="#167ABC"
-                android:fontFamily="sans-serif-thin"
-                android:padding="10dp"
-                android:text="@string/sign_in"
-                android:textColor="#FFFFFF"
-                android:textSize="30sp" />
+                android:paddingLeft="50dp"
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        </RelativeLayout>
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="50dp"
+                android:text="TextView" />
 
-</FrameLayout>
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="50dp"
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:paddingLeft="50dp"
+                android:layout_height="wrap_content"
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
