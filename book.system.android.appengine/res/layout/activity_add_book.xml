@@ -108,6 +108,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
             android:ems="10"
+            android:textColor="#167ABC" 
             android:hint="@string/search_author" />
     </RelativeLayout>
 
