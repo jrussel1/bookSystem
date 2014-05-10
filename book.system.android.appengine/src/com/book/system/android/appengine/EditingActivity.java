@@ -71,12 +71,44 @@ public class EditingActivity extends Activity {
 
 		TextView bookTitleView = (TextView) findViewById(R.id.book_title_detail);
 		bookTitleView.setText(bookTitle);
+		bookTitleView.setTypeface(tf);
+		
 		TextView bookAuthorView = (TextView) findViewById(R.id.book_author_detail);
 		bookAuthorView.setText(bookAuthor);
+		bookAuthorView.setTypeface(tf);
+		
+		
 		TextView bookIsbnView = (TextView) findViewById(R.id.book_isbn_detail);
 		bookIsbnView.setText(bookISBN);
+		bookIsbnView.setTypeface(tf);
+		
 		EditText priceView = (EditText) findViewById(R.id.book_price_edit);
 		priceView.setText(bookPrice, TextView.BufferType.EDITABLE);
+		priceView.setTypeface(tf);
+		
+		TextView bookHeaderView = (TextView) findViewById(R.id.book_header);
+		bookHeaderView.setTypeface(tf2);
+		
+		TextView bookInfoTitleView = (TextView) findViewById(R.id.book_info_title);
+		bookInfoTitleView.setTypeface(tf2);
+		
+		TextView bookInfoAuthorView = (TextView) findViewById(R.id.book_info_author);
+		bookInfoAuthorView.setTypeface(tf2);
+		
+		TextView bookInfoISBNView = (TextView) findViewById(R.id.book_info_isbn);
+		bookInfoISBNView.setTypeface(tf2);
+		
+		TextView bookInfoPriceView = (TextView) findViewById(R.id.book_info_priceDetail);
+		bookInfoPriceView.setTypeface(tf2);
+		
+		TextView deleteBookListingPriceView = (TextView) findViewById(R.id.delete_book_listing);
+		deleteBookListingPriceView.setTypeface(tf2);
+		
+		TextView buttonEditPriceView = (TextView) findViewById(R.id.button_edit_price);
+		buttonEditPriceView.setTypeface(tf2);
+		
+		
+		
 		Button editButton = (Button) findViewById(R.id.button_edit_price);
 		editButton.setOnClickListener(new View.OnClickListener() {
 			@Override
