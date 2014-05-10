@@ -85,6 +85,8 @@ public class MyProfileActivity extends ListActivity {
 		getSeller.execute();
 	}
 	
+	
+	//Gets the books that the seller has
 	public void unauthenticatedGetSellerListofBooks(){
 		AsyncTask<String, Void, BookForSaleCollection> getSeller =
 				new AsyncTask<String, Void, BookForSaleCollection> () {

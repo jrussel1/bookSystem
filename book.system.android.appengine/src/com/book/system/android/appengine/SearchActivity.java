@@ -66,6 +66,7 @@ public class SearchActivity extends ListActivity {
 		}
 	}
 	
+	//Handles when a user clicks on a an item in the list
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		
