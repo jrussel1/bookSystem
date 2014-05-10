@@ -56,6 +56,7 @@ public class EditingActivity extends Activity {
 				"fonts/Roboto-Thin.ttf");
 		Typeface tf2 = Typeface.createFromAsset(getAssets(),
 				"fonts/Roboto-Light.ttf");
+		
 		alertBuilder = new AlertDialog.Builder(EditingActivity.this);
 		service = AppConstants.getApiServiceHandle(null);
 		Intent intent = getIntent();
@@ -71,41 +72,41 @@ public class EditingActivity extends Activity {
 
 		TextView bookTitleView = (TextView) findViewById(R.id.book_title_detail);
 		bookTitleView.setText(bookTitle);
-		bookTitleView.setTypeface(tf);
+		bookTitleView.setTypeface(tf2);
 		
 		TextView bookAuthorView = (TextView) findViewById(R.id.book_author_detail);
 		bookAuthorView.setText(bookAuthor);
-		bookAuthorView.setTypeface(tf);
+		bookAuthorView.setTypeface(tf2);
 		
 		
 		TextView bookIsbnView = (TextView) findViewById(R.id.book_isbn_detail);
 		bookIsbnView.setText(bookISBN);
-		bookIsbnView.setTypeface(tf);
+		bookIsbnView.setTypeface(tf2);
 		
 		EditText priceView = (EditText) findViewById(R.id.book_price_edit);
 		priceView.setText(bookPrice, TextView.BufferType.EDITABLE);
-		priceView.setTypeface(tf);
+		priceView.setTypeface(tf2);
 		
 		TextView bookHeaderView = (TextView) findViewById(R.id.book_header);
 		bookHeaderView.setTypeface(tf2);
 		
 		TextView bookInfoTitleView = (TextView) findViewById(R.id.book_info_title);
-		bookInfoTitleView.setTypeface(tf2);
+		bookInfoTitleView.setTypeface(tf);
 		
 		TextView bookInfoAuthorView = (TextView) findViewById(R.id.book_info_author);
-		bookInfoAuthorView.setTypeface(tf2);
+		bookInfoAuthorView.setTypeface(tf);
 		
 		TextView bookInfoISBNView = (TextView) findViewById(R.id.book_info_isbn);
-		bookInfoISBNView.setTypeface(tf2);
+		bookInfoISBNView.setTypeface(tf);
 		
 		TextView bookInfoPriceView = (TextView) findViewById(R.id.book_info_priceDetail);
-		bookInfoPriceView.setTypeface(tf2);
+		bookInfoPriceView.setTypeface(tf);
 		
 		TextView deleteBookListingPriceView = (TextView) findViewById(R.id.delete_book_listing);
-		deleteBookListingPriceView.setTypeface(tf2);
+		deleteBookListingPriceView.setTypeface(tf);
 		
 		TextView buttonEditPriceView = (TextView) findViewById(R.id.button_edit_price);
-		buttonEditPriceView.setTypeface(tf2);
+		buttonEditPriceView.setTypeface(tf);
 		
 		
 		

@@ -16,7 +16,7 @@
         android:gravity="center_vertical"
         android:onClick="toggle_contents"
         android:text="@string/book_details"
-        android:textSize="24sp" />
+        android:textSize="28sp" />
 
     <RelativeLayout
         android:id="@+id/book_details_collapse"
@@ -42,7 +42,10 @@
                 android:id="@+id/book_title_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10sp" />
+                android:layout_marginRight="10sp"
+                android:textColor="#167ABC"
+                android:textSize="18sp" />
+
         </LinearLayout>
 
         <RelativeLayout
@@ -66,7 +69,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="10sp" />
+                android:layout_marginRight="10sp"
+                android:textColor="#167ABC"
+                android:textSize="18sp" />
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -90,7 +96,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="10sp" />
+                android:layout_marginRight="10sp"
+                android:textColor="#167ABC"
+                android:textSize="18sp" />
+
         </RelativeLayout>
 
         <RelativeLayout
