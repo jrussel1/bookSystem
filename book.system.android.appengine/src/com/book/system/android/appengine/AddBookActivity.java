@@ -134,7 +134,7 @@ public class AddBookActivity extends Activity {
 		setContentView(R.layout.activity_add_book);
 
 		service = AppConstants.getApiServiceHandle(null);
-		alertBuilder = new AlertDialog.Builder(AddBookActivity.this);
+		
 
 		currentUserEmail = BookData.getInstance().getCurrentUserEmail();
 		currentUserFirstName = BookData.getInstance().getCurrentUserFirstName();
@@ -242,10 +242,14 @@ public class AddBookActivity extends Activity {
 						e.printStackTrace();
 					}
 				}else{
-
+					alertBuilder = new AlertDialog.Builder(AddBookActivity.this);
 					alertBuilder.setMessage("Please fix errors first!");
 					alertBuilder.setTitle("Book cannot be submitted!!!");
-					alertBuilder.setPositiveButton(android.R.string.ok, null);
+					alertBuilder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog,int which) {            	
+							alertBuilder=null;
+						}
+					});
 					AlertDialog dialog = alertBuilder.create();
 					dialog.show();
 				}
@@ -338,7 +342,7 @@ public class AddBookActivity extends Activity {
 		@Override
 		protected void onPostExecute(String result) {
 			super.onPostExecute(result);
-
+			alertBuilder = new AlertDialog.Builder(AddBookActivity.this);
 			try {
 				JSONObject jObject = new JSONObject(result);
 				Log.d(LOG_TAG,jObject.toString());
