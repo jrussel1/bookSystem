@@ -1,0 +1,13 @@
+# Mac Books
+
+Provides a book trade system that allows the book buyers and sellers to contact each other by e-mail. Currently supports only within the Macalester community.
+
+## Architecture
+
+This repository includes both the Android client and Google App Engine server.  
+
+## Client Development
+
+The Android client is a 
+
+## Server Development
