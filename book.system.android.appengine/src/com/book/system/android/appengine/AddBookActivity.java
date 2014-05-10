@@ -363,7 +363,10 @@ public class AddBookActivity extends Activity {
 						selectedBookTitle+=": "+subtitle;
 					selectedAuthor = volume.getJSONArray("authors").getString(0);
 					String alertMessage = "Title: "+selectedBookTitle+"\nAuthor: "+selectedAuthor;
-					JSONArray isbns = returnedItems.getJSONObject(0).getJSONObject("volumeInfo").getJSONArray("industryIdentifiers");
+					
+					JSONArray isbns = null;
+					if(returnedItems.getJSONObject(0).getJSONObject("volumeInfo").has("industryIdentifiers"))
+						isbns=returnedItems.getJSONObject(0).getJSONObject("volumeInfo").getJSONArray("industryIdentifiers");
 					for(int i = 0; i<isbns.length();i++){
 						if(isbns.getJSONObject(i).getString("type").equals("ISBN_13"))
 							selectedISBN =isbns.getJSONObject(i).getString("identifier");
@@ -420,7 +423,13 @@ public class AddBookActivity extends Activity {
 			alertBuilder.setItems(items, new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int item) {
 					try{
-						selectedISBN = returnedItems.getJSONObject(item).getJSONObject("volumeInfo").getJSONArray("industryIdentifiers").getJSONObject(0).getString("identifier");
+						JSONArray isbns = null;
+						if(returnedItems.getJSONObject(0).getJSONObject("volumeInfo").has("industryIdentifiers"))
+							isbns=returnedItems.getJSONObject(0).getJSONObject("volumeInfo").getJSONArray("industryIdentifiers");
+						for(int i = 0; i<isbns.length();i++){
+							if(isbns.getJSONObject(i).getString("type").equals("ISBN_13"))
+								selectedISBN =isbns.getJSONObject(i).getString("identifier");
+						}
 						selectedBookTitle = returnedItems.getJSONObject(item).getJSONObject("volumeInfo").getString("title");
 						selectedAuthor = returnedItems.getJSONObject(item).getJSONObject("volumeInfo").getJSONArray("authors").getString(0);
 						unauthenticatedAddBookForSaleTask();

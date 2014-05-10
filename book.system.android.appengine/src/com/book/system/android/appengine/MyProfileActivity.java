@@ -75,7 +75,14 @@ public class MyProfileActivity extends ListActivity {
 				if (seller!=null) {
 					Log.d("Seller Received", seller.toString());
 					userAsSeller=seller;
-					unauthenticatedGetSellerListofBooks();
+					currentUserFirstName=userAsSeller.getFirstName();
+					currentUserLastName=userAsSeller.getLastName();
+					BookData.getInstance().setCurrentUserFirstName(currentUserFirstName);
+					BookData.getInstance().setCurrentUserLastName(currentUserLastName);
+					TextView textview1=(TextView) findViewById(R.id.username);
+					 textview1.setText(currentUserFirstName+" "+currentUserLastName);
+
+					 unauthenticatedGetSellerListofBooks();
 				} else {
 					Log.e("getting Seller error", "No seller returned by API");
 				}
@@ -163,12 +170,8 @@ public class MyProfileActivity extends ListActivity {
 		
 
 
- 		 TextView textview1=(TextView) findViewById(R.id.username);
-
-		 textview1.setText(currentUserFirstName+" "+currentUserLastName);
-
+ 		 
 		 TextView textview2=(TextView) findViewById(R.id.email);
-
 		 textview2.setText(currentUserEmail);
 
 	
