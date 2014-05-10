@@ -45,7 +45,6 @@
                 android:layout_marginRight="10sp"
                 android:textColor="#167ABC"
                 android:textSize="18sp" />
-
         </LinearLayout>
 
         <RelativeLayout
@@ -72,7 +71,6 @@
                 android:layout_marginRight="10sp"
                 android:textColor="#167ABC"
                 android:textSize="18sp" />
-
         </RelativeLayout>
 
         <RelativeLayout
@@ -99,7 +97,6 @@
                 android:layout_marginRight="10sp"
                 android:textColor="#167ABC"
                 android:textSize="18sp" />
-
         </RelativeLayout>
 
         <RelativeLayout
@@ -131,148 +128,50 @@
         </RelativeLayout>
     </RelativeLayout>
 
-    <!--
     <RelativeLayout
-        android:id="@+id/seller_info_all"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" 
-       android:layout_below="@+id/book_info_all" >
-
-        <TextView
-            android:id="@+id/seller_info_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:drawableLeft="@drawable/expanded_indicators"
-            android:gravity="center_vertical"
-            android:onClick="toggle_contents"
-            android:text="@string/your_details"
-            android:textSize="24sp" />
-
-        <RelativeLayout
-            android:id="@+id/seller_details_collapse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/seller_info_title" >
-
-            <RelativeLayout
-                android:id="@+id/seller_email_fields"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layoutDirection="ltr" >
-
-                <TextView
-                    android:id="@+id/seller_info_emailDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/display1" />
-
-                <EditText
-                    android:id="@+id/seller_email_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:ems="10"
-                    android:hint="@string/edit_book_title"
-                    android:inputType="textEmailAddress" >
-
-                    <requestFocus />
-                </EditText>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/seller_firstName_fields"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/seller_email_fields"
-                android:layoutDirection="ltr" >
-
-                <TextView
-                    android:id="@+id/seller_info_firstNameDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/book_author_detail" />
-
-                <EditText
-                    android:id="@+id/seller_firstName_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:ems="10"
-                    android:hint="@string/edit_book_author" >
-                </EditText>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/seller_lastName_fields"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/seller_firstName_fields"
-                android:layoutDirection="ltr" >
-
-                <TextView
-                    android:id="@+id/seller_info_lastNameDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/display2" />
-
-                <EditText
-                    android:id="@+id/seller_lastName_edit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:ems="10"
-                    android:hint="@string/edit_book_isbn" >
-
-                    <requestFocus />
-                </EditText>
-            </RelativeLayout>
-        </RelativeLayout>
-    </RelativeLayout>
-
-    -->
-
-    <Button
-        android:id="@+id/button_submit_edit"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button_edit_price"
-        android:layout_alignRight="@+id/book_details_collapse"
-        android:layout_alignTop="@+id/button_edit_price"
-        android:layout_below="@+id/book_details_collapse"
-        android:layout_marginTop="50dp"
-        android:background="#167ABC"
-        android:fontFamily="roboto-light"
-        android:text="@string/submit_edits"
-        android:textColor="#FFFFFF"
-        android:visibility="gone" />
-
-    <Button
-        android:id="@+id/button_edit_price"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/book_details_collapse"
-        android:layout_centerVertical="true"
-        android:background="#167ABC"
-        android:fontFamily="roboto-light"
-        android:text="@string/edit_price"
-        android:textColor="#FFFFFF" />
-
-    <Button
-        android:id="@+id/delete_book_listing"
-        android:layout_width="100dp"
+        android:id="@+id/buttons_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/book_details_collapse"
-        android:layout_centerVertical="true"
-        android:background="#167ABC"
-        android:fontFamily="roboto-light"
-        android:text="@string/delete_listing"
-        android:textColor="#FFFFFF" />
+        android:layout_below="@+id/book_details_collapse"
+        android:layout_marginTop="44dp" >
+
+        <Button
+            android:id="@+id/delete_book_listing"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="#167ABC"
+            android:fontFamily="roboto-light"
+            android:text="@string/delete_listing"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/button_edit_price"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/delete_book_listing"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="#167ABC"
+            android:fontFamily="roboto-light"
+            android:text="@string/edit_price"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/button_submit_edit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="#167ABC"
+            android:fontFamily="roboto-light"
+            android:text="@string/submit_edits"
+            android:textColor="#FFFFFF" 
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+    
 
 </RelativeLayout>

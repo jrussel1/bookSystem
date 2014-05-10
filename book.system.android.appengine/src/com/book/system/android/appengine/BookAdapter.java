@@ -14,9 +14,10 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 public class BookAdapter extends ArrayAdapter<BookForSale>{
-
+	Context actContext = null;
     public BookAdapter(Context context, ArrayList<BookForSale> books) {
         super(context, R.layout.item_book, books);
+        actContext=context;
      }
 
 
@@ -34,7 +35,14 @@ public class BookAdapter extends ArrayAdapter<BookForSale>{
        TextView author = (TextView) convertView.findViewById(R.id.tvHome);
        TextView isbn = (TextView) convertView.findViewById(R.id.isbn);
        // Populate the data into the template view using the data object
-
+       
+       Typeface tf = Typeface.createFromAsset(actContext.getAssets(),
+		        "fonts/Roboto-Thin.ttf");
+		Typeface tf2 = Typeface.createFromAsset(actContext.getAssets(),
+		        "fonts/Roboto-Light.ttf");
+       bookTitle.setTypeface(tf);
+       author.setTypeface(tf);
+       isbn.setTypeface(tf);
        
        bookTitle.setText(book.getBook().getTitle());
        author.setText(book.getBook().getAuthor());

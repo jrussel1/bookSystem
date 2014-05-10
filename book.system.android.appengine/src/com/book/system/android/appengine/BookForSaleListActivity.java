@@ -79,11 +79,11 @@ public class BookForSaleListActivity extends ListActivity {
 		TextView t = (TextView)findViewById(R.id.ISBNS);
 		t.setText(bookISBN);
 		t.setTypeface(tf2);
-		
+//		
 		TextView t2 = (TextView)findViewById(R.id.BookTitleS);
 		t2.setText(bookTitle);
 		t2.setTypeface(tf2);
-		
+//		
 		TextView t3 = (TextView)findViewById(R.id.AuthorS);
 		t3.setText(bookAuthor);
 		t3.setTypeface(tf2);
