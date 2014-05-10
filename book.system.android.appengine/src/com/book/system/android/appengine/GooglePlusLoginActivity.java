@@ -19,6 +19,7 @@ import org.json.JSONStringer;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +29,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -66,6 +68,43 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 		setTitle("Mac Books - Sign In");
 		setContentView(R.layout.activity_google_plus_login);
 		findViewById(R.id.sign_in_button).setOnClickListener(this);
+		
+		Typeface thin = Typeface.createFromAsset(getAssets(),
+		        "fonts/Roboto-Thin.ttf");
+		Typeface light = Typeface.createFromAsset(getAssets(),
+		        "fonts/Roboto-Light.ttf");
+		Typeface black = Typeface.createFromAsset(getAssets(),
+		        "fonts/Roboto-Black.ttf");
+		Typeface blackItalic = Typeface.createFromAsset(getAssets(),
+		        "fonts/Roboto-BlackItalic.ttf");
+		Typeface boldItalic = Typeface.createFromAsset(getAssets(),
+		        "fonts/Roboto-BoldItalic.ttf");
+		Typeface thinItalic = Typeface.createFromAsset(getAssets(),
+		        "fonts/Roboto-ThinItalic.ttf");
+		Typeface bold = Typeface.createFromAsset(getAssets(),
+		        "fonts/Roboto-Bold.ttf");
+		Typeface condensed = Typeface.createFromAsset(getAssets(),
+		        "fonts/RobotoCondensed-Bold.ttf");
+		
+		TextView t1 = (TextView)findViewById(R.id.textView1);
+		t1.setTypeface(thin);
+		
+		TextView t2 = (TextView)findViewById(R.id.textView2);
+		t2.setTypeface(condensed);
+		
+		TextView t3 = (TextView)findViewById(R.id.textView3);
+		t3.setTypeface(thinItalic);
+		
+		TextView t4 = (TextView)findViewById(R.id.textView4);
+		t4.setTypeface(black);
+		
+		TextView t5 = (TextView)findViewById(R.id.textView5);
+		t5.setTypeface(blackItalic);
+		
+		TextView t6 = (TextView)findViewById(R.id.textView6);
+		t6.setTypeface(light);
+		
+
 
 
 		service = AppConstants.getApiServiceHandle(null);

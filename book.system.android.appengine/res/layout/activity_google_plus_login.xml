@@ -21,74 +21,78 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <Button
-            android:id="@+id/sign_in_button"
-            style="@style/AppTheme"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="115dp"
-            android:background="#167ABC"
-            android:fontFamily="sans-serif-thin"
-            android:padding="10dp"
-            android:text="@string/sign_in"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp" />
-
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="88dp"
+            android:layout_marginTop="58dp"
+            android:gravity="center"
             android:orientation="vertical" >
 
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="50dp"
-                android:text="TextView" />
+                android:text="MAC BOOKS"
+                android:textColor="#146EA9"
+                android:textSize="34dp" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="50dp"
-                android:text="TextView" />
+                android:text="Trade in your books"
+                android:textColor="#146EA9"
+                android:textSize="25dp" />
 
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="50dp"
-                android:text="Large Text"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:text="Make a penny"
+                android:textColor="#146EA9"
+                android:textSize="33dp" />
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="50dp"
-                android:text="TextView" />
+                android:text="Save a penny"
+                android:textColor="#146EA9"
+                android:textSize="31dp" />
 
             <TextView
                 android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="50dp"
-                android:text="Large Text"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:text="Find Any Book"
+                android:textColor="#146EA9"
+                android:textSize="30dp" />
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
-                android:paddingLeft="50dp"
                 android:layout_height="wrap_content"
-                android:text="Large Text"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
+                android:text="HERE, TODAY"
+                android:textColor="#146EA9"
+                android:textSize="30dp" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/sign_in_button"
+            style="@style/AppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="54dp"
+            android:background="#167ABC"
+            android:fontFamily="sans-serif-thin"
+            android:padding="10dp"
+            android:text="@string/sign_in"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
 
     </RelativeLayout>
 
