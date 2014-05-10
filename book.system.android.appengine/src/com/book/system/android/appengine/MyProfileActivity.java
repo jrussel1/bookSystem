@@ -105,18 +105,27 @@ public class MyProfileActivity extends ListActivity {
 			}
 			@Override
 			protected void onPostExecute(BookForSaleCollection books) {
-				if (books!=null) {
-					Log.d("GetAllBooks", books.toString());
-					usersBooks= new ArrayList<BookForSale>(books.getItems());
-					BookData.getInstance().setUserBookData(usersBooks);
-					BookData.getInstance().setUserDataCollected(true);
-					setAdapter();
-					progressDialog.cancel();
-				} else {
-					Log.e("GetAllBooks Error", "No books for sale returned by API");
-					progressDialog.setMessage("Error!");
+				
+				try {
+					if (books!=null) {
+						Log.d("GetAllBooks", books.toString());
+						usersBooks= new ArrayList<BookForSale>(books.getItems());
+						BookData.getInstance().setUserBookData(usersBooks);
+						BookData.getInstance().setUserDataCollected(true);
+						setAdapter();
+						progressDialog.cancel();
+					} else {
+						Log.e("GetAllBooks Error", "No books for sale returned by API");
+						progressDialog.setMessage("Error!");
+						progressDialog.cancel();
+					}
+					
+				} catch (NullPointerException e) {
+					Log.e("no books returned","eception during api call",e);
+					progressDialog.setMessage("No Books!");
 					progressDialog.cancel();
 				}
+				
 			}
 		};
 
