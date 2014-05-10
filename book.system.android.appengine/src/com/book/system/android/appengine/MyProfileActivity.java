@@ -75,14 +75,22 @@ public class MyProfileActivity extends ListActivity {
 				if (seller!=null) {
 					Log.d("Seller Received", seller.toString());
 					userAsSeller=seller;
-					currentUserFirstName=userAsSeller.getFirstName();
-					currentUserLastName=userAsSeller.getLastName();
-					BookData.getInstance().setCurrentUserFirstName(currentUserFirstName);
-					BookData.getInstance().setCurrentUserLastName(currentUserLastName);
-					TextView textview1=(TextView) findViewById(R.id.username);
-					 textview1.setText(currentUserFirstName+" "+currentUserLastName);
+					if(userAsSeller.getFirstName()!=null && userAsSeller.getFirstName().length()>0){
+						currentUserFirstName=userAsSeller.getFirstName();
+						BookData.getInstance().setCurrentUserFirstName(currentUserFirstName);
+					}
+					if(userAsSeller.getLastName()!=null && userAsSeller.getLastName().length()>0){
+						currentUserLastName=userAsSeller.getLastName();
+						BookData.getInstance().setCurrentUserLastName(currentUserLastName);
+					}	
+					if(currentUserLastName!=null||currentUserFirstName!=null){
+						TextView textview1=(TextView) findViewById(R.id.username);
+						textview1.setVisibility(TextView.VISIBLE);
+						textview1.setText(currentUserFirstName+" "+currentUserLastName);	
+					}
 
-					 unauthenticatedGetSellerListofBooks();
+
+					unauthenticatedGetSellerListofBooks();
 				} else {
 					Log.e("getting Seller error", "No seller returned by API");
 				}
@@ -91,8 +99,8 @@ public class MyProfileActivity extends ListActivity {
 
 		getSeller.execute();
 	}
-	
-	
+
+
 	//Gets the books that the seller has
 	public void unauthenticatedGetSellerListofBooks(){
 		AsyncTask<String, Void, BookForSaleCollection> getSeller =
@@ -112,7 +120,7 @@ public class MyProfileActivity extends ListActivity {
 			}
 			@Override
 			protected void onPostExecute(BookForSaleCollection books) {
-				
+
 				try {
 					if (books!=null) {
 						Log.d("GetAllBooks", books.toString());
@@ -126,19 +134,19 @@ public class MyProfileActivity extends ListActivity {
 						progressDialog.setMessage("Error!");
 						progressDialog.cancel();
 					}
-					
+
 				} catch (NullPointerException e) {
 					Log.e("no books returned","eception during api call",e);
 					progressDialog.setMessage("No Books!");
 					progressDialog.cancel();
 				}
-				
+
 			}
 		};
 
 		getSeller.execute();
 	}
-	
+
 	private void setAdapter() {
 		BookAdapter adapter = new BookAdapter(MyProfileActivity.this, usersBooks);
 		// Attach the adapter to a ListView
@@ -153,28 +161,33 @@ public class MyProfileActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_profile);
 		setTitle("My Profile");
-		
+
 		service = AppConstants.getApiServiceHandle(null);
-		
+
 		currentUserEmail = BookData.getInstance().getCurrentUserEmail();
 		currentUserFirstName = BookData.getInstance().getCurrentUserFirstName();
 		currentUserLastName = BookData.getInstance().getCurrentUserLastName();
 
 		Log.d(LOG_TAG, currentUserEmail);
-		
+
 		TextView myinfo = (TextView) findViewById(R.id.myinfo);
 		myinfo.setPaintFlags(myinfo.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-		
+
 		TextView mybooks = (TextView) findViewById(R.id.mybooks);
 		mybooks.setPaintFlags(myinfo.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
-		
 
 
- 		 
-		 TextView textview2=(TextView) findViewById(R.id.email);
-		 textview2.setText(currentUserEmail);
+		if(currentUserFirstName==null||currentUserLastName==null){
+			findViewById(R.id.username).setVisibility(TextView.GONE);
+		}else{
+			TextView textview1=(TextView) findViewById(R.id.username);
+			textview1.setText(currentUserFirstName+" "+currentUserLastName);
+		}
 
-	
+		TextView textview2=(TextView) findViewById(R.id.email);
+		textview2.setText(currentUserEmail);
+
+
 		addButton = (Button) findViewById(R.id.addButton);
 		addButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -184,11 +197,11 @@ public class MyProfileActivity extends ListActivity {
 				startActivity(intent);
 			}
 		});
-		
+
 
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
+			.add(R.id.container, new PlaceholderFragment()).commit();
 		}
 		usersBooks=BookData.getInstance().getUserBookData();
 		if(usersBooks==null || !BookData.getInstance().isUserDataCollected()){
@@ -196,8 +209,8 @@ public class MyProfileActivity extends ListActivity {
 		}else{
 			setAdapter();
 		}
-		
-		
+
+
 	}
 
 	@Override
