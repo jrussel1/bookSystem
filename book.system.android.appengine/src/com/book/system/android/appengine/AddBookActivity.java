@@ -424,8 +424,8 @@ public class AddBookActivity extends Activity {
 				public void onClick(DialogInterface dialog, int item) {
 					try{
 						JSONArray isbns = null;
-						if(returnedItems.getJSONObject(0).getJSONObject("volumeInfo").has("industryIdentifiers"))
-							isbns=returnedItems.getJSONObject(0).getJSONObject("volumeInfo").getJSONArray("industryIdentifiers");
+						if(returnedItems.getJSONObject(item).getJSONObject("volumeInfo").has("industryIdentifiers"))
+							isbns=returnedItems.getJSONObject(item).getJSONObject("volumeInfo").getJSONArray("industryIdentifiers");
 						for(int i = 0; i<isbns.length();i++){
 							if(isbns.getJSONObject(i).getString("type").equals("ISBN_13"))
 								selectedISBN =isbns.getJSONObject(i).getString("identifier");
