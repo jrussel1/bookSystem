@@ -87,22 +87,22 @@ public class GooglePlusLoginActivity extends Activity implements OnClickListener
 		        "fonts/RobotoCondensed-Bold.ttf");
 		
 		TextView t1 = (TextView)findViewById(R.id.textView1);
-		t1.setTypeface(thin);
+		t1.setTypeface(condensed);
 		
 		TextView t2 = (TextView)findViewById(R.id.textView2);
-		t2.setTypeface(condensed);
-		
-		TextView t3 = (TextView)findViewById(R.id.textView3);
-		t3.setTypeface(thinItalic);
-		
-		TextView t4 = (TextView)findViewById(R.id.textView4);
-		t4.setTypeface(black);
-		
-		TextView t5 = (TextView)findViewById(R.id.textView5);
-		t5.setTypeface(blackItalic);
-		
-		TextView t6 = (TextView)findViewById(R.id.textView6);
-		t6.setTypeface(light);
+		t2.setTypeface(boldItalic);
+//		
+//		TextView t3 = (TextView)findViewById(R.id.textView3);
+//		t3.setTypeface(thinItalic);
+//		
+//		TextView t4 = (TextView)findViewById(R.id.textView4);
+//		t4.setTypeface(black);
+//		
+//		TextView t5 = (TextView)findViewById(R.id.textView5);
+//		t5.setTypeface(blackItalic);
+//		
+//		TextView t6 = (TextView)findViewById(R.id.textView6);
+//		t6.setTypeface(light);
 		
 
 

@@ -34,49 +34,19 @@
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MAC BOOKS"
+                android:text="Mac Books"
                 android:textColor="#146EA9"
-                android:textSize="34dp" />
-
-            <TextView
+                android:textSize="45dp" />
+            
+            <TextView 
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Trade in your books"
-                android:textColor="#146EA9"
-                android:textSize="25dp" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Make a penny"
-                android:textColor="#146EA9"
-                android:textSize="33dp" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Save a penny"
-                android:textColor="#146EA9"
-                android:textSize="31dp" />
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Find Any Book"
+                android:text="An app for buying and selling used books"
                 android:textColor="#146EA9"
                 android:textSize="30dp" />
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="HERE, TODAY"
-                android:textColor="#146EA9"
-                android:textSize="30dp" />
+
         </LinearLayout>
 
         <Button
